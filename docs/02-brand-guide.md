@@ -144,9 +144,11 @@ acento, mesma tipografia mono dos labels. Diagramas são conteúdo, não enfeite
 
 ### Logo
 
-Wordmark tipográfico: **`fp.`** em JetBrains Mono, peso 600, com o ponto no
-teal de acento. Discreto no header, favicon derivado dele. Sem símbolo
-gráfico: a marca é o nome e o trabalho.
+Wordmark tipográfico: **`franciscopedro.dev`** — o domínio como marca
+(ADR-0009). JetBrains Mono: `franciscopedro` em 600 na cor de texto, `.dev`
+em 400 na cor `text-3`. Sem símbolo gráfico: a marca é o nome-domínio.
+Em superfícies quadradas (favicon, app icons) usa-se o monograma derivado
+`fp.` em tile escuro. Especificação completa dos assets no doc 10.
 
 ## 4. Experiência
 

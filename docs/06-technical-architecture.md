@@ -135,14 +135,29 @@ impedir a entrada de bibliotecas de estado sem novo requisito.
 
 ## 7. Performance
 
-Orçamentos (falha de CI se estourar — RNF01):
+Orçamentos por recurso (falha de CI se estourar — RNF01; endurecidos no
+Sprint 1.5 a partir da linha de base real de 92,9 KB de JS):
 
-| Métrica | Orçamento |
+| Recurso | Orçamento (gzip/transfer) |
 |---|---|
-| Bundle inicial (gzip) | < 150 KB |
-| LCP (4G simulado) | < 2,0 s |
+| JavaScript inicial (home) | < 110 KB |
+| JavaScript por chunk lazy (case, resume) | < 35 KB adicionais |
+| CSS | < 25 KB |
+| Fontes no caminho crítico | ≤ 100 KB (Inter latin preload; mono sem preload) |
+| Imagem LCP (foto hero / hero de case) | < 90 KB |
+| Demais imagens (cada) | < 80 KB |
+| Transferência total — home | < 400 KB |
+| Transferência total — estudo de caso (com galeria lazy) | < 650 KB |
+
+| Métrica de campo | Meta |
+|---|---|
+| LCP (4G simulado) | < 1,8 s |
 | CLS | < 0.02 |
-| Lighthouse (4 métricas) | ≥ 95 |
+| INP | < 200 ms |
+| Lighthouse (4 categorias) | ≥ 95 |
+
+Regra de negociação: feature que estoura orçamento não "ajusta o orçamento" —
+ou emagrece, ou não entra; alterações nesta tabela só via revisão documentada.
 
 Estratégias: pre-render (§6); fontes self-hosted `woff2` subset com preload
 só da Inter; Framer Motion importado por componente (tree-shaking dos

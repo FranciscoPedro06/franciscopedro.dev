@@ -13,6 +13,11 @@ Toda decisão de design, conteúdo e engenharia nasce aqui antes de virar códig
 | [05-content-strategy.md](05-content-strategy.md) | Narrativa e todo o texto do site, incluindo os 5 estudos de caso | "O que está escrito em cada página?" |
 | [06-technical-architecture.md](06-technical-architecture.md) | Stack, estrutura, SEO, performance, CI/CD, padrões | "Como o site é construído?" |
 | [07-roadmap.md](07-roadmap.md) | MVP, versões, sprints, evolução (blog, analytics, FastPass Analytics) | "O que vem e em que ordem?" |
+| [08-motion-guidelines.md](08-motion-guidelines.md) | Filosofia e normas de animação | "Quando e como animar?" |
+| [09-seo-foundation.md](09-seo-foundation.md) | Sistema de SEO: títulos, OG, canonical, sitemap, JSON-LD | "Como o site é encontrado?" |
+| [10-brand-assets.md](10-brand-assets.md) | Wordmark, ícones, OG images e sua geração por código | "Com que cara a marca aparece fora do site?" |
+| [11-diagrams-and-mockups.md](11-diagrams-and-mockups.md) | Padrão visual de diagramas técnicos e molduras de dispositivo | "Como apresentamos arquitetura e produto?" |
+| [12-image-system.md](12-image-system.md) | Formatos, compressão, responsividade e organização de imagens | "Como imagens entram no site?" |
 | [adr/](adr/README.md) | Architecture Decision Records — decisões numeradas e imutáveis | "Por que decidimos assim?" |
 
 **Hierarquia de precedência:** o charter (01) governa todos; conflitos entre

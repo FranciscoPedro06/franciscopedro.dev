@@ -26,8 +26,9 @@ export function NavBar() {
         aria-label="Principal"
         className="mx-auto flex h-full max-w-[1120px] items-center justify-between px-6 md:px-8"
       >
-        <Link to="/" className="font-mono text-body font-semibold text-text">
-          fp<span className="text-accent">.</span>
+        {/* Wordmark: o domínio como marca (ADR-0009, doc 10 §1) */}
+        <Link to="/" className="font-mono text-small font-semibold text-text">
+          franciscopedro<span className="font-normal text-text-3">.dev</span>
         </Link>
 
         <div className="hidden items-center gap-1 sm:flex">

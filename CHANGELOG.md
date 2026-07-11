@@ -8,6 +8,12 @@ corresponde a um marco do [roadmap](docs/07-roadmap.md).
 
 ### Added
 
+- Sprint 1.5: fundação de marca e experiência — Motion Guidelines (doc 08),
+  SEO Foundation (doc 09), Brand Assets (doc 10) com wordmark
+  `franciscopedro.dev` (ADR-0009) e geração de assets por código (favicon,
+  app icons, OG image), padrão de diagramas e mockups (doc 11), sistema de
+  imagens (doc 12), orçamentos de performance por recurso (doc 06 §7) e
+  decisão de analytics: Umami na v2 (ADR-0008).
 - Sprint 1: fundação do projeto — Vite + React 18 + TypeScript strict +
   Tailwind 4 com todos os tokens do design system, tipografia self-hosted
   (Inter Variable + JetBrains Mono), layout base (NavBar com menu mobile

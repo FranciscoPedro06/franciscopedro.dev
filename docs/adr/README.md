@@ -16,3 +16,5 @@ Registro imutável das decisões arquiteturais do projeto (charter §16).
 | [0005](0005-trunk-based-milestone-commits.md) | Trunk-based com commits de marco | Aceito |
 | [0006](0006-resume-route-pt-en.md) | Currículo como rota `/resume` com PT/EN de fonte única | Aceito |
 | [0007](0007-blog-ready-architecture.md) | Arquitetura blog-ready desde a v1 | Aceito |
+| [0008](0008-analytics-umami.md) | Analytics com Umami (v2) | Aceito |
+| [0009](0009-domain-wordmark.md) | Wordmark: o domínio como marca | Aceito |

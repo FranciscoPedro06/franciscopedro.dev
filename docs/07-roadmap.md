@@ -49,7 +49,7 @@ componente.
 | V1-5 | Navegação anterior/próximo entre cases + scroll-spy do índice lateral | Should |
 | V1-6 | OG images por case | Should |
 | V1-7 | Checklist manual de acessibilidade (doc 06 §9) executado e registrado | Must |
-| V1-8 | Domínio próprio configurado | Should |
+| V1-8 | Domínio `franciscopedro.dev` registrado e configurado | Must (promovido — a wordmark é o domínio, ADR-0009) |
 | V1-9 | Rota `/resume` com currículo PT/EN + PDFs para download (RF10) | Must |
 
 **Critério de lançamento:** zero `[PENDENTE]` visível; critérios de sucesso
