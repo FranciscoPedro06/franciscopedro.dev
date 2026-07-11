@@ -445,7 +445,7 @@ Regra geral de CTA: verbo + objeto, sem exclamação, sem "clique aqui".
 
 | Página | `<title>` | Meta description |
 |---|---|---|
-| Home | `Francisco Pedro — Desenvolvedor de Sistemas & Analista de Dados` | `Construo produtos digitais completos — web, mobile e APIs — e transformo os dados que eles geram em inteligência para o negócio. Conheça o FastPass e outros estudos de caso.` |
+| Home | `Francisco Pedro — Desenvolvedor de Sistemas & Analista de Dados` | `Construo produtos digitais completos — web, mobile e APIs — e transformo os dados que eles geram em inteligência para o negócio. Destaque: FastPass.` |
 | FastPass | `FastPass — estudo de caso · Francisco Pedro` | `Plataforma de excursões com embarque por reconhecimento facial, QR Code e pagamento Pix. Arquitetura com React, Laravel e FastAPI, decisões técnicas e aprendizados.` |
 | API Facial | `API de Reconhecimento Facial — estudo de caso · Francisco Pedro` | `De script escolar a microserviço de identidade: FastAPI, DeepFace e as decisões por trás de uma API de biometria facial em produção.` |
 | Carrinho Inteligente | `Carrinho Inteligente — estudo de caso · Francisco Pedro` | `Sistema de compras com ESP32-CAM e API Spring Boot em camadas: arquitetura, modelagem e documentação de negócio de um projeto IoT completo.` |
