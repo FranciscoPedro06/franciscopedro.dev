@@ -1,22 +1,39 @@
+import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import { Footer } from "@/components/layout/Footer";
 import { NavBar } from "@/components/layout/NavBar";
+import { ScrollManager } from "@/components/layout/ScrollManager";
 import { SkipLink } from "@/components/layout/SkipLink";
 import { Home } from "@/pages/Home";
-import { NotFound } from "@/pages/NotFound";
 
-// Tabela de rotas completa no S2 (doc 06 §4): /projetos/:slug, /resume e
-// lazy loading entram com as páginas que carregam.
+// Rotas secundárias em chunks próprios (doc 06 §4); /resume e /escrita
+// entram nos marcos correspondentes (ADR-0006, ADR-0007).
+const Projects = lazy(() =>
+  import("@/pages/Projects").then((m) => ({ default: m.Projects }))
+);
+const CasePage = lazy(() =>
+  import("@/pages/CasePage").then((m) => ({ default: m.CasePage }))
+);
+const NotFound = lazy(() =>
+  import("@/pages/NotFound").then((m) => ({ default: m.NotFound }))
+);
+
 export function App() {
   return (
     <div className="flex min-h-dvh flex-col">
       <SkipLink />
+      <ScrollManager />
       <NavBar />
       <main id="conteudo" className="flex-1">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        {/* Fallback é o fundo puro — sem spinner (doc 08 §5) */}
+        <Suspense fallback={null}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/projetos" element={<Projects />} />
+            <Route path="/projetos/:slug" element={<CasePage />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
       </main>
       <Footer />
     </div>

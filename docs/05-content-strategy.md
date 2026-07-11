@@ -38,6 +38,11 @@ substituídos por evidência com link.
 
 ## 2. Home
 
+> **Ordem de apresentação (revisão aprovada no Sprint 2):** Hero → Featured
+> Work (§2.3) → Engineering (§2.7) → Data (§2.5) → Timeline (§2.4) → About
+> (§2.2) → Contact (§2.6). A numeração das subseções é identidade do
+> conteúdo, não ordem na página.
+
 ### 2.1 Hero
 
 - **Sobrenome de página (label mono):** `DESENVOLVEDOR DE SISTEMAS & ANALISTA DE DADOS`
@@ -68,15 +73,21 @@ Label: `SOBRE` · Título: `Software e dados, no mesmo ciclo`
 > o sistema e sei o que perguntar aos números que ele produz. Uma coisa
 > melhora a outra.
 
-### 2.3 Projetos (`#projetos`)
+### 2.3 Featured Work (`#projetos`)
 
 Label: `PROJETOS` · Título: `Estudos de caso`
 Parágrafo de apoio:
 
-> Cinco projetos, apresentados como estudos de caso: problema, arquitetura,
-> decisões e o que eu faria diferente. Código aberto em todos.
+> Três projetos em profundidade: problema, arquitetura, decisões e o que eu
+> faria diferente. Código aberto em todos.
 
-**Resumos dos cards** (1–2 linhas, `text-2`):
+**Seleção da home (3 principais):** FastPass (card destaque), API de
+Reconhecimento Facial e Carrinho Inteligente — os três de maior densidade de
+engenharia. EduPass e Reviva vivem no índice `/projetos` (§3.7).
+CTA de fechamento da seção: `Ver todos os projetos →` → `/projetos`.
+
+**Resumos dos cards** (1–2 linhas, `text-2`; a tabela cobre os 5 — a home usa
+os 3 primeiros, o índice usa todos):
 
 | Projeto | Badge | Resumo do card |
 |---|---|---|
@@ -127,6 +138,34 @@ Nota de fechamento da seção (liga ao roadmap):
 
 > Próximo passo público: o FastPass Analytics — pipeline de dados do próprio
 > FastPass, da extração ao dashboard.
+
+### 2.7 Engineering (`#engenharia`)
+
+Label: `ENGENHARIA` · Título: `Como eu construo`
+Parágrafo de apoio:
+
+> Método importa tanto quanto resultado. Estes são os princípios que aplico —
+> inclusive neste site, que tem charter, design system e decisões
+> arquiteturais documentadas no repositório.
+
+**Princípios** (4 itens, título + 1 frase de evidência):
+
+| Título | Evidência |
+|---|---|
+| Documentação antes de código | Este site nasceu de oito documentos e nove ADRs — o código veio depois. |
+| Decisões com trade-off explícito | No FastPass, a vaga só é debitada quando o pagamento confirma: reservar antes do dinheiro é overbooking de graça. |
+| Contratos verificáveis | Conteúdo tipado, testes de contrato e orçamentos de performance que falham o build no CI. |
+| Acessibilidade e performance como requisito | Contraste AA por construção, navegação completa por teclado, JS inicial abaixo de 110 KB. |
+
+**Stack por categoria** (tags mono; toda tecnologia listada aparece em algum
+estudo de caso):
+
+| Categoria | Tecnologias |
+|---|---|
+| Linguagens | TypeScript · Java · Python · PHP · SQL · C |
+| Back-end | Laravel · Spring Boot · FastAPI |
+| Front-end & Mobile | React · Tailwind CSS · Vite · Android · Expo |
+| Dados & Infra | Power BI · pandas · Docker · GitHub Actions · PostgreSQL · Firebase · Supabase |
 
 ### 2.6 Contato (`#contato`)
 
@@ -412,6 +451,17 @@ para existir ou não.
 - **Conteúdo:** `[PENDENTE — currículo real em PT e EN fornecido pelo
   Francisco; a página não publica com placeholder]`
 
+## 3.7 Página `/projetos` — índice
+
+- **Label:** `PROJETOS` · **Título:** `Todos os projetos`
+- **Parágrafo:**
+
+> Cinco sistemas, cinco estudos de caso — do firmware ao dashboard. Cada um
+> registra o problema, as decisões e o que eu levaria para o próximo.
+
+- **Corpo:** os 5 cards (tabela do §2.3), FastPass primeiro, sem card
+  destaque (hierarquia é da home).
+
 ## 4. Página 404
 
 - **Título:** `Página não encontrada`
@@ -446,11 +496,12 @@ Regra geral de CTA: verbo + objeto, sem exclamação, sem "clique aqui".
 | Página | `<title>` | Meta description |
 |---|---|---|
 | Home | `Francisco Pedro — Desenvolvedor de Sistemas & Analista de Dados` | `Construo produtos digitais completos — web, mobile e APIs — e transformo os dados que eles geram em inteligência para o negócio. Destaque: FastPass.` |
-| FastPass | `FastPass — estudo de caso · Francisco Pedro` | `Plataforma de excursões com embarque por reconhecimento facial, QR Code e pagamento Pix. Arquitetura com React, Laravel e FastAPI, decisões técnicas e aprendizados.` |
-| API Facial | `API de Reconhecimento Facial — estudo de caso · Francisco Pedro` | `De script escolar a microserviço de identidade: FastAPI, DeepFace e as decisões por trás de uma API de biometria facial em produção.` |
+| FastPass | `FastPass — estudo de caso · Francisco Pedro` | `Plataforma de excursões com embarque por reconhecimento facial, QR Code e pagamento Pix. Arquitetura com React, Laravel e FastAPI, decisões e aprendizados.` |
+| API Facial | `Reconhecimento Facial — estudo de caso · Francisco Pedro` | `De script escolar a microserviço de identidade: FastAPI, DeepFace e as decisões por trás de uma API de biometria facial em produção.` |
 | Carrinho Inteligente | `Carrinho Inteligente — estudo de caso · Francisco Pedro` | `Sistema de compras com ESP32-CAM e API Spring Boot em camadas: arquitetura, modelagem e documentação de negócio de um projeto IoT completo.` |
 | EduPass | `EduPass — estudo de caso · Francisco Pedro` | `Plataforma de transporte estudantil com confirmação de embarque por biometria facial. Web, API e app mobile construídos em equipe.` |
 | Reviva | `Reviva — estudo de caso · Francisco Pedro` | `App Android de memórias com desbloqueio por data. Java, Firebase e as decisões de produto por trás da trava de tempo.` |
+| Projetos (índice) | `Projetos — Francisco Pedro` | `Cinco sistemas apresentados como estudos de caso: FastPass, reconhecimento facial, IoT, mobile e mais. Problema, arquitetura, decisões e aprendizados.` |
 | Resume | `Currículo — Francisco Pedro` | `Currículo de Francisco Pedro — Desenvolvedor de Sistemas & Analista de Dados. Visualize online ou baixe em PDF (português e inglês).` |
 | 404 | `Página não encontrada · Francisco Pedro` | — (noindex) |
 

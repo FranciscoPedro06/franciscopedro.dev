@@ -1,13 +1,20 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { site } from "@/content/site";
+import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/Button";
+import { site } from "@/content/site";
+import { useScrollSpy } from "@/hooks/useScrollSpy";
 import { MobileMenu } from "./MobileMenu";
 
-/** Header fixo do doc 04 §6.6 — 64px, blur, borda que aparece após 8px de scroll. */
+const SPY_IDS = site.nav
+  .map((item) => item.href.split("#")[1])
+  .filter((id): id is string => Boolean(id));
+
+/** Header fixo do doc 04 §6.6 — 64px, blur, borda após 8px de scroll. */
 export function NavBar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const { pathname } = useLocation();
+  const activeSection = useScrollSpy(SPY_IDS);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -32,20 +39,31 @@ export function NavBar() {
         </Link>
 
         <div className="hidden items-center gap-1 sm:flex">
-          {site.nav.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className="rounded-md px-3 py-2 text-small text-text-2 transition-colors duration-150 hover:text-text"
-            >
-              {item.label}
-            </a>
-          ))}
-          <span className="ml-2">
-            <Button variant="secondary" to="/resume">
-              Currículo
-            </Button>
-          </span>
+          {site.nav.map((item) => {
+            const isActive =
+              pathname === "/" && activeSection === item.href.split("#")[1];
+            return (
+              <Link
+                key={item.href}
+                to={item.href}
+                aria-current={isActive ? "true" : undefined}
+                className={`rounded-md px-3 py-2 text-small transition-colors duration-150 ${
+                  isActive
+                    ? "text-text underline decoration-accent decoration-2 underline-offset-8"
+                    : "text-text-2 hover:text-text"
+                }`}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
+          {site.resumeReady && (
+            <span className="ml-2">
+              <Button variant="secondary" to="/resume">
+                Currículo
+              </Button>
+            </span>
+          )}
         </div>
 
         <div className="sm:hidden">

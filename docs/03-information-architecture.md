@@ -10,6 +10,7 @@
 
 ```
 /                                Home
+├─ /projetos                     Índice de projetos (todos os 5 estudos de caso)
 ├─ /projetos/fastpass            Estudo de caso — FastPass (principal)
 ├─ /projetos/reconhecimento-facial  Estudo de caso — API Facial
 ├─ /projetos/carrinho-inteligente   Estudo de caso — Carrinho Inteligente
@@ -19,8 +20,11 @@
 └─ *                             404
 ```
 
-Oito páginas navegáveis. Os PDFs (`/cv-pt.pdf`, `/cv-en.pdf`) permanecem
-assets estáticos linkados pela página `/resume`. Sem modais, sem popups, sem rotas aninhadas além de
+Nove páginas navegáveis. Os PDFs (`/cv-pt.pdf`, `/cv-en.pdf`) permanecem
+assets estáticos linkados pela página `/resume`.
+
+> Revisão do Sprint 2 (aprovada): a home destaca apenas os **3 principais**
+> estudos de caso (Featured Work); o índice completo vive em `/projetos`. Sem modais, sem popups, sem rotas aninhadas além de
 `/projetos/:slug`. URLs em português, curtas e permanentes.
 
 ## 2. Navegação
@@ -28,8 +32,9 @@ assets estáticos linkados pela página `/resume`. Sem modais, sem popups, sem r
 **Header fixo** (blur sutil sobre o conteúdo), presente em todas as páginas:
 
 - Esquerda: wordmark `fp.` → home.
-- Direita: `Projetos` · `Trajetória` · `Dados` · `Contato` (âncoras da home) +
-  botão discreto `Currículo` → rota `/resume`.
+- Direita: `Projetos` · `Engenharia` · `Dados` · `Contato` (âncoras da home) +
+  botão discreto `Currículo` → rota `/resume` (o botão só aparece quando o
+  conteúdo do currículo existir — nunca link para página vazia).
 - Na página de case, as âncoras levam à home na seção correspondente
   (`/#projetos` etc.).
 - Mobile: as 4 âncoras + botão viram menu de tela cheia (overlay), acionado
@@ -81,20 +86,22 @@ Home → nav "Dados" → seção Dados & Analytics
 
 Ordem e propósito de cada seção (uma única página, âncoras navegáveis):
 
+Ordem revisada no Sprint 2 (aprovada pelo Francisco):
+
 | # | Seção | Âncora | Propósito | Prioridade visual |
 |---|---|---|---|---|
 | 1 | Hero | — | Responder quem/o quê/contato em 15 s | Máxima |
-| 2 | Sobre | `#sobre` | Apresentação profissional em 2 parágrafos | Baixa |
-| 3 | Projetos | `#projetos` | Encaminhar para os 5 cases; FastPass em destaque | Alta |
-| 4 | Trajetória | `#trajetoria` | Evolução técnica com datas reais | Média |
-| 5 | Dados & Analytics | `#dados` | Sustentar a metade "dados" do posicionamento | Média |
-| 6 | Tecnologias | dentro de `#dados`/`#sobre` | Stack por categoria, vinculada aos projetos | Baixa |
-| 7 | Contato | `#contato` | E-mail, GitHub, LinkedIn, CV — sem formulário | Alta |
+| 2 | Featured Work | `#projetos` | Os **3 principais** cases (FastPass em destaque) + link para `/projetos` | Alta |
+| 3 | Engineering | `#engenharia` | Como o Francisco constrói: princípios com evidência + stack por categoria | Média |
+| 4 | Data | `#dados` | Sustentar a metade "dados" do posicionamento | Média |
+| 5 | Timeline | `#trajetoria` | Evolução técnica com datas reais | Média |
+| 6 | About | `#sobre` | Apresentação profissional em 2 parágrafos | Baixa |
+| 7 | Contact | `#contato` | E-mail, GitHub, LinkedIn, CV — sem formulário | Alta |
 
-Decisão: **Tecnologias não é uma seção própria de primeiro nível.** Cada case
-lista sua stack; a home resume as categorias na seção Dados (ferramentas de
-análise) e no Sobre (linguagens/plataformas). Evita o "muro de ícones" vetado
-no brief.
+Racional da ordem: trabalho primeiro (prova), método em seguida (Engineering
++ Data — as duas metades do posicionamento), contexto depois (Timeline,
+About), ação no fim (Contact). A stack por categoria vive na seção
+Engineering, sempre vinculada aos projetos — o "muro de ícones" segue vetado.
 
 ## 5. Wireframes — baixa fidelidade
 

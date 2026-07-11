@@ -1,5 +1,6 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import { site } from "@/content/site";
 import { fadeIn } from "@/lib/motion";
 import { Button } from "@/components/ui/Button";
@@ -68,22 +69,24 @@ export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => vo
 
           <nav aria-label="Menu principal" className="mt-8 flex flex-col gap-2">
             {site.nav.map((item) => (
-              <a
+              <Link
                 key={item.href}
-                href={item.href}
+                to={item.href}
                 onClick={onClose}
                 className="rounded-md py-3 text-h3 text-text"
               >
                 {item.label}
-              </a>
+              </Link>
             ))}
-            <a
-              href="/resume"
-              onClick={onClose}
-              className="rounded-md py-3 text-h3 text-text"
-            >
-              Currículo
-            </a>
+            {site.resumeReady && (
+              <Link
+                to="/resume"
+                onClick={onClose}
+                className="rounded-md py-3 text-h3 text-text"
+              >
+                Currículo
+              </Link>
+            )}
           </nav>
         </motion.div>
       )}

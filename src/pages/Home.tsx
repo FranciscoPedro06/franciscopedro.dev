@@ -1,15 +1,26 @@
+import { About } from "@/components/sections/About";
+import { Contact } from "@/components/sections/Contact";
+import { DataSection } from "@/components/sections/DataSection";
+import { Engineering } from "@/components/sections/Engineering";
+import { FeaturedWork } from "@/components/sections/FeaturedWork";
+import { Hero } from "@/components/sections/Hero";
+import { Timeline } from "@/components/sections/Timeline";
 import { site } from "@/content/site";
-import { Container } from "@/components/layout/Container";
+import { usePageTitle } from "@/lib/seo";
 
-/**
- * Casca do S1: prova tokens, tipografia e layout base.
- * As seções da home (doc 03 §4) entram no S2 com o conteúdo do doc 05.
- */
+/** Ordem das seções: doc 03 §4 (revisão aprovada no Sprint 2). */
 export function Home() {
+  usePageTitle(site.seo.title);
+
   return (
-    <Container className="flex min-h-[70dvh] flex-col justify-center pt-16">
-      <p className="type-label text-text-3">{site.role}</p>
-      <h1 className="mt-4 text-display-sm text-text lg:text-display">{site.name}</h1>
-    </Container>
+    <>
+      <Hero />
+      <FeaturedWork />
+      <Engineering />
+      <DataSection />
+      <Timeline />
+      <About />
+      <Contact />
+    </>
   );
 }

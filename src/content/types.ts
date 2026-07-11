@@ -22,6 +22,8 @@ export interface SiteConfig {
   /** E-mail público. `null` enquanto [PENDENTE] (doc 05 §7). */
   email: string | null;
   repositoryUrl: string;
+  /** O acesso ao currículo só aparece quando o conteúdo existir (doc 03 §2). */
+  resumeReady: boolean;
   nav: NavItem[];
   social: SocialLink[];
   seo: SeoMeta;
@@ -62,19 +64,27 @@ export interface CaseSection {
   paragraphs: string[];
 }
 
+export interface RepoLink {
+  label: string;
+  url: string;
+}
+
 export interface Project {
   slug: string;
   name: string;
   summary: string;
   badge: string;
   tags: string[];
-  links: { github: string[]; demo?: string };
+  links: { github: RepoLink[]; demo?: string };
   seo: SeoMeta;
   media: MediaItem[];
   sections: CaseSection[];
-  /** Posição na home e na navegação anterior/próximo. */
+  /** Posição no índice e na navegação anterior/próximo. */
   order: number;
+  /** Card destaque (largura total) — exatamente 1 (FastPass). */
   featured?: boolean;
+  /** Aparece na Featured Work da home — exatamente 3 (doc 05 §2.3). */
+  highlight?: boolean;
 }
 
 export interface TimelineEntry {

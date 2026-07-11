@@ -100,6 +100,7 @@ export interface Project {
 | Rota | Chunk | Estratégia |
 |---|---|---|
 | `/` | `Home` | Eager (é o LCP do site) |
+| `/projetos` | `Projects` | `React.lazy` — índice dos 5 cases |
 | `/projetos/:slug` | `CasePage` | `React.lazy` — 1 chunk para o template + dados no bundle |
 | `/resume` | `Resume` | `React.lazy` — currículo PT/EN renderizado do modelo tipado (RF10) |
 | `*` | `NotFound` | `React.lazy` |

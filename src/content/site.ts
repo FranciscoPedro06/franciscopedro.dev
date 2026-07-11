@@ -6,9 +6,10 @@ export const site: SiteConfig = {
   role: "Desenvolvedor de Sistemas & Analista de Dados",
   email: null, // [PENDENTE] doc 05 §7
   repositoryUrl: "https://github.com/FranciscoPedro06/franciscopedro.dev",
+  resumeReady: false, // vira true quando o CV (PT/EN) for fornecido
   nav: [
     { label: "Projetos", href: "/#projetos" },
-    { label: "Trajetória", href: "/#trajetoria" },
+    { label: "Engenharia", href: "/#engenharia" },
     { label: "Dados", href: "/#dados" },
     { label: "Contato", href: "/#contato" },
   ],

@@ -15,7 +15,11 @@ export function Section({
   labelledBy?: string;
 }) {
   return (
-    <section id={id} aria-labelledby={labelledBy} className="py-24 lg:py-32">
+    <section
+      id={id}
+      aria-labelledby={labelledBy}
+      className="scroll-mt-16 py-24 lg:py-32"
+    >
       <Container>{children}</Container>
     </section>
   );

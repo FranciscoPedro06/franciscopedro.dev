@@ -14,7 +14,7 @@ function renderNavBar() {
 }
 
 describe("NavBar", () => {
-  it("exibe todos os itens de navegação e o acesso ao currículo", () => {
+  it("exibe todos os itens de navegação", () => {
     renderNavBar();
     for (const item of site.nav) {
       expect(screen.getByRole("link", { name: item.label })).toHaveAttribute(
@@ -22,10 +22,12 @@ describe("NavBar", () => {
         item.href
       );
     }
-    expect(screen.getByRole("link", { name: "Currículo" })).toHaveAttribute(
-      "href",
-      "/resume"
-    );
+  });
+
+  it("não oferece o currículo enquanto o conteúdo não existe (doc 03 §2)", () => {
+    renderNavBar();
+    expect(site.resumeReady).toBe(false);
+    expect(screen.queryByRole("link", { name: "Currículo" })).not.toBeInTheDocument();
   });
 
   it("abre o menu mobile como dialog e fecha com Escape", async () => {
