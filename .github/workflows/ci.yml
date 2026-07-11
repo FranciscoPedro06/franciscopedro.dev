@@ -31,5 +31,8 @@ jobs:
       - name: Build
         run: npm run build
 
-      # Lighthouse CI com os orçamentos do doc 06 §7 entra no marco de
+      - name: Performance budgets (doc 06 §7)
+        run: npm run check:budgets
+
+      # Lighthouse CI (métricas de campo do doc 06 §7) entra no marco de
       # SEO/performance, quando o pre-render existir para ser medido.

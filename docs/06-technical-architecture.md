@@ -159,6 +159,11 @@ Sprint 1.5 a partir da linha de base real de 92,9 KB de JS):
 Regra de negociação: feature que estoura orçamento não "ajusta o orçamento" —
 ou emagrece, ou não entra; alterações nesta tabela só via revisão documentada.
 
+**Automação:** os orçamentos de recurso (JS por chunk, CSS, imagens) são
+verificados na CI por `scripts/check-budgets.mjs` após cada build — o
+pipeline falha se qualquer limite for ultrapassado. Métricas de campo
+(LCP/CLS/INP/Lighthouse) entram no Lighthouse CI junto com o pre-render.
+
 Estratégias: pre-render (§6); fontes self-hosted `woff2` subset com preload
 só da Inter; Framer Motion importado por componente (tree-shaking dos
 recursos não usados); zero bibliotecas de UI/charts/carousel; imagens

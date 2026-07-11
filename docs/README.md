@@ -18,7 +18,9 @@ Toda decisão de design, conteúdo e engenharia nasce aqui antes de virar códig
 | [10-brand-assets.md](10-brand-assets.md) | Wordmark, ícones, OG images e sua geração por código | "Com que cara a marca aparece fora do site?" |
 | [11-diagrams-and-mockups.md](11-diagrams-and-mockups.md) | Padrão visual de diagramas técnicos e molduras de dispositivo | "Como apresentamos arquitetura e produto?" |
 | [12-image-system.md](12-image-system.md) | Formatos, compressão, responsividade e organização de imagens | "Como imagens entram no site?" |
+| [13-accessibility-foundation.md](13-accessibility-foundation.md) | Filosofia de acessibilidade, padrões de interação e verificação | "Como garantimos que funciona para todos?" |
 | [adr/](adr/README.md) | Architecture Decision Records — decisões numeradas e imutáveis | "Por que decidimos assim?" |
+| [reviews/](reviews/README.md) | Revisões técnicas registradas por sprint | "O que foi verificado em cada marco?" |
 
 **Hierarquia de precedência:** o charter (01) governa todos; conflitos entre
 documentos se resolvem no de menor número. Mudanças relevantes atualizam o
