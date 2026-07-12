@@ -8,6 +8,12 @@ corresponde a um marco do [roadmap](docs/07-roadmap.md).
 
 ### Added
 
+- Release 0.3.1: sistema de continuidade entre sessões — meta-documento
+  `docs/02-session-handoff.md` (reescrito a cada release), política de
+  contexto (toda sessão lê apenas os meta-documentos 00 → 01 → 02; o
+  restante sob demanda) e fluxo oficial de release em 10 passos no
+  `docs/00-context.md`, e `CLAUDE.md` na raiz aplicando a política
+  automaticamente às sessões do Claude Code.
 - Release 0.3: estudo de caso completo do FastPass — template definitivo de
   case em `src/case/` (seções canônicas, índice lateral com scroll-spy,
   navegação anterior/próximo), diagrama de arquitetura em SVG inline no

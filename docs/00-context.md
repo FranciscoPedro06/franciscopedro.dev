@@ -1,9 +1,10 @@
 # 00 — Contexto do projeto
 
-> Ponto de partida de qualquer sessão de trabalho. Este documento e o
-> [01-project-state.md](01-project-state.md) são **meta-documentos**: orientam
-> quem chega, não normatizam o produto — a cadeia de precedência continua
-> começando no [01-project-charter.md](01-project-charter.md).
+> Ponto de partida de qualquer sessão de trabalho. Este documento, o
+> [01-project-state.md](01-project-state.md) e o
+> [02-session-handoff.md](02-session-handoff.md) são **meta-documentos**:
+> orientam quem chega, não normatizam o produto — a cadeia de precedência
+> continua começando no [01-project-charter.md](01-project-charter.md).
 
 ---
 
@@ -30,13 +31,32 @@ Repositório oficial: `github.com/FranciscoPedro06/franciscopedro.dev`.
 - **Gate de qualidade de todo marco:** ESLint limpo, `tsc --noEmit` limpo,
   Vitest verde, build ok, orçamentos do doc 06 §7 dentro do limite.
 
-## Ordem de leitura
+## Política de contexto
 
-1. Este documento e o estado atual ([01-project-state.md](01-project-state.md)).
-2. [README.md](README.md) — índice e precedência.
-3. Docs 01–13, na ordem numérica.
-4. ADRs ([adr/](adr/README.md)) e revisões ([reviews/](reviews/README.md)).
-5. [CHANGELOG](../CHANGELOG.md).
+Toda sessão de trabalho começa lendo **apenas**, nesta ordem:
+
+1. Este documento;
+2. [01-project-state.md](01-project-state.md) — estado atual;
+3. [02-session-handoff.md](02-session-handoff.md) — passagem da última sessão.
+
+Os demais documentos ([README](README.md), docs 01–13,
+[ADRs](adr/README.md), [revisões](reviews/README.md),
+[CHANGELOG](../CHANGELOG.md)) permanecem a fonte oficial de verdade, porém
+são consultados **somente quando a tarefa atual exigir** — nunca relidos
+integralmente por padrão.
+
+## Fluxo oficial de release
+
+1. Planejamento (escopo validado pelo Francisco);
+2. Implementação;
+3. Revisão técnica registrada em [reviews/](reviews/README.md);
+4. Atualização da documentação impactada;
+5. Atualização dos ADRs, quando necessário;
+6. Atualização de [01-project-state.md](01-project-state.md);
+7. Atualização de [02-session-handoff.md](02-session-handoff.md);
+8. Atualização do [CHANGELOG](../CHANGELOG.md);
+9. Um commit de marco (ADR-0005);
+10. Encerramento da release.
 
 ## Regras editoriais que nunca relaxam
 

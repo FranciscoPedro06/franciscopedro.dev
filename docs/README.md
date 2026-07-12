@@ -3,9 +3,12 @@
 Portfólio de Francisco Pedro — tratado como produto de software profissional.
 Toda decisão de design, conteúdo e engenharia nasce aqui antes de virar código.
 
-**Comece por aqui:** [00-context.md](00-context.md) (como o projeto funciona)
-e [01-project-state.md](01-project-state.md) (fotografia atual). São
-meta-documentos de orientação — ficam fora da cadeia de precedência abaixo.
+**Comece por aqui:** [00-context.md](00-context.md) (como o projeto
+funciona), [01-project-state.md](01-project-state.md) (fotografia atual) e
+[02-session-handoff.md](02-session-handoff.md) (passagem da última sessão).
+São meta-documentos de orientação — ficam fora da cadeia de precedência
+abaixo e são os únicos lidos por padrão no início de cada sessão; o restante
+se consulta sob demanda.
 
 | Doc | Escopo | Responde |
 |---|---|---|

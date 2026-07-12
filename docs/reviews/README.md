@@ -13,3 +13,4 @@ achados e correções, pendências geradas, veredito.
 | S1.5 — Brand & Experience | [sprint-1.5-review.md](sprint-1.5-review.md) | Aprovado |
 | S2 — Home | [sprint-02-review.md](sprint-02-review.md) | Aprovado |
 | Release 0.3 — FastPass Case Study | [release-0.3-review.md](release-0.3-review.md) | Aguardando validação |
+| Release 0.3.1 — Project Continuity | [release-0.3.1-review.md](release-0.3.1-review.md) | Aprovado |

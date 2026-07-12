@@ -4,7 +4,7 @@
 > Meta-documento (ver [00-context.md](00-context.md)); a fonte normativa do
 > plano é o [07-roadmap.md](07-roadmap.md).
 
-**Última atualização:** 2026-07-11 · Release 0.3
+**Última atualização:** 2026-07-12 · Release 0.3.1
 
 ---
 
@@ -17,6 +17,7 @@
 | Sprint 1.5 | Brand & experience: docs 08–12, wordmark `franciscopedro.dev` (ADR-0009), assets por código, orçamentos por recurso, ADR-0008 | [reviews/sprint-1.5-review.md](reviews/sprint-1.5-review.md) |
 | Sprint 2 | Home completa (7 seções), `/projetos`, case mínimo, scroll-spy, doc 13, orçamentos na CI | [reviews/sprint-02-review.md](reviews/sprint-02-review.md) — validado pelo Francisco |
 | Release 0.3 | FastPass Case Study: template completo de case (`src/case/`), conteúdo integral do FastPass, diagrama de arquitetura, índice lateral com scroll-spy | [reviews/release-0.3-review.md](reviews/release-0.3-review.md) |
+| Release 0.3.1 | Project Continuity: meta-documento `02-session-handoff.md`, política de contexto e fluxo oficial de release no `00-context.md`, `CLAUDE.md` na raiz | [reviews/release-0.3.1-review.md](reviews/release-0.3.1-review.md) |
 
 ## Onde o produto está
 
