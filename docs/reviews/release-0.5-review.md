@@ -90,3 +90,18 @@ coleções de conteúdo, escalável para a v2.
 - Checklist manual de acessibilidade (doc 06 §9, NVDA/Tab/zoom 200%) das
   Releases 0.3–0.5 segue com o Francisco; bloqueia publicação, não release.
 - OG image específica por case entra com os screenshots (`[PENDENTE]`).
+
+## Adendo (2026-07-12) — correção do build no deploy real
+
+O primeiro deploy de produção (`https://franciscopedro-dev.vercel.app`,
+commit `ae7ef59`) servia apenas o output do SPA: `/` sem head pré-renderizado
+(placeholder `seo:start` do dev server, sem canonical/OG/JSON-LD) e com o
+`#root` vazio; `/projetos`, os 5 cases, `sitemap.xml`, `robots.txt` e
+qualquer rota inexistente respondiam com o `NOT_FOUND` da própria plataforma.
+**Causa:** o `vercel.json` da release não fixava o comando de build, e o
+preset Vite da Vercel executou só `vite build` — sem `tsc` e sem o passo
+`npm run prerender`. **Correção:** `framework`, `buildCommand`
+(`npm run build`) e `outputDirectory` (`dist`) fixados no `vercel.json`
+(doc 06 §11) — o build da plataforma passa a ser o mesmo do repositório e da
+CI. `SITE_URL` confirmada no endereço permanente do projeto (a linha única de
+`src/lib/seo.ts`, sem alteração).

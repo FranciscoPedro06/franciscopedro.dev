@@ -208,6 +208,13 @@ As regras normativas estão no doc 04 §8. Verificação:
 - **Hospedagem: Vercel** (free tier — restrição do charter §14): SPA + HTML
   pre-renderizado, headers de cache imutável para assets com hash, preview
   deploy por branch.
+- **Build da plataforma fixado no `vercel.json`** (`framework: vite`,
+  `buildCommand: npm run build`, `outputDirectory: dist`): o deploy executa
+  exatamente o pipeline do repositório (tsc + vite build + pre-render). Sem
+  isso, o preset Vite da Vercel roda só `vite build` e publica o SPA sem o
+  HTML pré-renderizado, sem sitemap/robots e sem a `404.html` (incidente
+  registrado no adendo da revisão da Release 0.5). Configuração de dashboard
+  nunca é fonte de verdade do build.
 - **Fluxo de branches:** trunk-based — `main` protegida, trabalho em branches
   curtas com PR (a lição do FastPass registrada no doc 00 aplicada aqui).
 - **Commits:** Conventional Commits (`feat:`, `fix:`, `docs:`, `chore:`).

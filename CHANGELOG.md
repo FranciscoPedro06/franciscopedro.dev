@@ -6,6 +6,13 @@ corresponde a um marco do [roadmap](docs/07-roadmap.md).
 
 ## [Unreleased]
 
+### Fixed
+
+- Deploy na Vercel: `vercel.json` passou a fixar `framework`, `buildCommand`
+  e `outputDirectory` — o preset da plataforma executava apenas `vite build`,
+  publicando o SPA sem o HTML pré-renderizado, sem `sitemap.xml`/`robots.txt`
+  e sem a `404.html` (adendo na revisão da Release 0.5).
+
 ### Added
 
 - Release 0.5: Production Readiness — pre-render das rotas para HTML

@@ -34,7 +34,10 @@
   (ADR-0010) com head completo por rota (canonical, OG, JSON-LD), sitemap.xml,
   robots.txt e 404 noindex — tudo derivado da lista única de rotas em
   coleções (`src/content/routes.ts`). Host canônico numa constante
-  (`SITE_URL`) a confirmar quando o projeto Vercel for criado.
+  (`SITE_URL`), **confirmada** no endereço permanente do projeto Vercel:
+  `https://franciscopedro-dev.vercel.app`. O build da plataforma é fixado
+  no `vercel.json` (adendo da revisão 0.5): o primeiro deploy publicou só o
+  SPA porque o preset da Vercel rodava `vite build` sem o pre-render.
 - Gate permanente verde: testes 44/44 (contratos de SEO, smoke do
   pre-render e axe-core inclusos); JS entrada 100,4 KB / 110 KB; chunk do
   case 2,7 KB / 35 KB; CSS 19,3 KB / 25 KB; Lighthouse CI no workflow

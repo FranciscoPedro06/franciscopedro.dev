@@ -16,9 +16,9 @@ de ações do Francisco fora deste repositório.
 
 ## Arquivos provavelmente envolvidos
 
-- `src/lib/seo.ts` — **confirmar `SITE_URL`** assim que o projeto Vercel
-  existir (hoje: previsão `https://franciscopedro-dev.vercel.app`); o
-  domínio definitivo é a mesma linha.
+- `src/lib/seo.ts` — `SITE_URL` **confirmada** no endereço permanente do
+  projeto Vercel (`https://franciscopedro-dev.vercel.app`); ativar o domínio
+  definitivo `https://franciscopedro.dev` é a mesma linha.
 - `src/content/site.ts` — e-mail, LinkedIn, `resumeReady` quando o material
   chegar.
 - Doc de referência: 07 §3 (roadmap GitHub), 05 §7 (pendências de material).
@@ -38,6 +38,11 @@ de ações do Francisco fora deste repositório.
   `h2` (`headingAs` no `ProjectCard`).
 
 ## Observações
+
+- **Correção pós-deploy da 0.5** (adendo na revisão): o primeiro deploy
+  servia só o SPA — o preset Vite da Vercel rodava `vite build` sem o
+  pre-render. O `vercel.json` agora fixa `framework`, `buildCommand` e
+  `outputDirectory`; dashboard nunca é fonte de verdade do build.
 
 - As Releases 0.3–0.5 aguardam validação do Francisco em navegador real,
   incluindo o checklist manual de acessibilidade (NVDA, Tab, zoom 200%).
