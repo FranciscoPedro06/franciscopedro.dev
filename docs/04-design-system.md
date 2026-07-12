@@ -20,13 +20,16 @@
 | `border-strong` | `#34373F` | Bordas de elementos interativos em hover/foco |
 | `text` | `#F4F4F5` | Texto primário, títulos |
 | `text-2` | `#A1A1AA` | Texto secundário, parágrafos longos |
-| `text-3` | `#71717A` | Metadados, captions, placeholders |
+| `text-3` | `#898992` | Metadados, captions, placeholders |
 
 Justificativa: neutros levemente frios, sem azul perceptível (evita o visual
 "dashboard"). Três níveis de texto bastam; mais níveis diluem a hierarquia.
 
-Contrast check (sobre `bg #0B0C0E`): `text` 17,8:1 · `text-2` 7,8:1 ·
-`text-3` 4,6:1 (usado só em ≥14 px w500 ou ≥18 px). Todos ≥ AA.
+Contrast check (sobre `bg #0B0C0E`): `text` 17,8:1 · `text-2` 7,6:1 ·
+`text-3` 5,6:1 — e `text-3` ≥ 4,9:1 até sobre `surface-2`, o fundo mais
+claro. Todos os pares ≥ AA (4,5:1) em qualquer tamanho de texto. O valor
+original de `text-3` (`#71717A`) declarava 4,6:1, mas media 4,05:1 — reprovado
+pelo Lighthouse em produção e corrigido no pós-deploy da Release 0.5.
 
 ### 1.2 Acento
 

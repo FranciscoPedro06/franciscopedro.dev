@@ -8,6 +8,11 @@ corresponde a um marco do [roadmap](docs/07-roadmap.md).
 
 ### Fixed
 
+- Contraste AA do texto terciário: o token `text-3` passou de `#71717A`
+  (4,05:1 sobre o fundo — o doc 04 declarava 4,6:1 por erro de cálculo) para
+  `#898992` (≥ 4,9:1 sobre todos os fundos), reprovação real de
+  `color-contrast` apontada pelo Lighthouse em produção (adendo 2 da revisão
+  da Release 0.5).
 - Deploy na Vercel: `vercel.json` passou a fixar `framework`, `buildCommand`
   e `outputDirectory` — o preset da plataforma executava apenas `vite build`,
   publicando o SPA sem o HTML pré-renderizado, sem `sitemap.xml`/`robots.txt`

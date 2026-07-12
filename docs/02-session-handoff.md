@@ -39,10 +39,14 @@ de ações do Francisco fora deste repositório.
 
 ## Observações
 
-- **Correção pós-deploy da 0.5** (adendo na revisão): o primeiro deploy
-  servia só o SPA — o preset Vite da Vercel rodava `vite build` sem o
-  pre-render. O `vercel.json` agora fixa `framework`, `buildCommand` e
-  `outputDirectory`; dashboard nunca é fonte de verdade do build.
+- **Correções pós-deploy da 0.5** (adendos na revisão): (1) o primeiro
+  deploy servia só o SPA — o preset Vite da Vercel rodava `vite build` sem o
+  pre-render; o `vercel.json` agora fixa `framework`, `buildCommand` e
+  `outputDirectory`. (2) `text-3` reprovava contraste AA em produção
+  (4,05:1; o doc 04 declarava 4,6:1 por erro de cálculo) — token corrigido
+  para `#898992`; o axe em jsdom não mede contraste, só o Lighthouse real.
+- **Critério M7 (performance ≥ 95) segue aberto**: medição local do deploy é
+  ruidosa (Wi-Fi); medir no PageSpeed Insights ou num runner de CI.
 
 - As Releases 0.3–0.5 aguardam validação do Francisco em navegador real,
   incluindo o checklist manual de acessibilidade (NVDA, Tab, zoom 200%).

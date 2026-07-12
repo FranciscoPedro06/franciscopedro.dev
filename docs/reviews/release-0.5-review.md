@@ -105,3 +105,27 @@ preset Vite da Vercel executou só `vite build` — sem `tsc` e sem o passo
 (doc 06 §11) — o build da plataforma passa a ser o mesmo do repositório e da
 CI. `SITE_URL` confirmada no endereço permanente do projeto (a linha única de
 `src/lib/seo.ts`, sem alteração).
+
+## Adendo 2 (2026-07-12) — verificação em produção e contraste AA
+
+Após a correção do build, o deploy foi auditado rota a rota: as 7 páginas
+respondem 200 com HTML pré-renderizado (head completo, conteúdo real no
+`#root`, `h1` correto), canonical/OG/JSON-LD conferem com `SITE_URL`,
+`sitemap.xml` traz as 7 URLs, `robots.txt` aponta o sitemap, rota inexistente
+serve a `404.html` com `noindex` e barra final redireciona 308.
+
+Lighthouse CI (mediana de 3 runs × 3 URLs) contra a produção: best-practices
+1,0 e SEO 1,0 nas 3 URLs (o audit `robots-txt` falhou de forma intermitente
+em 3 de 9 runs — o arquivo foi verificado válido; artefato de fetch da
+medição local). **Acessibilidade 0,95 com falha real de `color-contrast`**:
+`text-3` (`#71717A`) media 4,05:1 sobre `bg` — o doc 04 §1.1 declarava
+4,6:1 (cálculo incorreto), violando o piso AA do doc 13 §5/RNF02. O gate axe
+não detecta contraste (jsdom não renderiza pixels — exclusão registrada em
+`src/a11y.test.tsx`). **Correção**: token `text-3 = #898992` (5,64:1 sobre
+`bg`, 5,36:1 sobre `surface`, 4,92:1 sobre `surface-2` — AA em qualquer
+tamanho), doc 04 corrigido antes do código.
+
+Performance em produção medida desta máquina é ruidosa (home: 0,98/0,65/0,88
+— o outlier de 0,65 é rede local; TBT 0 ms e CLS ≤ 0,008 em todos os runs):
+a pendência do critério M7 (≥ 95) segue aberta e deve ser medida em ambiente
+estável (PageSpeed Insights ou runner de CI).

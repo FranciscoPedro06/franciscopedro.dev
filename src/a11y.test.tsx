@@ -7,8 +7,9 @@ import { App } from "@/App";
 /**
  * Varredura axe-core por tipo de página (doc 13). Zero violações é
  * contrato de CI; `color-contrast` fica de fora porque o jsdom não
- * renderiza pixels — contraste é AA por construção (doc 04 §2) e entra no
- * checklist manual (doc 06 §9) e no Lighthouse CI.
+ * renderiza pixels — contraste depende da tabela do doc 04 §1.1 e só é
+ * medido de verdade pelo Lighthouse contra páginas renderizadas (o erro de
+ * 4,05:1 do text-3 original passou por aqui — adendo 2 da revisão 0.5).
  */
 async function axeViolations(path: string, readyHeading: RegExp) {
   const { container, unmount } = render(
