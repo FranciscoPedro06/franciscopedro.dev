@@ -25,7 +25,7 @@ export function Hero() {
             Currículo
           </Button>
         )}
-        <Button variant="ghost" href="#contato">
+        <Button variant="ghost" to="/#contato">
           Contato
         </Button>
       </div>

@@ -8,6 +8,10 @@ corresponde a um marco do [roadmap](docs/07-roadmap.md).
 
 ### Fixed
 
+- O botão "Contato" do Hero abria nova aba: a âncora interna `#contato`
+  passava pela prop `href` do `Button` (contrato de URL externa,
+  `target="_blank"`); agora navega com `to="/#contato"` via React Router,
+  como o restante da navegação interna.
 - Contraste AA do texto terciário: o token `text-3` passou de `#71717A`
   (4,05:1 sobre o fundo — o doc 04 declarava 4,6:1 por erro de cálculo) para
   `#898992` (≥ 4,9:1 sobre todos os fundos), reprovação real de
