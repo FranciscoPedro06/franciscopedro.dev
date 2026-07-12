@@ -212,6 +212,14 @@ autentica, controla papéis (passageiro, motorista, administrador), fala com o
 microserviço facial por HTTP e com o Mercado Pago para cobranças Pix.
 *(Diagrama: doc 00 §1.3.)*
 
+A integração entre os serviços é explícita: o front autentica com token
+Sanctum enviado como Bearer, um middleware de papéis decide o que cada perfil
+pode fazer, e cada integração externa vive num service isolado
+(`FacialRecognitionService`, `PagamentoService`) — o resto do sistema não sabe
+se a resposta veio da API real ou do modo simulado. Todo embarque — facial,
+QR Code ou manual — converge num único `EmbarqueService`: a regra de
+efetivação existe uma vez.
+
 **Decisões técnicas.**
 
 1. *Modos simulados como recurso de primeira classe.* Tanto a integração
@@ -227,7 +235,10 @@ microserviço facial por HTTP e com o Mercado Pago para cobranças Pix.
    eram o bug mais provável do sistema, e o mais barato de prevenir.
 4. *Quem valida o embarque é sempre o motorista.* O passageiro solicita; a
    aprovação — automática por similaridade facial ou manual — é do outro
-   lado. Decisão de produto antes de ser decisão técnica.
+   lado. Decisão de produto antes de ser decisão técnica. A evolução
+   planejada é o meio-termo: verificação automática com score de confiança —
+   acima do threshold aprova direto, abaixo cai para a conferência do
+   motorista.
 5. *Degradação graciosa no front.* O cliente HTTP normaliza erros e, se o
    back-end estiver fora do ar, o app cai em modo demonstração com dados
    locais em vez de quebrar.

@@ -12,7 +12,7 @@ const Projects = lazy(() =>
   import("@/pages/Projects").then((m) => ({ default: m.Projects }))
 );
 const CasePage = lazy(() =>
-  import("@/pages/CasePage").then((m) => ({ default: m.CasePage }))
+  import("@/case/CasePage").then((m) => ({ default: m.CasePage }))
 );
 const NotFound = lazy(() =>
   import("@/pages/NotFound").then((m) => ({ default: m.NotFound }))

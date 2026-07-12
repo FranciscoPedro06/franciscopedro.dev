@@ -8,6 +8,13 @@ corresponde a um marco do [roadmap](docs/07-roadmap.md).
 
 ### Added
 
+- Release 0.3: estudo de caso completo do FastPass — template definitivo de
+  case em `src/case/` (seções canônicas, índice lateral com scroll-spy,
+  navegação anterior/próximo), diagrama de arquitetura em SVG inline no
+  padrão do doc 11, conteúdo integral do doc 05 §3.1 (com integração,
+  segurança e evolução planejada), conteúdo dividido em um arquivo por case
+  (`src/content/projects/`) e meta-documentos `docs/00-context.md` e
+  `docs/01-project-state.md`.
 - Sprint 2: home completa nas 7 seções aprovadas (Hero, Featured Work,
   Engineering, Data, Timeline, About, Contact), página `/projetos` com os 5
   estudos de caso, template inicial de case com navegação anterior/próximo,

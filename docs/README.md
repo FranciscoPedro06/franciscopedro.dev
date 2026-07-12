@@ -3,6 +3,10 @@
 Portfólio de Francisco Pedro — tratado como produto de software profissional.
 Toda decisão de design, conteúdo e engenharia nasce aqui antes de virar código.
 
+**Comece por aqui:** [00-context.md](00-context.md) (como o projeto funciona)
+e [01-project-state.md](01-project-state.md) (fotografia atual). São
+meta-documentos de orientação — ficam fora da cadeia de precedência abaixo.
+
 | Doc | Escopo | Responde |
 |---|---|---|
 | [00-technical-audit.md](00-technical-audit.md) | Auditoria técnica do ecossistema (FastPass, API Facial, demais projetos) e roadmap do GitHub | "O que existe e em que estado?" |
@@ -28,5 +32,5 @@ documento primeiro, o código depois.
 
 **Fluxo obrigatório:** auditoria → documentação → AI → brand → design system →
 wireframes → protótipo → validação → implementação → testes → otimização →
-deploy. Estado atual: **documentação concluída, aguardando validação** —
-nenhuma linha de código de produto antes da aprovação.
+deploy. Estado atual: ver [01-project-state.md](01-project-state.md),
+atualizado no encerramento de cada release.

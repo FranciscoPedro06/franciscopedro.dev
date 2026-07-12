@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { projects, highlighted } from "./projects";
+import { CASE_SECTION_KINDS } from "./types";
 
 /** Contrato dos estudos de caso (ADR-0003; limites de SEO do doc 09 §1). */
 describe("contrato de conteúdo: projects", () => {
@@ -36,6 +37,55 @@ describe("contrato de conteúdo: projects", () => {
         expect(repo.label.length, p.slug).toBeGreaterThan(0);
       }
     }
+  });
+
+  it("segue a ordem canônica de seções, sem repetição (doc 03 §6)", () => {
+    for (const p of projects) {
+      const indices = p.sections.map((s) =>
+        CASE_SECTION_KINDS.indexOf(s.kind)
+      );
+      expect(indices, p.slug).not.toContain(-1);
+      expect(new Set(indices).size, p.slug).toBe(indices.length);
+      expect(indices, p.slug).toEqual([...indices].sort((a, b) => a - b));
+    }
+  });
+
+  it("nenhuma seção publica vazia; diagramas têm descrição acessível", () => {
+    for (const p of projects) {
+      for (const s of p.sections) {
+        expect(s.title.length, `${p.slug}/${s.kind}`).toBeGreaterThan(0);
+        const conteudo = s.paragraphs.length + (s.items?.length ?? 0);
+        expect(conteudo, `${p.slug}/${s.kind}`).toBeGreaterThan(0);
+        for (const paragraph of s.paragraphs) {
+          expect(paragraph.trim().length, `${p.slug}/${s.kind}`).toBeGreaterThan(0);
+        }
+        for (const item of s.items ?? []) {
+          expect(item.title.trim().length, `${p.slug}/${s.kind}`).toBeGreaterThan(0);
+          expect(item.body.trim().length, `${p.slug}/${s.kind}`).toBeGreaterThan(0);
+        }
+        if (s.diagram) {
+          expect(s.diagram.ariaLabel.length, `${p.slug}/${s.kind}`).toBeGreaterThan(20);
+        }
+      }
+    }
+  });
+
+  it("o case principal cobre a estrutura mínima do doc 03 §6", () => {
+    const fastpass = projects.find((p) => p.featured);
+    const kinds = fastpass?.sections.map((s) => s.kind) ?? [];
+    for (const kind of [
+      "problema",
+      "objetivo",
+      "arquitetura",
+      "decisoes",
+      "desafios",
+      "resultados",
+      "aprendizados",
+    ]) {
+      expect(kinds, kind).toContain(kind);
+    }
+    const arquitetura = fastpass?.sections.find((s) => s.kind === "arquitetura");
+    expect(arquitetura?.diagram, "diagrama de arquitetura").toBeDefined();
   });
 
   it("não publica mídia sem alt (doc 12 §7)", () => {

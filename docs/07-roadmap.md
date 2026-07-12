@@ -113,12 +113,18 @@ Pré-requisito técnico: FastPass com a integração de pagamento restaurada
 
 Sprints de escopo (1–2 semanas cada, dedicação parcial):
 
+> A partir do fim do S2, os marcos passam a ser tratados como **Releases**
+> numeradas (0.3, 0.4, …), mantendo o mesmo escopo planejado abaixo. O S3 foi
+> dividido: a Release 0.3 entregou M5 (template completo + FastPass, com o
+> diagrama do FastPass antecipado de V1-2); M7 (pre-render + SEO) fica para
+> release dedicada. Estado corrente: [01-project-state.md](01-project-state.md).
+
 | Sprint | Escopo | Marco |
 |---|---|---|
 | S0 ✅ | Auditoria + documentação (docs 00–07) | Documentação aprovada |
-| S1 | M1–M3: fundação, tokens, CI, layout base | Deploy de preview com layout vazio |
-| S2 | M4: home completa | Home navegável |
-| S3 | M5–M7: template de case + FastPass + SEO | **MVP** |
+| S1 ✅ | M1–M3: fundação, tokens, CI, layout base | Deploy de preview com layout vazio |
+| S2 ✅ | M4: home completa | Home navegável |
+| S3 | M5–M7: template de case + FastPass + SEO | **MVP** — M5 entregue na Release 0.3 |
 | S4 | V1-1, V1-2: 4 cases + diagramas | Conteúdo completo |
 | S5 | V1-3 a V1-8 + roadmap GitHub pré-lançamento | **v1.0 pública** |
 

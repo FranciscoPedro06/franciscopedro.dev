@@ -57,11 +57,31 @@ export const CASE_SECTION_KINDS = [
 
 export type CaseSectionKind = (typeof CASE_SECTION_KINDS)[number];
 
+/** Item nomeado de uma seção (decisão técnica, par desafio→solução). */
+export interface CaseSectionItem {
+  title: string;
+  body: string;
+}
+
+/**
+ * Referência a um diagrama (doc 11): o conteúdo aponta um id; o template
+ * resolve o SVG correspondente. O diagrama nunca é a única fonte — a prosa
+ * da seção descreve o mesmo fluxo (doc 04 §6.10).
+ */
+export interface DiagramRef {
+  id: string;
+  ariaLabel: string;
+  caption?: string;
+}
+
 export interface CaseSection {
   kind: CaseSectionKind;
   title: string;
-  /** Parágrafos ou itens; a estrutura exata evolui com o template no S3. */
+  /** Prosa da seção; vazio quando a seção é só uma lista de itens. */
   paragraphs: string[];
+  /** Decisões numeradas ou pares desafio→solução (doc 03 §6, itens 8–9). */
+  items?: CaseSectionItem[];
+  diagram?: DiagramRef;
 }
 
 export interface RepoLink {
