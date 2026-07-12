@@ -8,7 +8,7 @@ import { reviva } from "./reviva";
 /**
  * Os 5 estudos de caso — um arquivo por case (doc 06 §2; RNF06: adicionar um
  * case = adicionar um arquivo). `media` aguarda screenshots reais
- * ([PENDENTE], doc 05 §7); as seções dos 4 cases restantes entram no S4.
+ * ([PENDENTE], doc 05 §7).
  */
 export const projects: Project[] = [
   fastpass,

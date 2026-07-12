@@ -1,4 +1,6 @@
 import type { ComponentType } from "react";
+import { CarrinhoArchitecture } from "./CarrinhoArchitecture";
+import { FacialArchitecture } from "./FacialArchitecture";
 import { FastPassArchitecture } from "./FastPassArchitecture";
 
 /**
@@ -8,4 +10,6 @@ import { FastPassArchitecture } from "./FastPassArchitecture";
  */
 export const DIAGRAMS: Record<string, ComponentType<{ ariaLabel: string }>> = {
   "fastpass-arquitetura": FastPassArchitecture,
+  "facial-arquitetura": FacialArchitecture,
+  "carrinho-arquitetura": CarrinhoArchitecture,
 };

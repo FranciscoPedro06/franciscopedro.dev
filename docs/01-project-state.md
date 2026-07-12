@@ -4,7 +4,7 @@
 > Meta-documento (ver [00-context.md](00-context.md)); a fonte normativa do
 > plano é o [07-roadmap.md](07-roadmap.md).
 
-**Última atualização:** 2026-07-12 · Release 0.3.1
+**Última atualização:** 2026-07-12 · Release 0.4
 
 ---
 
@@ -18,17 +18,19 @@
 | Sprint 2 | Home completa (7 seções), `/projetos`, case mínimo, scroll-spy, doc 13, orçamentos na CI | [reviews/sprint-02-review.md](reviews/sprint-02-review.md) — validado pelo Francisco |
 | Release 0.3 | FastPass Case Study: template completo de case (`src/case/`), conteúdo integral do FastPass, diagrama de arquitetura, índice lateral com scroll-spy | [reviews/release-0.3-review.md](reviews/release-0.3-review.md) |
 | Release 0.3.1 | Project Continuity: meta-documento `02-session-handoff.md`, política de contexto e fluxo oficial de release no `00-context.md`, `CLAUDE.md` na raiz | [reviews/release-0.3.1-review.md](reviews/release-0.3.1-review.md) |
+| Release 0.4 | Engineering Case Studies: os 4 cases restantes completos (doc 05 §3.2–3.5), narrativa de evolução da API Facial, diagramas da API Facial e do Carrinho | [reviews/release-0.4-review.md](reviews/release-0.4-review.md) |
 
 ## Onde o produto está
 
 - Home navegável nas 7 seções aprovadas; índice `/projetos` com os 5 cases.
-- **FastPass é um estudo de caso completo**: problema → objetivo →
-  arquitetura (com diagrama SVG) → 5 decisões técnicas → desafios →
-  resultados → aprendizados, com índice lateral e navegação entre cases.
-- Os outros 4 cases têm cabeçalho real e seções vazias (entram na
-  Release 0.4) — a página degrada sem placeholder.
-- Gate permanente verde: testes 23/23; JS entrada 97,1 KB / 110 KB;
-  chunk do case 2,1 KB / 35 KB; CSS 19,3 KB / 25 KB.
+- **Os 5 estudos de caso estão completos** — cada um conta a história de
+  engenharia (problema → decisões → desafios → resultados → aprendizados),
+  com índice lateral e navegação entre cases. A API Facial traz a narrativa
+  de evolução (EduPass → confirmação de presença → microserviço do FastPass)
+  e a seção de Pesquisa; três cases têm diagrama de arquitetura (FastPass,
+  API Facial, Carrinho) — EduPass e Reviva ficam sem, por decisão (doc 11 §1).
+- Gate permanente verde: testes 26/26; JS entrada 100,3 KB / 110 KB;
+  chunk do case 2,8 KB / 35 KB; CSS 19,3 KB / 25 KB.
 
 ## Pendências que bloqueiam a publicação (não o desenvolvimento)
 
@@ -40,6 +42,6 @@ dos repos FastPass, READMEs profissionais.
 
 ## Próxima release (proposta)
 
-**Release 0.4** — conteúdo dos 4 cases restantes (doc 05 §3.2–3.5) +
-diagramas da API Facial e do Carrinho (V1-2) e/ou **SEO/pre-render + 404
-noindex (M7)** — a ordem exata se decide no planejamento da release.
+**Release 0.5 — Production Readiness** (definida pelo Francisco no
+planejamento da 0.4): SEO/pre-render + 404 noindex (M7), otimizações finais
+e refinamentos de publicação. Escopo exato se valida no planejamento.

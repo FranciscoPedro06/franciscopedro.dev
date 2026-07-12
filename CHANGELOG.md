@@ -8,6 +8,13 @@ corresponde a um marco do [roadmap](docs/07-roadmap.md).
 
 ### Added
 
+- Release 0.4: Engineering Case Studies — os 4 estudos de caso restantes
+  completos no padrão do FastPass (API de Reconhecimento Facial, Carrinho
+  Inteligente, EduPass e Reviva, doc 05 §3.2–3.5), narrativa de evolução da
+  API Facial (EduPass → confirmação de presença → microserviço do FastPass)
+  acrescentada ao doc 05 antes do código, diagramas de arquitetura da API
+  Facial e do Carrinho Inteligente em SVG inline (doc 11) e testes de
+  contrato da história completa dos 5 cases.
 - Release 0.3.1: sistema de continuidade entre sessões — meta-documento
   `docs/02-session-handoff.md` (reescrito a cada release), política de
   contexto (toda sessão lê apenas os meta-documentos 00 → 01 → 02; o

@@ -283,6 +283,18 @@ pipeline: Facenet512 para os embeddings (512 dimensões, melhor separação
 entre pessoas parecidas que o Facenet padrão) e distância de cosseno com
 threshold calibrado em 0.35 para a decisão.
 
+**Evolução.** O serviço atravessou três projetos, e cada versão corrigiu um
+defeito estrutural da anterior (doc 00 §2). A primeira nasceu dentro do
+back-end do EduPass — funcionava, mas carregava os erros de estreia:
+detectores diferentes no cadastro e na verificação, credencial publicada no
+repositório. A segunda vida foi no sistema de confirmação de presença
+construído em equipe, que provou que o componente valia mais do que o projeto
+que o criou. A versão atual fecha o ciclo como microserviço independente, e a
+separação resolveu três problemas de uma vez: o stack de ML (Python, modelos
+pesados) deixou de morar dentro do back-end do produto, o mesmo serviço
+passou a atender projetos diferentes sem retrabalho, e o deploy ganhou ciclo
+próprio — evoluir o modelo não mexe na API de negócio.
+
 **Arquitetura (versão atual).** FastAPI com DeepFace; embeddings persistidos
 no Supabase; verificação por similaridade de cosseno contra a base; Docker
 para deploy no Render. O Laravel do FastPass consome as rotas `/register` e
