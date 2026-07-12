@@ -15,3 +15,4 @@ achados e correções, pendências geradas, veredito.
 | Release 0.3 — FastPass Case Study | [release-0.3-review.md](release-0.3-review.md) | Aguardando validação |
 | Release 0.3.1 — Project Continuity | [release-0.3.1-review.md](release-0.3.1-review.md) | Aprovado |
 | Release 0.4 — Engineering Case Studies | [release-0.4-review.md](release-0.4-review.md) | Aguardando validação |
+| Release 0.5 — Production Readiness | [release-0.5-review.md](release-0.5-review.md) | Aguardando validação |

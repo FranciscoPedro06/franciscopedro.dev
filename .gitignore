@@ -3,7 +3,9 @@ node_modules/
 
 # build
 dist/
+dist-server/
 coverage/
+.lighthouseci/
 
 # environment
 .env
@@ -23,3 +25,6 @@ npm-debug.log*
 
 # vercel
 .vercel/
+
+# claude
+.claude

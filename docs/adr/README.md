@@ -18,3 +18,4 @@ Registro imutável das decisões arquiteturais do projeto (charter §16).
 | [0007](0007-blog-ready-architecture.md) | Arquitetura blog-ready desde a v1 | Aceito |
 | [0008](0008-analytics-umami.md) | Analytics com Umami (v2) | Aceito |
 | [0009](0009-domain-wordmark.md) | Wordmark: o domínio como marca | Aceito |
+| [0010](0010-prerender-react-dom-server.md) | Pre-render com react-dom/server sobre o entry SSR do Vite | Aceito |

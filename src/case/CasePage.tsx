@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Tag } from "@/components/ui/Tag";
 import { byOrder, findProject } from "@/content/projects";
+import { notFoundRoute } from "@/content/routes";
 import { usePageTitle } from "@/lib/seo";
 import { NotFound } from "@/pages/NotFound";
 import { CaseIndex } from "./CaseIndex";
@@ -20,7 +21,7 @@ export function CasePage() {
   const { slug } = useParams();
   const project = slug ? findProject(slug) : undefined;
 
-  usePageTitle(project?.seo.title ?? "Página não encontrada · Francisco Pedro");
+  usePageTitle(project?.seo.title ?? notFoundRoute.seo.title);
 
   if (!project) return <NotFound />;
 

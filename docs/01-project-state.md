@@ -4,7 +4,7 @@
 > Meta-documento (ver [00-context.md](00-context.md)); a fonte normativa do
 > plano é o [07-roadmap.md](07-roadmap.md).
 
-**Última atualização:** 2026-07-12 · Release 0.4
+**Última atualização:** 2026-07-12 · Release 0.5
 
 ---
 
@@ -19,6 +19,7 @@
 | Release 0.3 | FastPass Case Study: template completo de case (`src/case/`), conteúdo integral do FastPass, diagrama de arquitetura, índice lateral com scroll-spy | [reviews/release-0.3-review.md](reviews/release-0.3-review.md) |
 | Release 0.3.1 | Project Continuity: meta-documento `02-session-handoff.md`, política de contexto e fluxo oficial de release no `00-context.md`, `CLAUDE.md` na raiz | [reviews/release-0.3.1-review.md](reviews/release-0.3.1-review.md) |
 | Release 0.4 | Engineering Case Studies: os 4 cases restantes completos (doc 05 §3.2–3.5), narrativa de evolução da API Facial, diagramas da API Facial e do Carrinho | [reviews/release-0.4-review.md](reviews/release-0.4-review.md) |
+| Release 0.5 | Production Readiness (M7): pre-render com react-dom/server (ADR-0010), SEO por coleções com `SITE_URL` única, sitemap/robots no build, 404 noindex, contratos de SEO, axe-core e Lighthouse CI, `vercel.json` | [reviews/release-0.5-review.md](reviews/release-0.5-review.md) |
 
 ## Onde o produto está
 
@@ -29,8 +30,16 @@
   de evolução (EduPass → confirmação de presença → microserviço do FastPass)
   e a seção de Pesquisa; três cases têm diagrama de arquitetura (FastPass,
   API Facial, Carrinho) — EduPass e Reviva ficam sem, por decisão (doc 11 §1).
-- Gate permanente verde: testes 26/26; JS entrada 100,3 KB / 110 KB;
-  chunk do case 2,8 KB / 35 KB; CSS 19,3 KB / 25 KB.
+- **Production-ready (M7 implementado)**: build gera 8 HTMLs pré-renderizados
+  (ADR-0010) com head completo por rota (canonical, OG, JSON-LD), sitemap.xml,
+  robots.txt e 404 noindex — tudo derivado da lista única de rotas em
+  coleções (`src/content/routes.ts`). Host canônico numa constante
+  (`SITE_URL`) a confirmar quando o projeto Vercel for criado.
+- Gate permanente verde: testes 44/44 (contratos de SEO, smoke do
+  pre-render e axe-core inclusos); JS entrada 100,4 KB / 110 KB; chunk do
+  case 2,7 KB / 35 KB; CSS 19,3 KB / 25 KB; Lighthouse CI no workflow
+  (a11y/BP/SEO ≥ 0,95; performance ≥ 0,90 como tripwire — critério ≥ 95 do
+  M7 se mede no preview da Vercel).
 
 ## Pendências que bloqueiam a publicação (não o desenvolvimento)
 
@@ -42,6 +51,8 @@ dos repos FastPass, READMEs profissionais.
 
 ## Próxima release (proposta)
 
-**Release 0.5 — Production Readiness** (definida pelo Francisco no
-planejamento da 0.4): SEO/pre-render + 404 noindex (M7), otimizações finais
-e refinamentos de publicação. Escopo exato se valida no planejamento.
+**Release 0.6 — Pré-lançamento / v1.0** (S5 do doc 07): roadmap GitHub
+pré-lançamento (doc 07 §3: rotação da chave Supabase, forks oficiais,
+READMEs), deploy real na Vercel (confirmar `SITE_URL`, medir o critério
+≥ 95 do M7 no preview) e integração do material do Francisco conforme
+chegar. Escopo exato se valida no planejamento.

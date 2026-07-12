@@ -12,6 +12,7 @@ export function Projects() {
   return (
     <Container className="pb-24 pt-32 lg:pt-40">
       <SectionHeading
+        as="h1"
         headingId="projetos-indice-titulo"
         label={projectsPage.label}
         title={projectsPage.title}
@@ -19,7 +20,7 @@ export function Projects() {
       />
       <div className="mt-12 grid gap-6 md:grid-cols-2">
         {byOrder.map((project) => (
-          <ProjectCard key={project.slug} project={project} />
+          <ProjectCard key={project.slug} project={project} headingAs="h2" />
         ))}
       </div>
     </Container>

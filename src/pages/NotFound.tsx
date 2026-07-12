@@ -1,8 +1,12 @@
 import { Link } from "react-router-dom";
 import { Container } from "@/components/layout/Container";
+import { notFoundRoute } from "@/content/routes";
+import { usePageTitle } from "@/lib/seo";
 
 /** Conteúdo do doc 05 §4. */
 export function NotFound() {
+  usePageTitle(notFoundRoute.seo.title);
+
   return (
     <Container className="flex min-h-[70dvh] flex-col items-start justify-center pt-16">
       <h1 className="text-h1-sm text-text lg:text-h1">Página não encontrada</h1>

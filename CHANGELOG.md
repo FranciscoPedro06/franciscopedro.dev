@@ -8,6 +8,15 @@ corresponde a um marco do [roadmap](docs/07-roadmap.md).
 
 ### Added
 
+- Release 0.5: Production Readiness — pre-render das rotas para HTML
+  estático com `react-dom/server` sobre o entry SSR do Vite (ADR-0010),
+  sistema de SEO orientado a coleções de conteúdo com host canônico em
+  constante única (`SITE_URL`), head completo por rota (canonical, Open
+  Graph, JSON-LD Person/WebSite/BreadcrumbList), sitemap.xml e robots.txt
+  gerados no build da mesma lista de rotas, 404 pré-renderizada com
+  noindex, contratos automáticos de SEO no CI, varredura axe-core por tipo
+  de página (dois achados de hierarquia de headings corrigidos), Lighthouse
+  CI no workflow e `vercel.json` para o deploy.
 - Release 0.4: Engineering Case Studies — os 4 estudos de caso restantes
   completos no padrão do FastPass (API de Reconhecimento Facial, Carrinho
   Inteligente, EduPass e Reviva, doc 05 §3.2–3.5), narrativa de evolução da

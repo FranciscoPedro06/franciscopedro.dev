@@ -124,10 +124,10 @@ impedir a entrada de bibliotecas de estado sem novo requisito.
 
 ## 6. SEO
 
-- **Pre-render no build:** as 7 rotas são renderizadas para HTML estático no
-  build (crawlers e usuários recebem conteúdo sem esperar JS). Ferramenta:
-  `vite-prerender-plugin` ou script próprio com `puppeteer` no CI — decisão
-  final na implementação, com critério: zero impacto no dev server.
+- **Pre-render no build:** as rotas são renderizadas para HTML estático no
+  build (crawlers e usuários recebem conteúdo sem esperar JS). Mecanismo:
+  script próprio com `react-dom/server` sobre o entry SSR do Vite
+  (ADR-0010) — zero impacto no dev server, nenhuma dependência nova.
 - Metadados por rota via `lib/seo.ts` (title, description, OG, canonical) —
   fonte: doc 05 §6.
 - `sitemap.xml` e `robots.txt` gerados no build a partir da lista de rotas.

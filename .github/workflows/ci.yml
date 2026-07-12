@@ -34,5 +34,9 @@ jobs:
       - name: Performance budgets (doc 06 §7)
         run: npm run check:budgets
 
-      # Lighthouse CI (métricas de campo do doc 06 §7) entra no marco de
-      # SEO/performance, quando o pre-render existir para ser medido.
+      # Acessibilidade/best-practices/SEO ≥ 0,95; performance ≥ 0,90 como
+      # tripwire de regressão — o critério oficial do M7 (≥ 95, doc 07) se
+      # mede no preview da Vercel (brotli + HTTP/2), não no servidor
+      # estático do LHCI. Decisão registrada na revisão da Release 0.5.
+      - name: Lighthouse CI (doc 06 §7)
+        run: npx --yes @lhci/cli@0.15.x autorun

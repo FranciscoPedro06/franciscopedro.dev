@@ -10,12 +10,18 @@
 ## 1. Arquitetura de metadados
 
 Cada rota declara seu `SeoMeta` no conteúdo tipado (`seo` em `site.ts`,
-`Project.seo`, futuramente `Post`). Um componente único (`lib/seo.ts`) aplica
-os metadados por rota; o pre-render os grava no HTML estático. **Nenhuma
-página existe sem SEO completo** — o teste de contrato falha o CI se `seo`
-estiver ausente ou fora dos limites.
+`Project.seo`, futuramente `Post`). As rotas são organizadas em **coleções de
+conteúdo** registradas em `src/content/routes.ts` (hoje: páginas e projetos;
+v2: artigos, resume) — adicionar uma coleção nova é registrar a fonte de
+dados: pre-render, sitemap, canonical e testes de contrato passam a cobri-la
+sem mudança no sistema. Um módulo único (`lib/seo.ts`) gera os metadados por
+rota; o pre-render os grava no HTML estático (ADR-0010). **Nenhuma página
+existe sem SEO completo** — o teste de contrato falha o CI se `seo` estiver
+ausente ou fora dos limites.
 
-Limites validados por teste: título ≤ 60 caracteres; description entre 70 e
+Limites validados por teste: título ≤ 60 caracteres (única exceção: a home,
+cujo título nome + posicionamento tem 63 — o copy do doc 05 §6 tem
+precedência por ser o documento de menor número); description entre 70 e
 160.
 
 ## 2. Títulos
@@ -57,9 +63,12 @@ Sem `twitter:site` (não há conta profissional a vincular na v1). Cases usam
 
 ## 5. Canonical URLs
 
-- Host canônico: `https://franciscopedro.dev` `[PENDENTE — confirmar domínio;
-  placeholder até o registro]`. Uma única forma: https, sem `www`, sem barra
-  final (exceto a raiz).
+- Host canônico: a constante única `SITE_URL` (`src/lib/seo.ts`) — todo URL
+  absoluto do site (canonical, OG, sitemap, robots, JSON-LD) deriva dela.
+  Enquanto `https://franciscopedro.dev` não estiver ativo, ela aponta para o
+  endereço do deploy na Vercel; ativar o domínio definitivo é alterar essa
+  única linha. Uma única forma: https, sem `www`, sem barra final (exceto a
+  raiz).
 - Toda página emite `<link rel="canonical">` absoluto e autorreferente.
 - A plataforma (Vercel) redireciona 308: `www` → apex, `http` → `https`.
 - Nenhum conteúdo acessível por duas URLs — variações de rota não existem
