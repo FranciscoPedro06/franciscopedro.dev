@@ -7,15 +7,15 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { Resvg } from "@resvg/resvg-js";
 import satori from "satori";
 
-// Tokens (docs/04-design-system.md §1)
+// Tokens (docs/04-design-system.md §1 — grafite quente, Release 0.6.1)
 const C = {
-  bg: "#0B0C0E",
-  surface: "#121316",
-  border: "#26282E",
-  text: "#F4F4F5",
-  text2: "#A1A1AA",
-  text3: "#71717A",
-  accent: "#2DD4BF",
+  bg: "#121110",
+  surface: "#191816",
+  border: "#2D2B27",
+  text: "#F2F0ED",
+  text2: "#A7A29A",
+  text3: "#8E8981",
+  accent: "#D9A866",
 };
 
 const FONT_DIR = "node_modules/@fontsource/jetbrains-mono/files";
@@ -84,10 +84,7 @@ function ogImage({ title, subtitle }) {
           },
           title
         ),
-        span(
-          { color: C.text2, fontSize: 30, fontWeight: 400, marginTop: 28 },
-          subtitle
-        ),
+        span({ color: C.text2, fontSize: 30, fontWeight: 400, marginTop: 28 }, subtitle),
       ]),
       div({ display: "flex", fontSize: 26, fontWeight: 600 }, [
         span({ color: C.text }, "franciscopedro"),

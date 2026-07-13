@@ -24,9 +24,10 @@ franciscopedro.dev
 ## 2. Monograma (superfícies quadradas)
 
 `fp.` em JetBrains Mono 600 — `fp` na cor de texto, ponto no acento — sobre
-tile `#121316` (surface) com borda 1px `#26282E` e raio proporcional (25% do
-lado). Uso exclusivo: favicon, app icons, avatares. O monograma nunca aparece
-dentro das páginas — lá, a marca é a wordmark.
+tile `#191816` (surface) com borda 1px `#2D2B27` e raio proporcional (25% do
+lado); valores da paleta grafite-quente da Release 0.6.1 (doc 04 §1). Uso
+exclusivo: favicon, app icons, avatares. O monograma nunca aparece dentro
+das páginas — lá, a marca é a wordmark.
 
 ## 3. Matriz de ícones
 
@@ -41,7 +42,7 @@ dentro das páginas — lá, a marca é a wordmark.
 
 **`og/site-og-default.png`** — 1200×630, PNG:
 
-- Fundo `#0B0C0E` com borda interna 2px `#26282E` (evita "sangrar" no card
+- Fundo `#121110` com borda interna 2px `#2D2B27` (evita "sangrar" no card
   claro de quem incorpora).
 - Nome `Francisco Pedro` — mono 600, grande, cor de texto.
 - Papel `Desenvolvedor de Sistemas & Analista de Dados` — mono 400, `text-2`.

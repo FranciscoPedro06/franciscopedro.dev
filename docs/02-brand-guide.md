@@ -92,16 +92,21 @@ pessoa, ela não entra.
 
 ### Paleta
 
-Base escura em cinzas neutros levemente frios, e **um único acento: teal
-dessaturado** (`#2DD4BF` como valor de referência; escala completa no doc 04).
+Base escura em **grafite quente** (cinzas com leve calor, sem azul
+perceptível), e **um único acento: âmbar discreto** (`#D9A866` como valor de
+referência; escala completa no doc 04). Revisão da Release 0.6.1, decisão do
+Francisco: a paleta anterior (neutros frios + teal) lia como "estética de
+IA/ciano"; a marca é uma ferramenta de trabalho, não uma landing page.
 
 Justificativa do acento: (a) diferencia-se do azul-cobalto que é a identidade
-do FastPass — o portfólio apresenta o produto, não se veste dele; (b) teal
-carrega associação com precisão e dados sem cair no azul corporativo genérico;
+do FastPass — o portfólio apresenta o produto, não se veste dele — e do
+teal/ciano saturado dos sites de IA; (b) âmbar sobre grafite quente é a
+linguagem dos editores profissionais (foco e estado, nunca decoração);
 (c) mantém contraste AA sobre o fundo escuro mesmo em texto pequeno.
 
-Regra de contenção: o acento aparece em links, estados ativos, marcadores e
-detalhes — nunca em grandes superfícies ou títulos inteiros.
+Regra de contenção: o acento aparece em foco, estados ativos, marcadores e
+detalhes — nunca em grandes superfícies ou títulos inteiros. Ele indica; não
+pinta.
 
 ### Tipografia
 
@@ -113,9 +118,10 @@ detalhes — nunca em grandes superfícies ou títulos inteiros.
 
 ### Espaçamento
 
-Generoso e rítmico: seções respiram (espaço vertical grande e constante entre
-seções), leitura confortável (medida de 65–75 caracteres). O site deve parecer
-"caro" pela quantidade de espaço, não por efeitos.
+Denso e deliberado, como software profissional (Release 0.6.1): o workbench
+usa bem o espaço — painéis compactos, chrome fino, leitura confortável
+(medida de 65–75 caracteres). O site deve parecer "caro" pela precisão do
+layout, não por hectares de respiro nem por efeitos.
 
 ### Ícones
 

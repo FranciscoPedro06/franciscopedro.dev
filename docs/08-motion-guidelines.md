@@ -25,7 +25,8 @@
 
 | Contexto | Motion | Por quê |
 |---|---|---|
-| Entrada de seção no scroll | fade + translateY 8px, 220ms, uma vez | Orienta a chegada do conteúdo sem retê-lo |
+| Comutação de view do workbench | fade + translateY 4px, 200ms (`view-in`, CSS puro) | Marca a troca do painel sem teatro |
+| Entrada de bloco no scroll do painel | fade + translateY 8px, 220ms, uma vez | Orienta a chegada do conteúdo sem retê-lo |
 | Hover em interativos | transição de **cor/borda**, 150ms | Confirma que o elemento responde |
 | Press de botão/card | `scale(0.98)`, 150ms | Feedback tátil do clique |
 | Seta de card em hover | translateX 4px, 150ms | Reforça a direção da ação |

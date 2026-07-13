@@ -11,7 +11,8 @@ export function CaseIndex({ sections }: { sections: CaseSection[] }) {
 
   return (
     <nav aria-label="Seções deste estudo de caso" className="hidden lg:block">
-      <ul className="sticky top-28 space-y-3 border-l border-border pl-5">
+      {/* Sticky relativo ao scroll do editor (workbench, Release 0.6.1) */}
+      <ul className="sticky top-6 space-y-3 border-l border-border pl-5">
         {sections.map((section) => (
           <li key={section.kind}>
             {/* Link (não <a>) para o ScrollManager mover o foco junto (doc 13 §2) */}

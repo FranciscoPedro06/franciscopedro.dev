@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { Section } from "@/components/layout/Section";
 import { ProjectCard } from "@/components/ui/ProjectCard";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -11,27 +10,22 @@ export function FeaturedWork() {
   const [main, ...rest] = highlighted;
 
   return (
-    <Section id="projetos" labelledBy="projetos-titulo">
-      <Reveal>
-        <SectionHeading
-          headingId="projetos-titulo"
-          label={featuredWork.label}
-          title={featuredWork.title}
-          description={featuredWork.description}
-        />
-      </Reveal>
+    <Reveal>
+      <SectionHeading
+        headingId="projetos-titulo"
+        label={featuredWork.label}
+        title={featuredWork.title}
+        description={featuredWork.description}
+      />
 
-      <Reveal className="mt-12">
+      <div className="mt-8 border-t border-border">
         <ProjectCard project={main} variant="featured" />
-      </Reveal>
-
-      <Reveal className="mt-6 grid gap-6 md:grid-cols-2">
         {rest.map((project) => (
           <ProjectCard key={project.slug} project={project} />
         ))}
-      </Reveal>
+      </div>
 
-      <div className="mt-10">
+      <div className="mt-8">
         <Link
           to="/projetos"
           className="inline-flex items-center gap-1 text-body font-medium text-accent transition-colors duration-150 hover:text-accent-bright"
@@ -39,6 +33,6 @@ export function FeaturedWork() {
           {featuredWork.allProjectsCta} <span aria-hidden="true">→</span>
         </Link>
       </div>
-    </Section>
+    </Reveal>
   );
 }

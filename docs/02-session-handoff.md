@@ -5,22 +5,22 @@
 > Release — contém apenas o necessário para iniciar a próxima sessão, nunca
 > histórico.
 
-**Data:** 2026-07-13 · **Release encerrada:** 0.6 — Design "IDE"
+**Data:** 2026-07-13 · **Release encerrada:** 0.6.1 — Workbench
 
 ## Próximo objetivo
 
 **Release 0.7 — Pré-lançamento / v1.0** (S5 do doc 07), a validar com o
 Francisco: roadmap GitHub pré-lançamento (doc 07 §3), medição do critério
 M7 (≥ 95) no deploy da Vercel e integração do material dele (doc 05 §7)
-conforme chegar. Antes disso, o Francisco precisa **validar visualmente a
-0.6 em navegador real** (desktop lg/xl, tablet, mobile) — o design mudou
-inteiro e só passou pelo gate automatizado.
+conforme chegar. Antes disso, o Francisco precisa **validar o workbench em
+navegador real**: a 0.6.1 mudou o paradigma inteiro (aplicação de viewport
+inteira, views por hash) e só passou pelo gate automatizado.
 
 ## Arquivos provavelmente envolvidos
 
-- `src/components/ide/` — a moldura nova (ActivityBar, Explorer,
-  EditorPane); ajustes visuais que o Francisco pedir na validação começam
-  aqui e nos docs 04 §6.13–6.15.
+- `src/components/workbench/` (ActivityBar, Explorer, EditorTabs),
+  `src/lib/views.ts` e `src/pages/Home.tsx` (gestor de views) — ajustes que
+  a validação pedir começam aqui; a norma é doc 04 §6.13–6.16 + ADR-0011.
 - `src/lib/seo.ts` — `SITE_URL` confirmada; ativar `franciscopedro.dev` é a
   mesma linha.
 - `src/content/site.ts` — e-mail, LinkedIn, `resumeReady` quando o material
@@ -29,35 +29,31 @@ inteiro e só passou pelo gate automatizado.
 
 ## Decisões desta release
 
-- A 0.6 foi redefinida pelo Francisco como **Release de Design** (o
-  pré-lançamento virou 0.7). 100% visual: arquitetura, conteúdo, rotas,
-  SEO, SSR e a11y intocados; nenhuma dependência nova (os ícones são o
-  Lucide que o doc 04 §7 já normatizava).
-- Chrome da metáfora (tabs `{slug}.tsx`, breadcrumb `portfolio › src › …`)
-  deriva de slugs/rotas existentes e vive nos componentes — não é conteúdo
-  editorial (ADR-0003 preservado). Nunca código falso.
-- Motion normativo agora é **120–220ms** (doc 04 §5, doc 08 §4): base
-  200ms, revelação 220ms, entrada 8px.
-- **Medição do orçamento de JS corrigida** em `scripts/check-budgets.mjs`:
-  JS inicial = entrada + chunks `modulepreload` (o Rollup dividiu a entrada
-  quando o `EditorPane` passou a ser compartilhado com rotas lazy). Limites
-  do doc 06 §7 inalterados; JS inicial em 104,0/110 KB — margem apertada,
-  cuidado ao adicionar qualquer coisa à entrada.
+- **ADR-0011**: as 7 seções da home são views comutadas pelo hash; todas
+  ficam montadas no DOM (`hidden` nas inativas) — SEO, ordem aprovada e
+  contratos preservados; a view deriva da URL via `useSyncExternalStore`
+  (sem estado global, sem mismatch de hidratação). Hash não é rota.
+- **Sem scroll global**: o único scroll é `#editor-scroll`; o
+  `ScrollManager` opera nesse painel (âncoras de case com foco gerenciado).
+- **Paleta grafite-quente + acento âmbar `#D9A866`** (doc 02 §3 revisado —
+  sai o teal "estética de IA"); contrastes AA calculados no doc 04 §1;
+  assets de marca regenerados por `npm run assets:brand`.
+- `site.nav` tem 6 itens (entraram Trajetória e Sobre): sem página longa,
+  toda view precisa de link direto (doc 03 §2).
+- Releases 0.6 e 0.6.1 são o mesmo marco de design em duas iterações; o
+  pré-lançamento segue sendo a 0.7.
 
 ## Observações
 
-- O `.gitignore` tinha (antes desta sessão) uma alteração staged adicionando
-  `/docs` ao ignore — tirada do stage por contradizer a memória oficial no
-  repositório; no fechamento ela já não existia no working tree (revertida
-  fora desta sessão). `docs/` segue versionado — o Francisco confirma se a
-  reversão foi intencional.
-- Pontos novos de teclado/leitor de tela para o checklist manual: rail de
-  atalhos ("Atalhos"), árvore ("Explorador"), tabs dos cases
-  (`aria-current="page"`). O axe passou nos 4 tipos de página.
-- As Releases 0.3–0.6 aguardam validação do Francisco em navegador real,
+- **JS inicial em 103,3/110 KB** — margem de ~6 KB; qualquer adição à
+  entrada (ícones, libs) deve ser pesada antes.
+- Pontos novos do checklist manual de a11y: comutação de view move o foco à
+  view; tabs do editor têm fechar próprio (24 px, `aria-label`); rail e
+  árvore são `nav`s rotulados ("Atalhos", "Explorador").
+- As Releases 0.3–0.6.1 aguardam validação do Francisco em navegador real,
   incluindo o checklist manual de acessibilidade (NVDA, Tab, zoom 200%).
 - O critério M7 (performance ≥ 95) segue aberto: medir no PageSpeed
-  Insights ou num runner de CI (medição local é ruidosa; no Windows local o
-  Lighthouse CI precisa de `CHROME_PATH` apontando para o Edge).
+  Insights ou num runner de CI (no Windows local o Lighthouse CI precisa de
+  `CHROME_PATH` apontando para o Edge).
 - As pendências de material que bloqueiam a publicação estão no
   [01-project-state.md](01-project-state.md).

@@ -4,54 +4,49 @@ const itemClasses =
   "font-mono text-label font-normal normal-case tracking-normal transition-colors duration-150";
 
 /**
- * Footer como status bar da moldura de IDE (doc 04 §6.7, Release 0.6):
- * os mesmos contatos, colofão e copyright de sempre, numa barra fina fixa
- * em desktop (lg+) e empilhada no fluxo em telas menores.
+ * Status bar do workbench (doc 04 §6.7, Release 0.6.1): uma linha fina na
+ * base da aplicação com os mesmos contatos, colofão e copyright de sempre.
+ * O colofão cede espaço em telas estreitas (some via CSS, segue no DOM).
  */
 export function Footer() {
   return (
-    <footer className="z-40 border-t border-border bg-surface lg:fixed lg:inset-x-0 lg:bottom-0">
-      <div className="flex flex-col gap-2 px-4 py-3 md:px-6 lg:flex-row lg:items-center lg:gap-6 lg:py-2">
-        <nav
-          aria-label="Contatos"
-          className="flex flex-wrap items-center gap-x-5 gap-y-2"
-        >
-          {site.social.map((link) => (
-            <a
-              key={link.label}
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`${itemClasses} text-text-2 hover:text-text`}
-            >
-              {link.label} ↗
-            </a>
-          ))}
-          {site.email && (
-            <a
-              href={`mailto:${site.email}`}
-              className={`${itemClasses} text-text-2 hover:text-text`}
-            >
-              {site.email}
-            </a>
-          )}
-        </nav>
-
-        <p className={`${itemClasses} text-text-3`}>
-          {footerCopy.colophon.split(" — ")[0]} —{" "}
+    <footer className="flex shrink-0 flex-wrap items-center gap-x-4 gap-y-1 border-t border-border bg-surface px-3 py-1.5 md:px-4">
+      <nav aria-label="Contatos" className="flex flex-wrap items-center gap-x-4">
+        {site.social.map((link) => (
           <a
-            href={site.repositoryUrl}
+            key={link.label}
+            href={link.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-text-2 underline underline-offset-4 transition-colors duration-150 hover:text-accent-bright"
+            className={`${itemClasses} text-text-2 hover:text-text`}
           >
-            o código deste site também é público
+            {link.label} ↗
           </a>
-          .
-        </p>
+        ))}
+        {site.email && (
+          <a
+            href={`mailto:${site.email}`}
+            className={`${itemClasses} text-text-2 hover:text-text`}
+          >
+            {site.email}
+          </a>
+        )}
+      </nav>
 
-        <p className={`${itemClasses} text-text-3 lg:ml-auto`}>{footerCopy.copyright}</p>
-      </div>
+      <p className={`${itemClasses} hidden text-text-3 md:block`}>
+        {footerCopy.colophon.split(" — ")[0]} —{" "}
+        <a
+          href={site.repositoryUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-text-2 underline underline-offset-4 transition-colors duration-150 hover:text-accent-bright"
+        >
+          o código deste site também é público
+        </a>
+        .
+      </p>
+
+      <p className={`${itemClasses} ml-auto text-text-3`}>{footerCopy.copyright}</p>
     </footer>
   );
 }

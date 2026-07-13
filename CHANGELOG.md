@@ -8,6 +8,18 @@ corresponde a um marco do [roadmap](docs/07-roadmap.md).
 
 ### Added
 
+- Release 0.6.1: Workbench — fim do paradigma de landing page: a aplicação
+  ocupa a viewport inteira (title bar, rail de views, explorer, editor,
+  status bar) e não existe scroll global — as 7 seções aprovadas da home
+  viram views comutadas pelas âncoras existentes (ADR-0011), todas montadas
+  no DOM para preservar SEO, pre-render e contratos; o único scroll é o do
+  painel do editor. EditorTabs derivadas da URL com fechar funcional,
+  explorer com a árvore real (`src/` + `projetos/` com extensão por stack:
+  `fastpass.tsx`, `reconhecimento-facial.py`…), projetos como linhas de
+  arquivo em vez de cards, espaçamento denso, navegação completa (entraram
+  Trajetória e Sobre) e paleta grafite-quente com acento âmbar `#D9A866`
+  no lugar do teal (doc 02 §3; assets de marca regenerados). Rotas,
+  conteúdo, SEO, SSR e os 44 testes intactos.
 - Release 0.6: Design "IDE" — release 100% visual que transforma a página
   numa moldura de aplicação: title bar em largura total, rail de atalhos
   com ícones Lucide e tooltips (lg+), Explorer em árvore de navegação

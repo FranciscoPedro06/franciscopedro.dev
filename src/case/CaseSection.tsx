@@ -12,7 +12,7 @@ export function CaseSection({ section }: { section: CaseSectionData }) {
   const List = section.kind === "decisoes" ? "ol" : "ul";
 
   return (
-    <section id={section.kind} aria-labelledby={headingId} className="scroll-mt-24">
+    <section id={section.kind} aria-labelledby={headingId} className="scroll-mt-6">
       <Reveal>
         <h2 id={headingId} className="text-h3 text-text">
           {section.title}

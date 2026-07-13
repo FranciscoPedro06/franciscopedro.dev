@@ -27,18 +27,31 @@ assets estáticos linkados pela página `/resume`.
 > estudos de caso (Featured Work); o índice completo vive em `/projetos`. Sem modais, sem popups, sem rotas aninhadas além de
 `/projetos/:slug`. URLs em português, curtas e permanentes.
 
+> **Adendo — Release 0.6.1 (workbench, decisão do Francisco):** a home
+> deixou de ser uma página longa de scroll. As mesmas 7 seções do §4, na
+> mesma ordem e com as mesmas âncoras, viram **views** de um workspace que
+> ocupa a viewport inteira (ADR-0011): navegar comuta a view na área do
+> editor; o único scroll é o do painel ativo. Nenhuma rota mudou — o hash
+> continua sendo a URL de cada seção. A navegação principal passou a listar
+> **todas** as views (`Projetos · Engenharia · Dados · Trajetória · Sobre ·
+> Contato`): sem scroll, Trajetória e Sobre precisam de link direto.
+
 ## 2. Navegação
 
 **Header fixo** (blur sutil sobre o conteúdo), presente em todas as páginas:
 
 - Esquerda: wordmark `fp.` → home.
-- Direita: `Projetos` · `Engenharia` · `Dados` · `Contato` (âncoras da home) +
-  botão discreto `Currículo` → rota `/resume` (o botão só aparece quando o
-  conteúdo do currículo existir — nunca link para página vazia).
-- Na página de case, as âncoras levam à home na seção correspondente
+- Direita: `Projetos` · `Engenharia` · `Dados` · `Trajetória` · `Sobre` ·
+  `Contato` (views da home, Release 0.6.1) + botão discreto `Currículo` →
+  rota `/resume` (o botão só aparece quando o conteúdo do currículo existir
+  — nunca link para página vazia).
+- Na página de case, os itens levam à home na view correspondente
   (`/#projetos` etc.).
-- Mobile: as 4 âncoras + botão viram menu de tela cheia (overlay), acionado
+- Mobile: os itens + botão viram menu de tela cheia (overlay), acionado
   por botão com `aria-expanded`; fecha com Esc e ao navegar.
+- Desktop (Release 0.6.1): o workbench soma o rail de atalhos (md+) e o
+  explorer em árvore (lg+) — espelhos da mesma navegação, nenhum destino
+  novo.
 
 **Navegação secundária (páginas de case):**
 
@@ -84,7 +97,9 @@ Home → nav "Dados" → seção Dados & Analytics
 
 ## 4. Hierarquia da Home
 
-Ordem e propósito de cada seção (uma única página, âncoras navegáveis):
+Ordem e propósito de cada seção — desde a Release 0.6.1, cada uma é uma
+**view** do workbench, comutada pela mesma âncora (a ordem segue valendo
+como ordem do DOM e da navegação):
 
 Ordem revisada no Sprint 2 (aprovada pelo Francisco):
 

@@ -9,37 +9,40 @@
 
 ## 1. Tokens de cor
 
-### 1.1 Neutros (base escura)
+### 1.1 Neutros (grafite quente — Release 0.6.1)
 
 | Token | Hex | Uso |
 |---|---|---|
-| `bg` | `#0B0C0E` | Fundo global |
-| `surface` | `#121316` | Cards, header com blur, blocos de código |
-| `surface-2` | `#1A1C20` | Elevação secundária (hover de card, tags) |
-| `border` | `#26282E` | Bordas padrão (1 px) |
-| `border-strong` | `#34373F` | Bordas de elementos interativos em hover/foco |
-| `text` | `#F4F4F5` | Texto primário, títulos |
-| `text-2` | `#A1A1AA` | Texto secundário, parágrafos longos |
-| `text-3` | `#898992` | Metadados, captions, placeholders |
+| `bg` | `#121110` | Fundo global e do editor |
+| `surface` | `#191816` | Barras do workbench, painéis, blocos de código |
+| `surface-2` | `#22201D` | Elevação secundária (hover, tags, tooltips) |
+| `border` | `#2D2B27` | Bordas padrão (1 px) |
+| `border-strong` | `#3C3934` | Bordas de elementos interativos em hover/foco |
+| `text` | `#F2F0ED` | Texto primário, títulos |
+| `text-2` | `#A7A29A` | Texto secundário, parágrafos longos |
+| `text-3` | `#8E8981` | Metadados, captions, placeholders |
 
-Justificativa: neutros levemente frios, sem azul perceptível (evita o visual
-"dashboard"). Três níveis de texto bastam; mais níveis diluem a hierarquia.
+Justificativa: grafite **quente**, sem azul perceptível — a linguagem dos
+editores profissionais (revisão 0.6.1: os neutros frios anteriores + teal
+liam como "estética de IA"). Três níveis de texto bastam; mais níveis diluem
+a hierarquia.
 
-Contrast check (sobre `bg #0B0C0E`): `text` 17,8:1 · `text-2` 7,6:1 ·
-`text-3` 5,6:1 — e `text-3` ≥ 4,9:1 até sobre `surface-2`, o fundo mais
-claro. Todos os pares ≥ AA (4,5:1) em qualquer tamanho de texto. O valor
-original de `text-3` (`#71717A`) declarava 4,6:1, mas media 4,05:1 — reprovado
-pelo Lighthouse em produção e corrigido no pós-deploy da Release 0.5.
+Contrast check (calculado na revisão 0.6.1): `text` 16,6:1 sobre `bg` ·
+`text-2` 7,4:1 · `text-3` 5,4:1 — e `text-3` ≥ 4,68:1 até sobre
+`surface-2`, o fundo mais claro. Todos os pares ≥ AA (4,5:1) em qualquer
+tamanho de texto. (Lição da 0.5 mantida: contraste se mede, não se declara —
+o Lighthouse real é o juiz.)
 
 ### 1.2 Acento
 
 | Token | Hex | Uso |
 |---|---|---|
-| `accent` | `#2DD4BF` | Links, estados ativos, marcadores da timeline, ponto do logo |
-| `accent-bright` | `#5EEAD4` | Hover de link, foco |
-| `accent-dim` | `rgba(45, 212, 191, 0.12)` | Fundos sutis (tag ativa, seleção) |
+| `accent` | `#D9A866` | Foco, estados ativos, marcadores, ponto do logo |
+| `accent-bright` | `#ECC78F` | Hover de link, foco |
+| `accent-dim` | `rgba(217, 168, 102, 0.12)` | Fundos sutis (item ativo do explorer, seleção) |
 
-Contraste de `accent` sobre `bg`: 10,3:1 — serve para texto de qualquer tamanho.
+Contraste de `accent` sobre `bg`: 8,8:1 — serve para texto de qualquer
+tamanho. O acento **indica** (foco, estado); nunca pinta superfícies.
 
 **Regras de contenção** (invioláveis): o acento nunca preenche botões grandes,
 nunca coloriza títulos inteiros, nunca aparece em mais de ~5% da área visível.
@@ -57,7 +60,7 @@ Sem `warning` na v1: não há caso de uso. Não criar token sem uso.
 
 | Token | Valor | Uso |
 |---|---|---|
-| `grid-line` | `rgba(244, 244, 245, 0.025)` | Linhas do grid do fundo global |
+| `grid-line` | `rgba(242, 240, 237, 0.025)` | Linhas do grid do fundo global |
 
 O fundo global é o canvas de uma IDE: grid de 48 px quase imperceptível +
 ruído SVG (`feTurbulence`, opacidade 0,028) numa camada fixa atrás de todo o
@@ -98,22 +101,24 @@ Regras: medida de leitura 65–75ch (`max-w-prose`); títulos nunca em caixa alt
 
 ### 3.1 Escala de espaçamento
 
-Base 4 px (escala Tailwind padrão). Valores canônicos do layout:
+Base 4 px (escala Tailwind padrão). Valores canônicos do workbench
+(Release 0.6.1 — denso como software, não como landing page):
 
 | Contexto | Valor |
 |---|---|
-| Entre seções da home | 128 px desktop · 96 px mobile |
-| Título de seção → conteúdo | 48 px |
-| Entre cards | 24 px |
-| Padding interno de card | 24–32 px |
-| Padding lateral da página | 24 px mobile · 32 px tablet |
+| Padding da view / página no editor | 20–24 px · 32–40 px lateral em md+ |
+| Título de view → conteúdo | 32 px |
+| Entre painéis | 10–16 px |
+| Padding interno de painel | 14–20 px |
+| Chrome do workbench | title bar 48 px · tabs ~36 px · status bar ~28 px |
 
 ### 3.2 Grid
 
-- Container central: `max-width: 1120px`, centrado.
-- Desktop: grid de 12 colunas, gutter 24 px. Hero usa 7+5 (texto+foto);
-  cards de projeto secundários usam 2×2 (6+6) ou 4×3 conforme largura.
-- Mobile: coluna única.
+- A aplicação ocupa a viewport (`100dvh`); colunas do workbench: rail 48 px
+  (md+) · explorer 240 px (lg+) · editor fluido.
+- O conteúdo do editor é alinhado à esquerda com `max-w-prose` na leitura;
+  grades internas (painéis, extensões) usam 2 colunas em md+.
+- Mobile: coluna única dentro do editor.
 
 ### 3.3 Raios e bordas
 
@@ -132,11 +137,11 @@ Padrão Tailwind — sem customização (menos surpresa, mais documentação):
 
 | Token | Largura | Layout |
 |---|---|---|
-| (base) | <640 px | Coluna única |
+| (base) | <640 px | Coluna única no editor; navegação pelo menu overlay |
 | `sm` | ≥640 px | Botões lado a lado, grade de tags |
-| `md` | ≥768 px | Cards 2 colunas |
-| `lg` | ≥1024 px | Grid completo, índice lateral nos cases, ActivityBar (§6.13) e status bar fixa (§6.7) |
-| `xl` | ≥1280 px | Entra o Explorer (§6.14) — a moldura de IDE completa |
+| `md` | ≥768 px | Painéis 2 colunas, ActivityBar (§6.13), nav no title bar |
+| `lg` | ≥1024 px | Explorer (§6.14) — o workbench completo; índice lateral nos cases |
+| `xl` | ≥1280 px | Só aumenta respiro; nenhum elemento novo |
 
 ## 5. Motion
 
@@ -146,8 +151,8 @@ site. Nada anima por mais de 220 ms.
 | Token | Valor | Uso |
 |---|---|---|
 | `duration-fast` | 150 ms | Hover, foco, press, tooltips do rail |
-| `duration-base` | 200 ms | Entrada de elementos, overlay do menu |
-| `duration-slow` | 220 ms | Revelação de seção no scroll (uma vez só) |
+| `duration-base` | 200 ms | Comutação de view (`view-in`), overlay do menu |
+| `duration-slow` | 220 ms | Revelação no scroll do painel (uma vez só) |
 | `ease-out-soft` | `cubic-bezier(0.16, 1, 0.3, 1)` | Tudo |
 
 Padrões permitidos: fade + deslocamento vertical ≤8 px na entrada de seções
@@ -198,18 +203,18 @@ tecnologia.
 ### 6.4 `Card` (projeto)
 
 Justificativa: porta de entrada dos cases; precisa vender profundidade sem
-virar banner. Desde a Release 0.6 é um **painel de IDE**, não um cartão.
+virar banner. Desde a Release 0.6.1 é uma **linha de arquivo** do workbench,
+não um cartão nem um painel.
 
-- Anatomia: cabeçalho de arquivo (`{slug}.tsx` em mono decorativo + `Badge`
-  de status, separado por borda) + corpo com título `h3`, resumo de 1–2
-  linhas (`text-2`), linha de `Tag`s e seta `Ver estudo de caso →`.
-  `radius-md`, fundo `surface`, borda `border`. A moldura de screenshot
-  (`radius-lg`) entra no corpo quando os assets existirem.
-- Variantes: `featured` (FastPass — largura total, resumo mais longo) e
-  `default` (grade).
-- Interação: o painel inteiro é um link (`<a>` único envolvendo o conteúdo);
-  hover eleva a borda (`border` → `border-strong`) e desloca a seta 4 px.
-  Sem zoom de imagem, sem glow.
+- Anatomia: linha de arquivo (`projectFile` — `{slug}.{ext}`, extensão
+  derivada da primeira tag real do projeto — em mono decorativo + `Badge`
+  de status), título `h3`, resumo de 1–2 linhas (`text-2`), linha de `Tag`s
+  e seta `Ver estudo de caso →`. Linhas separadas por borda inferior, sem
+  caixa. A moldura de screenshot entra quando os assets existirem.
+- Variantes: `featured` (FastPass — resumo em `body-lg`) e `default`.
+- Interação: a linha inteira é um link (`<a>` único envolvendo o conteúdo);
+  hover eleva o fundo (`surface-2` a 50%) e desloca a seta 4 px. Sem zoom
+  de imagem, sem glow.
 
 ### 6.5 `SectionHeading`
 
@@ -219,21 +224,20 @@ hierarquia em todas as seções.
 
 ### 6.6 `NavBar`
 
-Title bar da moldura de IDE (Release 0.6): header fixo, 64 px, **largura
-total**, fundo `bg` a 85% com `backdrop-blur`, borda inferior `border`
-permanente. Esquerda: wordmark. Direita: links como itens de menu de
-aplicação + `Button secondary` (Currículo). Mobile: botão de menu (44 px)
-abre overlay tela cheia com os mesmos itens em `h3`, foco preso (focus
-trap), fecha com Esc. Link ativo: fundo `surface-2` + texto `text`
-(scroll-spy nas âncoras).
+Title bar do workbench (Release 0.6.1): a primeira faixa da aplicação —
+48 px, fundo `surface`, borda inferior `border`. Esquerda: wordmark.
+Direita (md+): as views como itens de menu de aplicação + `Button
+secondary` (Currículo). Item ativo: fundo `surface-2` + texto `text` (a
+view do hash). Abaixo de md: botão de menu abre overlay tela cheia com os
+mesmos itens em `h3`, foco preso (focus trap), fecha com Esc.
 
 ### 6.7 `Footer`
 
-Status bar da moldura de IDE (Release 0.6): os mesmos contatos do hero, o
-colofão técnico curto ("React · Vite · TypeScript — código no GitHub") e o
-copyright, tudo em mono 13 px numa barra fina de fundo `surface` com borda
-superior — **fixa na base em `lg+`**, empilhada no fluxo em telas menores.
-Sem newsletter, sem mapa do site duplicado.
+Status bar do workbench (Release 0.6.1): a última faixa da aplicação — uma
+linha fina em mono 13 px, fundo `surface`, borda superior — com os mesmos
+contatos de sempre, o colofão técnico ("React · Vite · TypeScript — código
+no GitHub") e o copyright. O colofão cede o lugar em telas < md (some por
+CSS, permanece no DOM). Sem newsletter, sem mapa do site duplicado.
 
 ### 6.8 `TimelineItem`
 
@@ -267,39 +271,51 @@ prova visual — moldura única impede a colagem de estilos diferentes.
 **Não existem na v1.** Não há formulário (decisão do charter §8). Registrado
 para impedir que um formulário de contato entre "de brinde" na implementação.
 
-### 6.13 `ActivityBar` (Release 0.6)
+### 6.13 `ActivityBar` (Release 0.6.1)
 
-Justificativa: a moldura de IDE precisa de um rail de atalhos que transmita
-"aplicação", não "site". Rail vertical fixo à esquerda (56 px, fundo
-`surface`, borda direita), visível só em `lg+`. Espelha a navegação
-principal em ícones Lucide 22 px (`Início` + itens de `site.nav` + GitHub) —
-nenhum destino novo. Estado ativo pelo mesmo scroll-spy da NavBar: ícone
-`accent` + marcador de 2 px na borda esquerda. Tooltip decorativo em mono ao
-hover/foco (o nome acessível vem do `aria-label`). `nav` rotulado "Atalhos".
+Justificativa: o workbench precisa de um rail de atalhos que transmita
+"aplicação", não "site". Coluna da aplicação (48 px, fundo `surface`, borda
+direita), visível em `md+`. Uma view por ícone Lucide 20 px
+(`HOME_VIEWS`) + GitHub na base — nenhum destino novo. Estado ativo pela
+view do hash: ícone `accent` + marcador de 2 px na borda esquerda. Tooltip
+decorativo em mono ao hover/foco (o nome acessível vem do `aria-label`).
+`nav` rotulado "Atalhos".
 
-### 6.14 `Explorer` (Release 0.6)
+### 6.14 `Explorer` (Release 0.6.1)
 
-Justificativa: a sensação de árvore de arquivos é o coração da metáfora.
-Painel fixo ao lado do rail (240 px, fundo `surface` a 60%, borda direita),
-visível só em `xl+`. Árvore estática (sem estado de colapso) derivada de
-`site.nav` e das coleções de projetos: grupo `home` (o arquivo
-`francisco-pedro.tsx` + âncoras das seções) e grupo `projetos` (os 5 cases
-como `{slug}.tsx`). Mono 14 px; item ativo com fundo `accent-dim`; chevrons
+Justificativa: a árvore de arquivos é o coração da metáfora — e aqui ela é
+a árvore **real** da aplicação. Coluna ao lado do rail (240 px, fundo
+`surface` a 60%, borda direita), visível em `lg+`. Árvore estática (sem
+estado de colapso): `src/` com uma view por arquivo (`overview.tsx`,
+`engenharia.tsx`…) e a pasta `projetos/` — o cabeçalho abre o índice
+`/projetos` e os filhos são os 5 cases com extensão derivada da stack real
+(`fastpass.tsx`, `reconhecimento-facial.py`, `carrinho-inteligente.java`…,
+via `projectFile`). Mono 14 px; item ativo com fundo `accent-dim`; chevrons
 e ícones de arquivo decorativos. `nav` rotulado "Explorador".
 
-### 6.15 `EditorPane` (Release 0.6)
+### 6.15 `EditorTabs` (Release 0.6.1)
 
-Justificativa: o conteúdo principal deve parecer um arquivo aberto, não um
-bloco flutuando. Moldura de editor com três faixas: tabs (mono 13 px, tab
-ativa com linha superior `accent` de 2 px, ponto indicador e — quando é o
-único arquivo — botão de fechar decorativo), breadcrumb decorativo
-(`aria-hidden`, ex.: `portfolio › src › francisco-pedro.tsx`) e corpo.
-Fundo `bg` sólido, borda `border`, `radius-md`; a faixa de tabs usa
-`surface`. Quando as tabs navegam (os 5 cases), a faixa é um `nav` rotulado
-com `aria-current="page"` na ativa. **Sem `overflow-hidden` no contêiner** —
-o `position: sticky` do índice do case depende disso. Regra editorial: as
-tabs e breadcrumbs são chrome da metáfora (nomes de arquivo derivados de
+Justificativa: numa IDE, navegar é abrir arquivos. Faixa de tabs no topo do
+editor + breadcrumb decorativo (`aria-hidden`), tudo **derivado da URL**
+(ADR-0004/0011): a tab `overview.tsx` é fixa (a "welcome page") e o arquivo
+aberto — view (`sobre.tsx`), pasta (`projetos`), case (`fastpass.tsx`) ou
+`404.html` — entra ao lado, ativa (linha superior `accent` de 2 px, ponto
+indicador, `aria-current="page"`), com **fechar funcional**: fecha para o
+contexto de origem (view → overview; case → `/projetos`), alvo de 24 px,
+`aria-label` próprio. A faixa é um `nav` rotulado "Arquivos abertos". Regra
+editorial: tabs e breadcrumbs são chrome da metáfora (nomes derivados de
 slugs/rotas existentes) — nunca código falso, nunca conteúdo inventado.
+
+### 6.16 `Workbench` (Release 0.6.1)
+
+O frame da aplicação (implementado no `App`): `100dvh`, `overflow-hidden`,
+em faixas — title bar (§6.6) · [rail (§6.13) | explorer (§6.14) | editor] ·
+status bar (§6.7). **Não existe scroll global**: o único scroll é o do
+painel do editor (`#editor-scroll`), suave (respeitando
+`prefers-reduced-motion`). As views da home ficam todas montadas e a ativa
+é comutada pelo hash (ADR-0011); a comutação anima com `view-in` (200 ms,
+fade + 4 px). Landmarks: `header`, `nav`s rotulados, `main` único,
+`footer`.
 
 ## 7. Ícones
 
@@ -326,14 +342,15 @@ significado.
   se faltar um valor, o token nasce aqui primeiro.
 - Componente novo só com justificativa escrita (adenda a este doc).
 - Variantes antes de novos componentes; composição antes de variantes.
-- Exemplo canônico de composição de uma seção da home:
+- Exemplo canônico de composição de uma view da home (Release 0.6.1 — a
+  `View` é o wrapper do gestor de views em `pages/Home`):
 
 ```
-<Section id="projetos">
+<View id="projetos" active={active} labelledBy="projetos-titulo">
   <SectionHeading label="PROJETOS" title="Estudos de caso" />
-  <Card variant="featured" project={fastpass} />
-  <div class="grid md:grid-cols-2 gap-6">
+  <div class="border-t border-border">
+    <Card variant="featured" project={fastpass} />
     <Card project={apiFacial} /> …
   </div>
-</Section>
+</View>
 ```
