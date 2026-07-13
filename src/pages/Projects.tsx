@@ -1,3 +1,4 @@
+import { EditorPane } from "@/components/ide/EditorPane";
 import { Container } from "@/components/layout/Container";
 import { ProjectCard } from "@/components/ui/ProjectCard";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -10,19 +11,24 @@ export function Projects() {
   usePageTitle(projectsPage.seo.title);
 
   return (
-    <Container className="pb-24 pt-32 lg:pt-40">
-      <SectionHeading
-        as="h1"
-        headingId="projetos-indice-titulo"
-        label={projectsPage.label}
-        title={projectsPage.title}
-        description={projectsPage.description}
-      />
-      <div className="mt-12 grid gap-6 md:grid-cols-2">
-        {byOrder.map((project) => (
-          <ProjectCard key={project.slug} project={project} headingAs="h2" />
-        ))}
-      </div>
+    <Container className="pb-24 pt-28 lg:pt-32">
+      <EditorPane
+        tabs={[{ name: "projetos", active: true }]}
+        breadcrumb={["portfolio", "src", "projetos"]}
+      >
+        <SectionHeading
+          as="h1"
+          headingId="projetos-indice-titulo"
+          label={projectsPage.label}
+          title={projectsPage.title}
+          description={projectsPage.description}
+        />
+        <div className="mt-12 grid gap-5 md:grid-cols-2">
+          {byOrder.map((project) => (
+            <ProjectCard key={project.slug} project={project} headingAs="h2" />
+          ))}
+        </div>
+      </EditorPane>
     </Container>
   );
 }

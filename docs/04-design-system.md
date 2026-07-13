@@ -53,6 +53,17 @@ nunca coloriza títulos inteiros, nunca aparece em mais de ~5% da área visível
 
 Sem `warning` na v1: não há caso de uso. Não criar token sem uso.
 
+### 1.4 Canvas da IDE (Release 0.6)
+
+| Token | Valor | Uso |
+|---|---|---|
+| `grid-line` | `rgba(244, 244, 245, 0.025)` | Linhas do grid do fundo global |
+
+O fundo global é o canvas de uma IDE: grid de 48 px quase imperceptível +
+ruído SVG (`feTurbulence`, opacidade 0,028) numa camada fixa atrás de todo o
+conteúdo — CSS puro, sem canvas nem JS. Painéis e editores usam fundos
+sólidos (`bg`, `surface`) por cima; o canvas só aparece no espaço negativo.
+
 ## 2. Tipografia
 
 ### 2.1 Famílias
@@ -124,19 +135,22 @@ Padrão Tailwind — sem customização (menos surpresa, mais documentação):
 | (base) | <640 px | Coluna única |
 | `sm` | ≥640 px | Botões lado a lado, grade de tags |
 | `md` | ≥768 px | Cards 2 colunas |
-| `lg` | ≥1024 px | Grid completo, hero 2 colunas, índice lateral nos cases |
-| `xl` | ≥1280 px | Só aumenta respiro; nenhum elemento novo |
+| `lg` | ≥1024 px | Grid completo, índice lateral nos cases, ActivityBar (§6.13) e status bar fixa (§6.7) |
+| `xl` | ≥1280 px | Entra o Explorer (§6.14) — a moldura de IDE completa |
 
 ## 5. Motion
 
+Faixa única da Release 0.6: **120–220 ms** — movimento de software, não de
+site. Nada anima por mais de 220 ms.
+
 | Token | Valor | Uso |
 |---|---|---|
-| `duration-fast` | 150 ms | Hover, foco, press |
-| `duration-base` | 250 ms | Entrada de elementos, overlay do menu |
-| `duration-slow` | 500 ms | Revelação de seção no scroll (uma vez só) |
+| `duration-fast` | 150 ms | Hover, foco, press, tooltips do rail |
+| `duration-base` | 200 ms | Entrada de elementos, overlay do menu |
+| `duration-slow` | 220 ms | Revelação de seção no scroll (uma vez só) |
 | `ease-out-soft` | `cubic-bezier(0.16, 1, 0.3, 1)` | Tudo |
 
-Padrões permitidos: fade + deslocamento vertical ≤16 px na entrada de seções
+Padrões permitidos: fade + deslocamento vertical ≤8 px na entrada de seções
 (`whileInView`, `once: true`); transição de opacidade entre rotas; `scale`
 0.98 em press de botão. Padrões proibidos: parallax, loops infinitos,
 stagger longo (>80 ms por item), animação de texto letra a letra.
@@ -184,14 +198,17 @@ tecnologia.
 ### 6.4 `Card` (projeto)
 
 Justificativa: porta de entrada dos cases; precisa vender profundidade sem
-virar banner.
+virar banner. Desde a Release 0.6 é um **painel de IDE**, não um cartão.
 
-- Anatomia: moldura de screenshot (`radius-lg`) + título `h3` + resumo de
-  1–2 linhas (`text-2`) + linha de `Tag`s + seta `Ver estudo de caso →`.
-- Variantes: `featured` (FastPass — largura total, screenshot maior, resumo
-  mais longo) e `default` (grade).
-- Interação: o card inteiro é um link (`<a>` único envolvendo o conteúdo);
-  hover eleva o fundo (`surface` → `surface-2`) e desloca a seta 4 px.
+- Anatomia: cabeçalho de arquivo (`{slug}.tsx` em mono decorativo + `Badge`
+  de status, separado por borda) + corpo com título `h3`, resumo de 1–2
+  linhas (`text-2`), linha de `Tag`s e seta `Ver estudo de caso →`.
+  `radius-md`, fundo `surface`, borda `border`. A moldura de screenshot
+  (`radius-lg`) entra no corpo quando os assets existirem.
+- Variantes: `featured` (FastPass — largura total, resumo mais longo) e
+  `default` (grade).
+- Interação: o painel inteiro é um link (`<a>` único envolvendo o conteúdo);
+  hover eleva a borda (`border` → `border-strong`) e desloca a seta 4 px.
   Sem zoom de imagem, sem glow.
 
 ### 6.5 `SectionHeading`
@@ -202,18 +219,21 @@ hierarquia em todas as seções.
 
 ### 6.6 `NavBar`
 
-Header fixo, 64 px, fundo `bg` a 80% com `backdrop-blur`, borda inferior
-`border` que só aparece após 8 px de scroll. Esquerda: wordmark. Direita:
-links `ghost` + `Button secondary` (Currículo). Mobile: botão de menu
-(44 px) abre overlay tela cheia com os mesmos itens em `h3`, foco preso
-(focus trap), fecha com Esc. Link ativo: texto `text` + sublinhado 2 px
-`accent` (scroll-spy nas âncoras).
+Title bar da moldura de IDE (Release 0.6): header fixo, 64 px, **largura
+total**, fundo `bg` a 85% com `backdrop-blur`, borda inferior `border`
+permanente. Esquerda: wordmark. Direita: links como itens de menu de
+aplicação + `Button secondary` (Currículo). Mobile: botão de menu (44 px)
+abre overlay tela cheia com os mesmos itens em `h3`, foco preso (focus
+trap), fecha com Esc. Link ativo: fundo `surface-2` + texto `text`
+(scroll-spy nas âncoras).
 
 ### 6.7 `Footer`
 
-Três linhas: contatos (mesmos links do hero), colofão técnico curto
-("React · Vite · TypeScript — código no GitHub"), copyright. Fundo `bg`,
-separado por borda superior. Sem newsletter, sem mapa do site duplicado.
+Status bar da moldura de IDE (Release 0.6): os mesmos contatos do hero, o
+colofão técnico curto ("React · Vite · TypeScript — código no GitHub") e o
+copyright, tudo em mono 13 px numa barra fina de fundo `surface` com borda
+superior — **fixa na base em `lg+`**, empilhada no fluxo em telas menores.
+Sem newsletter, sem mapa do site duplicado.
 
 ### 6.8 `TimelineItem`
 
@@ -247,11 +267,47 @@ prova visual — moldura única impede a colagem de estilos diferentes.
 **Não existem na v1.** Não há formulário (decisão do charter §8). Registrado
 para impedir que um formulário de contato entre "de brinde" na implementação.
 
+### 6.13 `ActivityBar` (Release 0.6)
+
+Justificativa: a moldura de IDE precisa de um rail de atalhos que transmita
+"aplicação", não "site". Rail vertical fixo à esquerda (56 px, fundo
+`surface`, borda direita), visível só em `lg+`. Espelha a navegação
+principal em ícones Lucide 22 px (`Início` + itens de `site.nav` + GitHub) —
+nenhum destino novo. Estado ativo pelo mesmo scroll-spy da NavBar: ícone
+`accent` + marcador de 2 px na borda esquerda. Tooltip decorativo em mono ao
+hover/foco (o nome acessível vem do `aria-label`). `nav` rotulado "Atalhos".
+
+### 6.14 `Explorer` (Release 0.6)
+
+Justificativa: a sensação de árvore de arquivos é o coração da metáfora.
+Painel fixo ao lado do rail (240 px, fundo `surface` a 60%, borda direita),
+visível só em `xl+`. Árvore estática (sem estado de colapso) derivada de
+`site.nav` e das coleções de projetos: grupo `home` (o arquivo
+`francisco-pedro.tsx` + âncoras das seções) e grupo `projetos` (os 5 cases
+como `{slug}.tsx`). Mono 14 px; item ativo com fundo `accent-dim`; chevrons
+e ícones de arquivo decorativos. `nav` rotulado "Explorador".
+
+### 6.15 `EditorPane` (Release 0.6)
+
+Justificativa: o conteúdo principal deve parecer um arquivo aberto, não um
+bloco flutuando. Moldura de editor com três faixas: tabs (mono 13 px, tab
+ativa com linha superior `accent` de 2 px, ponto indicador e — quando é o
+único arquivo — botão de fechar decorativo), breadcrumb decorativo
+(`aria-hidden`, ex.: `portfolio › src › francisco-pedro.tsx`) e corpo.
+Fundo `bg` sólido, borda `border`, `radius-md`; a faixa de tabs usa
+`surface`. Quando as tabs navegam (os 5 cases), a faixa é um `nav` rotulado
+com `aria-current="page"` na ativa. **Sem `overflow-hidden` no contêiner** —
+o `position: sticky` do índice do case depende disso. Regra editorial: as
+tabs e breadcrumbs são chrome da metáfora (nomes de arquivo derivados de
+slugs/rotas existentes) — nunca código falso, nunca conteúdo inventado.
+
 ## 7. Ícones
 
-Lucide, 16 px (inline com texto) ou 20 px (botões), stroke 1.5, cor herdada
+Lucide, 16 px (inline com texto), 20 px (botões), 22 px (ActivityBar) ou
+12–14 px (chrome da IDE: tabs, breadcrumb, árvore), stroke 1.5, cor herdada
 do texto. Ícones externos (`↗`) marcam links que saem do site. `aria-hidden`
-por padrão — o texto adjacente carrega o significado.
+por padrão — o texto adjacente (ou o `aria-label` do interativo) carrega o
+significado.
 
 ## 8. Acessibilidade (regras transversais)
 

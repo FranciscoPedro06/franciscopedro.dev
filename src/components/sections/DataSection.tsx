@@ -16,11 +16,23 @@ export function DataSection() {
         />
       </Reveal>
 
-      <Reveal className="mt-12 grid gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+      {/* Skills como lista de extensões instaladas (Release 0.6) */}
+      <Reveal className="mt-12 grid gap-3 sm:grid-cols-2">
         {skills.map((skill) => (
-          <div key={skill.name}>
-            <h3 className="text-body font-medium text-text">{skill.name}</h3>
-            <p className="mt-1 text-small text-text-2">{skill.description}</p>
+          <div
+            key={skill.name}
+            className="flex gap-4 rounded-md border border-border bg-surface p-4 transition-colors duration-150 hover:border-border-strong"
+          >
+            <span
+              aria-hidden="true"
+              className="flex size-10 shrink-0 items-center justify-center rounded-sm border border-border bg-surface-2 font-mono text-label text-accent"
+            >
+              {skill.name.slice(0, 2)}
+            </span>
+            <div>
+              <h3 className="text-body font-medium text-text">{skill.name}</h3>
+              <p className="mt-1 text-small text-text-2">{skill.description}</p>
+            </div>
           </div>
         ))}
       </Reveal>

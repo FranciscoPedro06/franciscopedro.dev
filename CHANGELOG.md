@@ -6,6 +6,28 @@ corresponde a um marco do [roadmap](docs/07-roadmap.md).
 
 ## [Unreleased]
 
+### Added
+
+- Release 0.6: Design "IDE" — release 100% visual que transforma a página
+  numa moldura de aplicação: title bar em largura total, rail de atalhos
+  com ícones Lucide e tooltips (lg+), Explorer em árvore de navegação
+  derivada das rotas existentes (xl+), footer como status bar fixa,
+  `EditorPane` com tabs e breadcrumb decorativo (Hero como
+  `francisco-pedro.tsx`; os 5 cases como tabs navegáveis), cards de projeto
+  como painéis com cabeçalho de arquivo, skills como lista de extensões,
+  princípios numerados, nós da timeline em estilo source control, canvas de
+  fundo com grid e ruído em CSS puro e motion restrito a 120–220ms.
+  Arquitetura, conteúdo, rotas, SEO, SSR/pre-render e acessibilidade
+  intocados; nenhuma dependência nova.
+
+### Changed
+
+- Medição do orçamento de JS (`scripts/check-budgets.mjs`): "JS inicial"
+  passou a somar o chunk de entrada e os chunks estáticos com
+  `modulepreload` no `index.html` — o Rollup divide a entrada quando módulos
+  são compartilhados com rotas lazy e o script classificava o pedaço
+  estático como lazy. Limites do doc 06 §7 inalterados (110 KB).
+
 ### Fixed
 
 - O botão "Contato" do Hero abria nova aba: a âncora interna `#contato`

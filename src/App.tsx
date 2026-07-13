@@ -1,5 +1,7 @@
 import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
+import { ActivityBar } from "@/components/ide/ActivityBar";
+import { Explorer } from "@/components/ide/Explorer";
 import { Footer } from "@/components/layout/Footer";
 import { NavBar } from "@/components/layout/NavBar";
 import { ScrollManager } from "@/components/layout/ScrollManager";
@@ -24,7 +26,10 @@ export function App() {
       <SkipLink />
       <ScrollManager />
       <NavBar />
-      <main id="conteudo" className="flex-1">
+      {/* Moldura de IDE (Release 0.6): rail + explorer só em desktop */}
+      <ActivityBar />
+      <Explorer />
+      <main id="conteudo" className="flex-1 lg:pl-14 xl:pl-[18.5rem]">
         {/* Fallback é o fundo puro — sem spinner (doc 08 §5) */}
         <Suspense fallback={null}>
           <Routes>

@@ -26,21 +26,31 @@ const dist = "dist";
 const assetsDir = join(dist, "assets");
 const assets = await readdir(assetsDir);
 
-// O chunk de entrada é o referenciado pelo index.html; os demais .js são lazy.
+// O JS inicial é o chunk de entrada MAIS os chunks estáticos que ele puxa
+// (rel="modulepreload" no index.html) — quando o Rollup divide a entrada,
+// tudo isso chega junto no primeiro carregamento e o orçamento vale para a
+// soma. Os demais .js são lazy (import() de rota).
 const indexHtml = await readFile(join(dist, "index.html"), "utf8");
 const entryMatch = indexHtml.match(/src="\/assets\/(index-[^"]+\.js)"/);
 if (!entryMatch) throw new Error("Chunk de entrada não encontrado no index.html");
+const preloaded = [
+  ...indexHtml.matchAll(/rel="modulepreload"[^>]*href="\/assets\/([^"]+\.js)"/g),
+].map((m) => m[1]);
+const initialChunks = new Set([entryMatch[1], ...preloaded]);
+const initialFiles = [];
 
 for (const file of assets) {
   const path = join(assetsDir, file);
 
   if (file.endsWith(".js")) {
     const size = await gzipSize(path);
-    const isEntry = file === entryMatch[1];
-    const limit = isEntry ? BUDGETS.entryJsGzip : BUDGETS.lazyChunkJsGzip;
-    const label = isEntry ? "JS entrada" : "JS lazy  ";
-    report.push({ label, file, size, limit });
-    if (size > limit) failures.push({ label, file, size, limit });
+    if (initialChunks.has(file)) {
+      initialFiles.push({ file, size });
+    } else {
+      const limit = BUDGETS.lazyChunkJsGzip;
+      report.push({ label: "JS lazy  ", file, size, limit });
+      if (size > limit) failures.push({ label: "JS lazy", file, size, limit });
+    }
   }
 
   if (file.endsWith(".css")) {
@@ -60,9 +70,19 @@ try {
       if (entry.isDirectory()) await walk(path);
       else if (/\.(avif|webp|png)$/.test(entry.name)) {
         const size = (await readFile(path)).length;
-        report.push({ label: "Imagem   ", file: entry.name, size, limit: BUDGETS.imageBytes });
+        report.push({
+          label: "Imagem   ",
+          file: entry.name,
+          size,
+          limit: BUDGETS.imageBytes,
+        });
         if (size > BUDGETS.imageBytes)
-          failures.push({ label: "Imagem", file: entry.name, size, limit: BUDGETS.imageBytes });
+          failures.push({
+            label: "Imagem",
+            file: entry.name,
+            size,
+            limit: BUDGETS.imageBytes,
+          });
       }
     }
   };
@@ -71,10 +91,27 @@ try {
   // dist/images ainda não existe — nada a verificar
 }
 
+const initialTotal = initialFiles.reduce((sum, f) => sum + f.size, 0);
+report.unshift({
+  label: "JS inicial",
+  file: initialFiles.map((f) => f.file).join(" + "),
+  size: initialTotal,
+  limit: BUDGETS.entryJsGzip,
+});
+if (initialTotal > BUDGETS.entryJsGzip)
+  failures.push({
+    label: "JS inicial",
+    file: initialFiles.map((f) => f.file).join(" + "),
+    size: initialTotal,
+    limit: BUDGETS.entryJsGzip,
+  });
+
 const fmt = (b) => `${(b / KB).toFixed(1)} KB`;
 for (const { label, file, size, limit } of report) {
   const status = size > limit ? "ESTOUROU" : "ok";
-  console.log(`${label}  ${fmt(size).padStart(9)} / ${fmt(limit).padEnd(9)} ${status}  ${file}`);
+  console.log(
+    `${label}  ${fmt(size).padStart(9)} / ${fmt(limit).padEnd(9)} ${status}  ${file}`
+  );
 }
 
 if (failures.length > 0) {

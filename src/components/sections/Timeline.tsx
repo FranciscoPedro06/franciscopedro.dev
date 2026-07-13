@@ -19,10 +19,11 @@ export function Timeline() {
       <ol className="mt-12 max-w-prose border-l border-border">
         {timeline.map((entry) => (
           <li key={entry.date} className="relative pb-12 pl-8 last:pb-0">
+            {/* Nó de commit da trajetória (Release 0.6 — painel source control) */}
             <span
               aria-hidden="true"
-              className={`absolute -left-[4.5px] top-1.5 size-2 rounded-full ${
-                entry.current ? "bg-accent" : "bg-border-strong"
+              className={`absolute -left-[5.5px] top-1.5 size-2.5 rounded-full border-2 bg-bg ${
+                entry.current ? "border-accent" : "border-border-strong"
               }`}
             />
             <Reveal>

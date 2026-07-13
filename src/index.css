@@ -27,6 +27,9 @@
   --color-success: #4ade80;
   --color-danger: #f87171;
 
+  /* Canvas da IDE (doc 04 §1.4 — Release 0.6) */
+  --color-grid-line: rgba(244, 244, 245, 0.025);
+
   /* Tipografia (doc 04 §2) */
   --font-sans: "Inter Variable", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
@@ -91,6 +94,26 @@
     color: var(--color-text);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+  }
+
+  /*
+   * Canvas da IDE (doc 04 §1.4): grid quase imperceptível + ruído suave,
+   * em camada fixa atrás de todo o conteúdo. CSS puro — sem canvas, sem JS.
+   */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.028'/%3E%3C/svg%3E"),
+      linear-gradient(to right, var(--color-grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--color-grid-line) 1px, transparent 1px);
+    background-size:
+      160px 160px,
+      48px 48px,
+      48px 48px;
   }
 
   ::selection {

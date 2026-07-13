@@ -25,12 +25,13 @@
 
 | Contexto | Motion | Por quê |
 |---|---|---|
-| Entrada de seção no scroll | fade + translateY 16px, 500ms, uma vez | Orienta a chegada do conteúdo sem retê-lo |
+| Entrada de seção no scroll | fade + translateY 8px, 220ms, uma vez | Orienta a chegada do conteúdo sem retê-lo |
 | Hover em interativos | transição de **cor/borda**, 150ms | Confirma que o elemento responde |
 | Press de botão/card | `scale(0.98)`, 150ms | Feedback tátil do clique |
 | Seta de card em hover | translateX 4px, 150ms | Reforça a direção da ação |
-| Abertura do menu mobile | fade 250ms | Suaviza a troca de contexto |
-| Transição de rota | fade 250ms | Continuidade entre páginas |
+| Tooltip do rail (ActivityBar) | fade de opacidade 150ms | Nomeia o ícone sem saltar |
+| Abertura do menu mobile | fade 200ms | Suaviza a troca de contexto |
+| Transição de rota | fade 200ms | Continuidade entre páginas |
 | Alternador PT/EN (`/resume`) | crossfade 150ms do conteúdo | Marca a troca sem "piscar" |
 
 ## 3. Quando evitar (proibições)
@@ -48,13 +49,16 @@
 
 ## 4. Parâmetros normativos
 
+Faixa única desde a Release 0.6: **120–220ms**. Movimento de software — se
+uma animação precisa de mais de 220ms para ser percebida, ela não entra.
+
 | Parâmetro | Valor | Token |
 |---|---|---|
 | Duração — feedback (hover/focus/press) | 150ms | `duration-fast` |
-| Duração — transições de contexto (menu, rota, crossfade) | 250ms | `duration-base` |
-| Duração — revelação de seção | 500ms | `duration-slow` |
+| Duração — transições de contexto (menu, rota, crossfade) | 200ms | `duration-base` |
+| Duração — revelação de seção | 220ms | `duration-slow` |
 | Curva única | `cubic-bezier(0.16, 1, 0.3, 1)` | `ease-out-soft` |
-| Distância máxima de deslocamento | 16px (entrada) / 4px (hover) | — |
+| Distância máxima de deslocamento | 8px (entrada) / 4px (hover) | — |
 | Propriedades animáveis | `opacity`, `transform` apenas | — |
 
 `opacity`/`transform` somente: são compostas na GPU e não causam reflow —

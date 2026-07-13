@@ -1,7 +1,10 @@
 import type { Transition, Variants } from "framer-motion";
 
-/** Tokens de motion — fonte: docs/04-design-system.md §5. */
-export const DURATION = { fast: 0.15, base: 0.25, slow: 0.5 } as const;
+/**
+ * Tokens de motion — fonte: docs/04-design-system.md §5.
+ * Faixa da Release 0.6: 120–220ms — movimento de software, não de site.
+ */
+export const DURATION = { fast: 0.15, base: 0.2, slow: 0.22 } as const;
 export const EASE_OUT_SOFT = [0.16, 1, 0.3, 1] as const;
 
 const baseTransition: Transition = {
@@ -17,7 +20,7 @@ const baseTransition: Transition = {
 export function fadeInUp(reduced: boolean): Variants {
   if (reduced) return { hidden: { opacity: 1 }, visible: { opacity: 1 } };
   return {
-    hidden: { opacity: 0, y: 16 },
+    hidden: { opacity: 0, y: 8 },
     visible: {
       opacity: 1,
       y: 0,

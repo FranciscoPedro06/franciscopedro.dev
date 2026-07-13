@@ -1,19 +1,28 @@
 import { footerCopy, site } from "@/content/site";
-import { Container } from "./Container";
 
-/** Footer do doc 04 §6.7: contatos, colofão técnico, copyright. */
+const itemClasses =
+  "font-mono text-label font-normal normal-case tracking-normal transition-colors duration-150";
+
+/**
+ * Footer como status bar da moldura de IDE (doc 04 §6.7, Release 0.6):
+ * os mesmos contatos, colofão e copyright de sempre, numa barra fina fixa
+ * em desktop (lg+) e empilhada no fluxo em telas menores.
+ */
 export function Footer() {
   return (
-    <footer className="border-t border-border py-12">
-      <Container className="flex flex-col gap-6">
-        <nav aria-label="Contatos" className="flex flex-wrap gap-x-6 gap-y-2">
+    <footer className="z-40 border-t border-border bg-surface lg:fixed lg:inset-x-0 lg:bottom-0">
+      <div className="flex flex-col gap-2 px-4 py-3 md:px-6 lg:flex-row lg:items-center lg:gap-6 lg:py-2">
+        <nav
+          aria-label="Contatos"
+          className="flex flex-wrap items-center gap-x-5 gap-y-2"
+        >
           {site.social.map((link) => (
             <a
               key={link.label}
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-small text-text-2 transition-colors duration-150 hover:text-text"
+              className={`${itemClasses} text-text-2 hover:text-text`}
             >
               {link.label} ↗
             </a>
@@ -21,14 +30,14 @@ export function Footer() {
           {site.email && (
             <a
               href={`mailto:${site.email}`}
-              className="text-small text-text-2 transition-colors duration-150 hover:text-text"
+              className={`${itemClasses} text-text-2 hover:text-text`}
             >
               {site.email}
             </a>
           )}
         </nav>
 
-        <p className="text-small text-text-3">
+        <p className={`${itemClasses} text-text-3`}>
           {footerCopy.colophon.split(" — ")[0]} —{" "}
           <a
             href={site.repositoryUrl}
@@ -41,8 +50,8 @@ export function Footer() {
           .
         </p>
 
-        <p className="font-mono text-label text-text-3">{footerCopy.copyright}</p>
-      </Container>
+        <p className={`${itemClasses} text-text-3 lg:ml-auto`}>{footerCopy.copyright}</p>
+      </div>
     </footer>
   );
 }

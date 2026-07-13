@@ -4,7 +4,7 @@
 > Meta-documento (ver [00-context.md](00-context.md)); a fonte normativa do
 > plano é o [07-roadmap.md](07-roadmap.md).
 
-**Última atualização:** 2026-07-12 · Release 0.5
+**Última atualização:** 2026-07-13 · Release 0.6
 
 ---
 
@@ -20,6 +20,7 @@
 | Release 0.3.1 | Project Continuity: meta-documento `02-session-handoff.md`, política de contexto e fluxo oficial de release no `00-context.md`, `CLAUDE.md` na raiz | [reviews/release-0.3.1-review.md](reviews/release-0.3.1-review.md) |
 | Release 0.4 | Engineering Case Studies: os 4 cases restantes completos (doc 05 §3.2–3.5), narrativa de evolução da API Facial, diagramas da API Facial e do Carrinho | [reviews/release-0.4-review.md](reviews/release-0.4-review.md) |
 | Release 0.5 | Production Readiness (M7): pre-render com react-dom/server (ADR-0010), SEO por coleções com `SITE_URL` única, sitemap/robots no build, 404 noindex, contratos de SEO, axe-core e Lighthouse CI, `vercel.json` | [reviews/release-0.5-review.md](reviews/release-0.5-review.md) |
+| Release 0.6 | Design "IDE" (100% visual): moldura de IDE (title bar, ActivityBar, Explorer, status bar), EditorPane com tabs e breadcrumb (Hero e cases como arquivos abertos), cards → painéis, skills como extensões, canvas com grid + ruído em CSS puro, motion 120–220ms — arquitetura, conteúdo, rotas, SEO e a11y intocados | [reviews/release-0.6-review.md](reviews/release-0.6-review.md) |
 
 ## Onde o produto está
 
@@ -38,9 +39,15 @@
   `https://franciscopedro-dev.vercel.app`. O build da plataforma é fixado
   no `vercel.json` (adendo da revisão 0.5): o primeiro deploy publicou só o
   SPA porque o preset da Vercel rodava `vite build` sem o pre-render.
+- **Design "IDE" (Release 0.6)**: a página inteira é uma moldura de
+  aplicação — title bar, rail de atalhos (lg+), Explorer em árvore (xl+),
+  status bar fixa; Hero e cases apresentados como arquivos abertos num
+  editor (tabs + breadcrumb), cards como painéis, skills como extensões.
+  100% visual: componentes, conteúdo, rotas, SEO, SSR e a11y preservados.
 - Gate permanente verde: testes 44/44 (contratos de SEO, smoke do
-  pre-render e axe-core inclusos); JS entrada 100,4 KB / 110 KB; chunk do
-  case 2,7 KB / 35 KB; CSS 19,3 KB / 25 KB; Lighthouse CI no workflow
+  pre-render e axe-core inclusos); JS inicial 104,0 KB / 110 KB (entrada +
+  chunk estático `modulepreload` — medição corrigida na 0.6); chunk do
+  case 2,8 KB / 35 KB; CSS 19,9 KB / 25 KB; Lighthouse CI no workflow
   (a11y/BP/SEO ≥ 0,95; performance ≥ 0,90 como tripwire — critério ≥ 95 do
   M7 se mede no preview da Vercel).
 
@@ -54,8 +61,9 @@ dos repos FastPass, READMEs profissionais.
 
 ## Próxima release (proposta)
 
-**Release 0.6 — Pré-lançamento / v1.0** (S5 do doc 07): roadmap GitHub
-pré-lançamento (doc 07 §3: rotação da chave Supabase, forks oficiais,
-READMEs), deploy real na Vercel (confirmar `SITE_URL`, medir o critério
-≥ 95 do M7 no preview) e integração do material do Francisco conforme
-chegar. Escopo exato se valida no planejamento.
+**Release 0.7 — Pré-lançamento / v1.0** (S5 do doc 07; era a proposta de
+0.6 antes de o Francisco definir a 0.6 como Release de Design): roadmap
+GitHub pré-lançamento (doc 07 §3: rotação da chave Supabase, forks
+oficiais, READMEs), medição do critério ≥ 95 do M7 no deploy da Vercel e
+integração do material do Francisco conforme chegar. Escopo exato se
+valida no planejamento.

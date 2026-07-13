@@ -5,52 +5,59 @@
 > Release — contém apenas o necessário para iniciar a próxima sessão, nunca
 > histórico.
 
-**Data:** 2026-07-12 · **Release encerrada:** 0.5 — Production Readiness
+**Data:** 2026-07-13 · **Release encerrada:** 0.6 — Design "IDE"
 
 ## Próximo objetivo
 
-**Release 0.6 — Pré-lançamento / v1.0** (S5 do doc 07), a validar com o
-Francisco: roadmap GitHub pré-lançamento (doc 07 §3), deploy real na Vercel
-e integração do material dele (doc 05 §7) conforme chegar. Boa parte depende
-de ações do Francisco fora deste repositório.
+**Release 0.7 — Pré-lançamento / v1.0** (S5 do doc 07), a validar com o
+Francisco: roadmap GitHub pré-lançamento (doc 07 §3), medição do critério
+M7 (≥ 95) no deploy da Vercel e integração do material dele (doc 05 §7)
+conforme chegar. Antes disso, o Francisco precisa **validar visualmente a
+0.6 em navegador real** (desktop lg/xl, tablet, mobile) — o design mudou
+inteiro e só passou pelo gate automatizado.
 
 ## Arquivos provavelmente envolvidos
 
-- `src/lib/seo.ts` — `SITE_URL` **confirmada** no endereço permanente do
-  projeto Vercel (`https://franciscopedro-dev.vercel.app`); ativar o domínio
-  definitivo `https://franciscopedro.dev` é a mesma linha.
+- `src/components/ide/` — a moldura nova (ActivityBar, Explorer,
+  EditorPane); ajustes visuais que o Francisco pedir na validação começam
+  aqui e nos docs 04 §6.13–6.15.
+- `src/lib/seo.ts` — `SITE_URL` confirmada; ativar `franciscopedro.dev` é a
+  mesma linha.
 - `src/content/site.ts` — e-mail, LinkedIn, `resumeReady` quando o material
   chegar.
 - Doc de referência: 07 §3 (roadmap GitHub), 05 §7 (pendências de material).
 
 ## Decisões desta release
 
-- Pre-render é script próprio com `react-dom/server` (**ADR-0010**);
-  `renderToPipeableStream` por causa das rotas em `React.lazy`. Build =
-  `tsc && vite build && npm run prerender`.
-- SEO orientado a coleções (`src/content/routes.ts`): coleção nova na v2 =
-  registrar a fonte; pre-render/sitemap/contratos cobrem sozinhos.
-- Asserção de performance do Lighthouse CI em **0,90 (tripwire)**, decisão
-  do Francisco: o critério oficial do M7 (≥ 95) se mede no preview da
-  Vercel — pendência aberta na revisão da 0.5.
-- Achados de acessibilidade corrigidos pelo novo gate axe: `/projetos`
-  ganhou `h1` (prop `as` no `SectionHeading`) e os cards do índice viraram
-  `h2` (`headingAs` no `ProjectCard`).
+- A 0.6 foi redefinida pelo Francisco como **Release de Design** (o
+  pré-lançamento virou 0.7). 100% visual: arquitetura, conteúdo, rotas,
+  SEO, SSR e a11y intocados; nenhuma dependência nova (os ícones são o
+  Lucide que o doc 04 §7 já normatizava).
+- Chrome da metáfora (tabs `{slug}.tsx`, breadcrumb `portfolio › src › …`)
+  deriva de slugs/rotas existentes e vive nos componentes — não é conteúdo
+  editorial (ADR-0003 preservado). Nunca código falso.
+- Motion normativo agora é **120–220ms** (doc 04 §5, doc 08 §4): base
+  200ms, revelação 220ms, entrada 8px.
+- **Medição do orçamento de JS corrigida** em `scripts/check-budgets.mjs`:
+  JS inicial = entrada + chunks `modulepreload` (o Rollup dividiu a entrada
+  quando o `EditorPane` passou a ser compartilhado com rotas lazy). Limites
+  do doc 06 §7 inalterados; JS inicial em 104,0/110 KB — margem apertada,
+  cuidado ao adicionar qualquer coisa à entrada.
 
 ## Observações
 
-- **Correções pós-deploy da 0.5** (adendos na revisão): (1) o primeiro
-  deploy servia só o SPA — o preset Vite da Vercel rodava `vite build` sem o
-  pre-render; o `vercel.json` agora fixa `framework`, `buildCommand` e
-  `outputDirectory`. (2) `text-3` reprovava contraste AA em produção
-  (4,05:1; o doc 04 declarava 4,6:1 por erro de cálculo) — token corrigido
-  para `#898992`; o axe em jsdom não mede contraste, só o Lighthouse real.
-- **Critério M7 (performance ≥ 95) segue aberto**: medição local do deploy é
-  ruidosa (Wi-Fi); medir no PageSpeed Insights ou num runner de CI.
-
-- As Releases 0.3–0.5 aguardam validação do Francisco em navegador real,
+- O `.gitignore` tinha (antes desta sessão) uma alteração staged adicionando
+  `/docs` ao ignore — tirada do stage por contradizer a memória oficial no
+  repositório; no fechamento ela já não existia no working tree (revertida
+  fora desta sessão). `docs/` segue versionado — o Francisco confirma se a
+  reversão foi intencional.
+- Pontos novos de teclado/leitor de tela para o checklist manual: rail de
+  atalhos ("Atalhos"), árvore ("Explorador"), tabs dos cases
+  (`aria-current="page"`). O axe passou nos 4 tipos de página.
+- As Releases 0.3–0.6 aguardam validação do Francisco em navegador real,
   incluindo o checklist manual de acessibilidade (NVDA, Tab, zoom 200%).
-- No Windows local, o Lighthouse CI precisa de `CHROME_PATH` apontando para
-  o Edge; no GitHub Actions o Chrome existe nativamente.
+- O critério M7 (performance ≥ 95) segue aberto: medir no PageSpeed
+  Insights ou num runner de CI (medição local é ruidosa; no Windows local o
+  Lighthouse CI precisa de `CHROME_PATH` apontando para o Edge).
 - As pendências de material que bloqueiam a publicação estão no
   [01-project-state.md](01-project-state.md).

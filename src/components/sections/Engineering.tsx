@@ -17,10 +17,17 @@ export function Engineering() {
         />
       </Reveal>
 
-      <Reveal className="mt-12 grid gap-x-12 gap-y-10 md:grid-cols-2">
-        {engineering.principles.map((principle) => (
-          <div key={principle.title} className="border-l border-border pl-6">
-            <h3 className="text-h3 text-text">{principle.title}</h3>
+      {/* Princípios como painéis numerados da IDE (Release 0.6) */}
+      <Reveal className="mt-12 grid gap-4 md:grid-cols-2">
+        {engineering.principles.map((principle, index) => (
+          <div
+            key={principle.title}
+            className="rounded-md border border-border bg-surface p-5 md:p-6"
+          >
+            <span aria-hidden="true" className="type-label text-text-3">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <h3 className="mt-3 text-h3 text-text">{principle.title}</h3>
             <p className="mt-2 text-body text-text-2">{principle.evidence}</p>
           </div>
         ))}

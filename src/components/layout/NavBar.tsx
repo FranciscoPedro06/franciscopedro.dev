@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/Button";
 import { site } from "@/content/site";
@@ -9,29 +9,20 @@ const SPY_IDS = site.nav
   .map((item) => item.href.split("#")[1])
   .filter((id): id is string => Boolean(id));
 
-/** Header fixo do doc 04 §6.6 — 64px, blur, borda após 8px de scroll. */
+/**
+ * Title bar da moldura de IDE (doc 04 §6.6, Release 0.6) — 64px, largura
+ * total, borda inferior permanente; links como itens de menu de aplicação.
+ */
 export function NavBar() {
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const { pathname } = useLocation();
   const activeSection = useScrollSpy(SPY_IDS);
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-40 h-16 bg-bg/80 backdrop-blur-md transition-colors duration-150 ${
-        scrolled ? "border-b border-border" : "border-b border-transparent"
-      }`}
-    >
+    <header className="fixed inset-x-0 top-0 z-40 h-16 border-b border-border bg-bg/85 backdrop-blur-md">
       <nav
         aria-label="Principal"
-        className="mx-auto flex h-full max-w-[1120px] items-center justify-between px-6 md:px-8"
+        className="flex h-full items-center justify-between px-4 md:px-6"
       >
         {/* Wordmark: o domínio como marca (ADR-0009, doc 10 §1) */}
         <Link to="/" className="font-mono text-small font-semibold text-text">
@@ -47,10 +38,10 @@ export function NavBar() {
                 key={item.href}
                 to={item.href}
                 aria-current={isActive ? "true" : undefined}
-                className={`rounded-md px-3 py-2 text-small transition-colors duration-150 ${
+                className={`rounded-sm px-3 py-1.5 text-small transition-colors duration-150 ${
                   isActive
-                    ? "text-text underline decoration-accent decoration-2 underline-offset-8"
-                    : "text-text-2 hover:text-text"
+                    ? "bg-surface-2 text-text"
+                    : "text-text-2 hover:bg-surface-2/60 hover:text-text"
                 }`}
               >
                 {item.label}
