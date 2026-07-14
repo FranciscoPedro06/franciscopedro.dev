@@ -320,9 +320,9 @@ para impedir que um formulário de contato entre "de brinde" na implementação.
 
 Rail de atividades (48 px, `surface`, borda direita), visível em `md+`, com
 dois tipos de item de 20 px (Lucide, monocromático): **comutadores de
-painel** (Explorer, Settings — governam `activeView` no store, ADR-0012; e
-Search + Source Control na M3) e **atalhos de conteúdo** (Projects, Skills,
-Experience, Contact — navegam), separados por divisória; GitHub na base.
+painel** (Explorer, Search, Source Control, Settings — governam `activeView`
+no store, ADR-0012) e **atalhos de conteúdo** (Projects, Skills, Experience,
+Contact — navegam), separados por divisória; GitHub na base.
 Estado ativo: ícone `accent` + marcador lateral de 2 px que anima (`mark-in`,
 120 ms). Reclicar o painel ativo **recolhe** a sidebar (comportamento VS
 Code). Tooltip decorativo em mono; nome acessível pelo `aria-label`. `nav`
@@ -332,15 +332,17 @@ rotulado "Atividades".
 
 O `SidePanel` é o container do painel lateral (fundo `surface` a 60%, borda
 direita, `lg+`) que o rail comuta pela `activeView`; recolhível pela sidebar
-inteira; largura `sidebarWidth` (arrastável na M3). Cabeçalho com o nome da
-view (`type-label`); corpo rolável com `.scrollbar-ide`.
+inteira; largura `sidebarWidth` **arrastável e persistida** por um
+`ResizeHandle` (`role="separator"`, ponteiro + setas, clamp 208–480 px).
+Cabeçalho com o nome da view (`type-label`); corpo rolável com
+`.scrollbar-ide`. Painéis pesados (Search, Source Control) são `lazy`.
 
-O `Explorer` é o corpo da view `explorer`: a árvore **real** da aplicação —
-`src/` com uma view por arquivo (`overview.tsx`, `engenharia.tsx`…) e a
-pasta `projetos/` (cabeçalho abre `/projetos`; filhos são os 5 cases com
-extensão derivada da stack, via `projectFile`). Mono 14 px; item ativo
-`accent-dim`. A árvore recursiva com colapso persistido entra na M3. `nav`
-rotulado "Explorador".
+O `Explorer` é o corpo da view `explorer`: a árvore **real** da aplicação,
+com **colapso de pastas persistido** (ADR-0012) e chevrons que giram. `src/`
+traz uma view por arquivo (`overview.tsx`, `engenharia.tsx`…) e a pasta
+`projetos/` (o chevron recolhe; o nome abre `/projetos`; filhos são os 5
+cases com extensão derivada da stack, via `projectFile`). Mono 14 px; item
+ativo `accent-dim`. `nav` rotulado "Explorador".
 
 ### 6.15 `EditorTabs` (Release 0.6.1)
 
@@ -382,6 +384,22 @@ tema (a única parte funcional). Seção **Workspace**: retrato **verdadeiro** e
 read-only do ferramental do repositório (Prettier, ESLint flat, TS strict,
 Tailwind v4, Vitest, Vite + pre-render) — framed como `.vscode/settings`,
 nada inventado ("Settings decorativo" do brief, mas honesto).
+
+### 6.20 `SourceControlPanel` (Release 0.7, lazy)
+
+Corpo da view `scm`. Lista os commits **reais** do repositório — gerados por
+`scripts/gen-git-log.mjs` para `src/content/generated/git-log.ts` (snapshot
+commitado, regenerado no `build`; `npm run gen:gitlog` avulso). Cabeçalho com
+branch + contagem; cada item traz hash (`accent`), data e subject. Sem
+histórico inventado: snapshot vazio vira um aviso honesto. Chunk `lazy`.
+
+### 6.21 `SearchPanel` (Release 0.7, lazy)
+
+Corpo da view `search`: input com ícone, contador `aria-live` e filtro
+instantâneo (todos os termos, substring) sobre um índice do conteúdo **que
+já existe** — views, cases (nome/resumo/stack/slug) e trajetória. Resultados
+agrupados navegam para a rota/hash. Foco automático ao abrir (comando "Focus
+Search"). Nenhum dado novo. Chunk `lazy`.
 
 ## 7. Ícones
 

@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build && npm run prerender",
+    "build": "npm run gen:gitlog && tsc --noEmit && vite build && npm run prerender",
+    "gen:gitlog": "node scripts/gen-git-log.mjs",
     "prerender": "vite build --ssr src/entry-server.tsx --outDir dist-server && node scripts/prerender.mjs",
     "preview": "vite preview",
     "lint": "eslint .",

@@ -4,7 +4,9 @@ import {
   ExternalLink,
   Files,
   FolderGit2,
+  GitBranch,
   Mail,
+  Search,
   Settings,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
@@ -39,7 +41,11 @@ interface NavItem {
   match: (pathname: string, view: string) => boolean;
 }
 
-const PANELS: PanelItem[] = [{ id: "explorer", label: "Explorer", icon: Files }];
+const PANELS: PanelItem[] = [
+  { id: "explorer", label: "Explorer", icon: Files },
+  { id: "search", label: "Search", icon: Search },
+  { id: "scm", label: "Source Control", icon: GitBranch },
+];
 
 const NAV_ITEMS: NavItem[] = [
   {
