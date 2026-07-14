@@ -18,9 +18,10 @@
 
 | Token | Hex | Uso |
 |---|---|---|
-| `bg` | `#121110` | Fundo global e do editor |
+| `bg` | `#121110` | Fundo global e do editor (canvas plano) |
 | `surface` | `#191816` | Barras do workbench, painéis, blocos de código |
 | `surface-2` | `#22201D` | Elevação secundária (hover, tags, tooltips) |
+| `surface-3` | `#2A2723` | Estado ativo/selecionado, superfície elevada (Release 0.8) |
 | `border` | `#2D2B27` | Bordas padrão (1 px) |
 | `border-strong` | `#3C3934` | Bordas de elementos interativos em hover/foco |
 | `text` | `#F2F0ED` | Texto primário, títulos |
@@ -29,14 +30,18 @@
 
 Justificativa: grafite **quente**, sem azul perceptível — a linguagem dos
 editores profissionais (revisão 0.6.1: os neutros frios anteriores + teal
-liam como "estética de IA"). Três níveis de texto bastam; mais níveis diluem
-a hierarquia.
+liam como "estética de IA"). A rampa é de **quatro superfícies** — `bg`
+(canvas) < `surface` (cromo) < `surface-2` (hover) < `surface-3` (ativo) —, o
+que dá profundidade por plano **sem sombra** (Release 0.8). Três níveis de
+texto bastam; mais níveis diluem a hierarquia.
 
 Contrast check (calculado na revisão 0.6.1): `text` 16,6:1 sobre `bg` ·
 `text-2` 7,4:1 · `text-3` 5,4:1 — e `text-3` ≥ 4,68:1 até sobre
 `surface-2`, o fundo mais claro. Todos os pares ≥ AA (4,5:1) em qualquer
-tamanho de texto. (Lição da 0.5 mantida: contraste se mede, não se declara —
-o Lighthouse real é o juiz.)
+tamanho de texto. **Restrição da `surface-3`:** pareia com `text`/`text-2`
+(≥ 5,9:1); `text-3` sobre `surface-3` cai a ~4,3:1 — por isso `surface-3` só
+recebe texto primário/secundário (o padrão em linha ativa/selecionada). (Lição
+da 0.5 mantida: contraste se mede, não se declara — o Lighthouse é o juiz.)
 
 ### 1.2 Acento
 
@@ -61,17 +66,12 @@ nunca coloriza títulos inteiros, nunca aparece em mais de ~5% da área visível
 
 Sem `warning` na v1: não há caso de uso. Não criar token sem uso.
 
-### 1.4 Canvas da IDE (Release 0.6)
+### 1.4 Canvas da IDE — retirado na Release 0.8 (ADR-0015)
 
-| Token | Valor | Uso |
-|---|---|---|
-| `grid-line` | `rgba(242, 240, 237, 0.025)` | Linhas do grid do fundo global |
-
-O fundo global é o canvas de uma IDE: grid de 48 px quase imperceptível +
-ruído SVG (`feTurbulence`, opacidade 0,028) numa camada fixa atrás de todo o
-conteúdo — CSS puro, sem canvas nem JS. Painéis e editores usam fundos
-sólidos (`bg`, `surface`) por cima; o canvas só aparece no espaço negativo.
-No tema claro `grid-line` é `rgba(28, 27, 25, 0.04)` (§1.5).
+O grid decorativo + ruído (`grid-line`, `body::before`) da 0.6 **deixou de
+existir**: era textura sem função — um "tell" de screenshot e de estética de
+IA. A estrutura passa a vir das réguas reais do cromo (bordas de painel); o
+fundo é `bg` chapado, plano de software (Zed/Linear). Nenhum token de grid.
 
 ### 1.5 Tema claro (papel-quente — Release 0.7, ADR-0013)
 
@@ -84,6 +84,7 @@ dos mesmos tokens sob `:root[data-theme="light"]`.
 | `bg` | `#FAF9F7` | Fundo global e do editor |
 | `surface` | `#F1EEE9` | Barras do workbench, painéis |
 | `surface-2` | `#E7E3DC` | Elevação secundária (hover, tags, tooltips) |
+| `surface-3` | `#DAD4CA` | Estado ativo/selecionado, superfície elevada |
 | `border` | `#DED9D1` | Bordas padrão |
 | `border-strong` | `#C7C0B4` | Bordas interativas em hover/foco |
 | `text` | `#1C1B19` | Texto primário, títulos |
@@ -97,7 +98,8 @@ dos mesmos tokens sob `:root[data-theme="light"]`.
 
 Contrast check (medido por script, mesma regra da §1.1): `text` 16,4:1 ·
 `text-2` 7,5:1 · `text-3` 6,5:1 sobre `bg`; todos os três ≥ 5,3:1 até sobre
-`surface-2`. `accent` sobre `bg` 4,45:1 (≥ 3:1 para foco/UI); `accent-bright`
+`surface-2`; sobre `surface-3`, `text-3` ≈ 4,8:1 (o piso da rampa, ainda ≥ AA).
+`accent` sobre `bg` 4,45:1 (≥ 3:1 para foco/UI); `accent-bright`
 6,4:1 (serve como texto). Todos os pares de texto ≥ AA (4,5:1).
 
 ## 2. Tipografia
@@ -114,35 +116,47 @@ preload apenas da Inter (a mono não bloqueia o primeiro render).
 
 ### 2.2 Escala tipográfica
 
-Base 16 px, razão ~1.25, ajustada à mão nos extremos:
+Escala **contida, de infraestrutura** (Release 0.8): uma única voz, teto de
+40 px, corpo denso de 15 px. A 0.7 usava escala de landing (display 56, body
+16) — quatro vozes competindo; a 0.8 aperta e unifica. Base 15 px, razão ~1.2:
 
 | Token | Tamanho / linha | Peso | Tracking | Uso |
 |---|---|---|---|---|
-| `display` | 56 / 60 (mobile: 36 / 40) | 650 | −0.03em | Nome no hero |
-| `h1` | 40 / 44 (mobile: 30 / 36) | 600 | −0.02em | Título de case |
-| `h2` | 28 / 34 | 600 | −0.02em | Título de seção |
-| `h3` | 20 / 28 | 600 | −0.01em | Subtítulo, título de card |
-| `body-lg` | 18 / 29 | 400 | 0 | Parágrafo de destaque (hero, aberturas) |
-| `body` | 16 / 26 | 400 | 0 | Texto padrão |
-| `small` | 14 / 21 | 400 | 0 | Notas, footer |
-| `label` | 13 / 16 · mono | 600 | +0.08em, caps | Rótulos de seção ("PROJETOS"), datas, tags |
+| `display` | 40 / 44 (mobile: 32 / 36) | 600 | −0.03em | Identidade (cabeçalho do doc `overview`), 1× por página |
+| `h1` | 28 / 34 (mobile: 24 / 30) | 600 | −0.02em | Título de case |
+| `h2` | 21 / 28 | 600 | −0.02em | Título de documento/seção |
+| `h3` | 17 / 24 | 600 | −0.01em | Subtítulo, título de linha |
+| `body-lg` | 17 / 28 | 400 | 0 | Parágrafo de abertura (lead do documento) |
+| `body` | 15 / 24 | 400 | 0 | Texto padrão |
+| `small` | 13 / 20 | 400 | 0 | Notas, metadados de leitura |
+| `label` | 12 / 16 · mono | 600 | +0.08em, caps | Rótulos, datas, tags, chrome |
 
 Regras: medida de leitura 65–75ch (`max-w-prose`); títulos nunca em caixa alta
-(caixa alta é exclusividade do `label` mono); um único `display` por página.
+(caixa alta é exclusividade do `label` mono); um único `display` por página. A
+mono (JetBrains) é a voz dos metadados (caminho, datas, git); a Inter é a voz
+do documento — sem uma terceira "voz de marketing".
 
 ## 3. Espaçamento, grid e raios
 
 ### 3.1 Escala de espaçamento
 
-Base 4 px (escala Tailwind padrão). Valores canônicos do workbench
-(Release 0.6.1 — denso como software, não como landing page):
+Base 4 px (escala Tailwind padrão). **Dois ritmos intencionalmente diferentes**
+(Release 0.8) — a quebra de cadência nasce da diferença de função, nunca de
+aleatoriedade nem de múltiplos uniformes de 8:
+
+- **Cromo (apertado):** `2 / 4 / 6 / 8 / 10 / 12 / 16` — controles, chips,
+  árvore, tabs, status. É a densidade de software.
+- **Leitura (respira):** `12 / 16 / 20 / 24 / 32` — dentro do documento, entre
+  parágrafos e blocos. Respira o suficiente para ler, não para "landing".
+
+Valores canônicos (Release 0.8 — mais densos que a 0.6.1):
 
 | Contexto | Valor |
 |---|---|
-| Padding da view / página no editor | 20–24 px · 32–40 px lateral em md+ |
-| Título de view → conteúdo | 32 px |
-| Entre painéis | 10–16 px |
-| Padding interno de painel | 14–20 px |
+| Padding do documento no editor | 20 px · 28–32 px lateral em md+ |
+| Cabeçalho do documento → corpo | 16 px (era 32 na 0.7) |
+| Entre blocos do documento | 24 px |
+| Entre painéis / padding interno de painel | 8–16 px |
 | Chrome do workbench | title bar 48 px · tabs ~36 px · status bar ~28 px |
 
 ### 3.2 Grid
@@ -158,12 +172,15 @@ Base 4 px (escala Tailwind padrão). Valores canônicos do workbench
 | Token | Valor | Uso |
 |---|---|---|
 | `radius-sm` | 4 px | Tags, badges, inputs, itens de chrome |
-| `radius-md` | 6 px | Botões, cards |
-| `radius-lg` | 10 px | Molduras de screenshot, cards grandes |
+| `radius-md` | 6 px | Botões, molduras |
+| `radius-lg` | 8 px | Molduras de screenshot, diagramas |
 
-Raios apertados (Release 0.7): cara de IDE, não de card. Bordas sempre 1 px.
-**Sem sombras** na v1: elevação por cor de fundo (`surface` → `surface-2`) e
-borda — sombras viram lama visual, sobretudo no tema escuro.
+Raios apertados: cara de IDE, não de card. Bordas sempre 1 px. **Elevação por
+plano, não por sombra:** o cromo fixo é plano (rampa `bg → surface → surface-2
+→ surface-3` + hairline). A **única sombra** do sistema é a utilitária
+`.elevated` (doc 04 §3.3, Release 0.8), reservada a superfícies de fato
+**flutuantes** — paleta de comandos, menus, tooltips, drawer mobile. Fora
+delas, sombra é lama visual, sobretudo no escuro.
 
 ### 3.4 Scrollbar (Release 0.7)
 

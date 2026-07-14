@@ -12,6 +12,18 @@ export const branch = "main";
 
 export const commits: Commit[] = [
   {
+    "hash": "9efb4eb",
+    "subject": "docs: abre Release 0.8 (redesign) — Design Review, ADR-0014/0015, roadmap",
+    "author": "FranciscoPedro06",
+    "date": "2026-07-14"
+  },
+  {
+    "hash": "dd75637",
+    "subject": "feat: microinteracoes, mobile e orcamento; fecha Release 0.7 (M6)",
+    "author": "FranciscoPedro06",
+    "date": "2026-07-14"
+  },
+  {
     "hash": "5186173",
     "subject": "feat: command palette e painel inferior (Release 0.7 · M5)",
     "author": "FranciscoPedro06",
@@ -116,12 +128,6 @@ export const commits: Commit[] = [
   {
     "hash": "6dcd028",
     "subject": "feat: establish project foundation and design tokens",
-    "author": "FranciscoPedro06",
-    "date": "2026-07-11"
-  },
-  {
-    "hash": "972115a",
-    "subject": "docs: establish complete product documentation",
     "author": "FranciscoPedro06",
     "date": "2026-07-11"
   }

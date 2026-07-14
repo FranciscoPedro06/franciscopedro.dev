@@ -112,7 +112,7 @@ export function CommandPalette({ onClose }: { onClose: () => void }) {
         role="dialog"
         aria-modal="true"
         aria-label="Paleta de comandos"
-        className="relative flex h-fit w-full max-w-xl flex-col overflow-hidden rounded-md border border-border-strong bg-surface shadow-lg motion-safe:animate-[view-in_120ms_ease-out]"
+        className="elevated relative flex h-fit w-full max-w-xl flex-col overflow-hidden rounded-md border border-border-strong bg-surface motion-safe:animate-[view-in_120ms_ease-out]"
       >
         <input
           ref={inputRef}

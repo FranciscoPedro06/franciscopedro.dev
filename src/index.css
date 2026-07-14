@@ -9,17 +9,20 @@
  * o claro é override por atributo (`:root[data-theme="light"]`, ADR-0013).
  */
 @theme {
-  /* Neutros — grafite quente (doc 04 §1.1) */
+  /* Neutros — grafite quente (doc 04 §1.1). Rampa de 4 superfícies + 3 textos:
+     bg (canvas) < surface (cromo) < surface-2 (hover) < surface-3 (ativo). */
   --color-bg: #121110;
   --color-surface: #191816;
   --color-surface-2: #22201d;
+  --color-surface-3: #2a2723;
   --color-border: #2d2b27;
   --color-border-strong: #3c3934;
   --color-text: #f2f0ed;
   --color-text-2: #a7a29a;
   --color-text-3: #8e8981;
 
-  /* Acento — âmbar discreto (doc 04 §1.2) */
+  /* Acento — âmbar discreto (doc 04 §1.2). Cor = significado: foco, estado
+     ativo, não-salvo, atenção — nunca decoração. */
   --color-accent: #d9a866;
   --color-accent-bright: #ecc78f;
   --color-accent-dim: rgba(217, 168, 102, 0.12);
@@ -28,52 +31,51 @@
   --color-success: #4ade80;
   --color-danger: #f87171;
 
-  /* Canvas da IDE (doc 04 §1.4) */
-  --color-grid-line: rgba(242, 240, 237, 0.025);
-
   /* Tipografia (doc 04 §2) */
   --font-sans: "Inter Variable", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
-  --text-display: 3.5rem;
-  --text-display--line-height: 3.75rem;
+  /* Escala tipográfica (doc 04 §2.2, Release 0.8) — contida e de infraestrutura,
+     não de marketing: uma única voz, teto de 40px, corpo denso de 15px. */
+  --text-display: 2.5rem;
+  --text-display--line-height: 2.75rem;
   --text-display--letter-spacing: -0.03em;
-  --text-display--font-weight: 650;
-  --text-display-sm: 2.25rem;
-  --text-display-sm--line-height: 2.5rem;
+  --text-display--font-weight: 600;
+  --text-display-sm: 2rem;
+  --text-display-sm--line-height: 2.25rem;
   --text-display-sm--letter-spacing: -0.03em;
-  --text-display-sm--font-weight: 650;
-  --text-h1: 2.5rem;
-  --text-h1--line-height: 2.75rem;
+  --text-display-sm--font-weight: 600;
+  --text-h1: 1.75rem;
+  --text-h1--line-height: 2.125rem;
   --text-h1--letter-spacing: -0.02em;
   --text-h1--font-weight: 600;
-  --text-h1-sm: 1.875rem;
-  --text-h1-sm--line-height: 2.25rem;
+  --text-h1-sm: 1.5rem;
+  --text-h1-sm--line-height: 1.875rem;
   --text-h1-sm--letter-spacing: -0.02em;
   --text-h1-sm--font-weight: 600;
-  --text-h2: 1.75rem;
-  --text-h2--line-height: 2.125rem;
+  --text-h2: 1.3125rem;
+  --text-h2--line-height: 1.75rem;
   --text-h2--letter-spacing: -0.02em;
   --text-h2--font-weight: 600;
-  --text-h3: 1.25rem;
-  --text-h3--line-height: 1.75rem;
+  --text-h3: 1.0625rem;
+  --text-h3--line-height: 1.5rem;
   --text-h3--letter-spacing: -0.01em;
   --text-h3--font-weight: 600;
-  --text-body-lg: 1.125rem;
-  --text-body-lg--line-height: 1.8125rem;
-  --text-body: 1rem;
-  --text-body--line-height: 1.625rem;
-  --text-small: 0.875rem;
-  --text-small--line-height: 1.3125rem;
-  --text-label: 0.8125rem;
+  --text-body-lg: 1.0625rem;
+  --text-body-lg--line-height: 1.75rem;
+  --text-body: 0.9375rem;
+  --text-body--line-height: 1.5rem;
+  --text-small: 0.8125rem;
+  --text-small--line-height: 1.25rem;
+  --text-label: 0.75rem;
   --text-label--line-height: 1rem;
   --text-label--letter-spacing: 0.08em;
   --text-label--font-weight: 600;
 
-  /* Raios (doc 04 §3.3) — apertados para cara de IDE (Release 0.7) */
+  /* Raios (doc 04 §3.3) — apertados para cara de IDE */
   --radius-sm: 4px;
   --radius-md: 6px;
-  --radius-lg: 10px;
+  --radius-lg: 8px;
 
   /* Motion (doc 04 §5) */
   --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
@@ -88,6 +90,7 @@
   --color-bg: #faf9f7;
   --color-surface: #f1eee9;
   --color-surface-2: #e7e3dc;
+  --color-surface-3: #dad4ca;
   --color-border: #ded9d1;
   --color-border-strong: #c7c0b4;
   --color-text: #1c1b19;
@@ -100,8 +103,6 @@
 
   --color-success: #15803d;
   --color-danger: #dc2626;
-
-  --color-grid-line: rgba(28, 27, 25, 0.04);
 }
 
 @layer base {
@@ -123,25 +124,10 @@
   }
 
   /*
-   * Canvas da IDE (doc 04 §1.4): grid quase imperceptível + ruído suave,
-   * em camada fixa atrás de todo o conteúdo. CSS puro — sem canvas, sem JS.
+   * Sem canvas decorativo (ADR-0015): a estrutura vem das réguas reais do
+   * cromo (bordas de painel), não de textura falsa. O fundo é `bg` chapado —
+   * plano de software, como Zed/Linear.
    */
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    background-image:
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.028'/%3E%3C/svg%3E"),
-      linear-gradient(to right, var(--color-grid-line) 1px, transparent 1px),
-      linear-gradient(to bottom, var(--color-grid-line) 1px, transparent 1px);
-    background-size:
-      160px 160px,
-      48px 48px,
-      48px 48px;
-  }
-
   ::selection {
     background-color: var(--color-accent-dim);
     color: var(--color-accent-bright);
@@ -164,6 +150,23 @@
     letter-spacing: var(--text-label--letter-spacing);
     font-weight: var(--text-label--font-weight);
     text-transform: uppercase;
+  }
+
+  /*
+   * Elevação de camada flutuante (doc 04 §3.3, Release 0.8) — a única sombra do
+   * sistema, reservada a superfícies de fato flutuantes (paleta, menus,
+   * tooltips, drawer mobile). O cromo fixo é plano; profundidade vem da rampa
+   * de superfície + hairline, nunca de sombra.
+   */
+  .elevated {
+    box-shadow:
+      0 12px 32px -14px rgba(0, 0, 0, 0.6),
+      0 3px 8px -4px rgba(0, 0, 0, 0.45);
+  }
+  :root[data-theme="light"] .elevated {
+    box-shadow:
+      0 12px 32px -14px rgba(28, 27, 25, 0.2),
+      0 3px 8px -4px rgba(28, 27, 25, 0.12);
   }
 
   /* Entrada de view do workbench (doc 08 §2 — Release 0.7: 120–180ms) */
