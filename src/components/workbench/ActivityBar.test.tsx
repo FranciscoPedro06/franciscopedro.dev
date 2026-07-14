@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import { beforeEach, describe, expect, it } from "vitest";
 import { App } from "@/App";
-import { DEFAULTS, setWorkbench } from "@/lib/workbench";
+import { DEFAULTS, readWorkbench, setWorkbench } from "@/lib/workbench";
 
 /**
  * Comportamento do rail + painel lateral (doc 04 §6.13–6.14, ADR-0012): o
@@ -48,13 +48,13 @@ describe("ActivityBar + SidePanel", () => {
     const user = userEvent.setup();
     renderApp();
 
-    expect(
-      screen.getByRole("navigation", { name: "Explorador" })
-    ).toBeInTheDocument();
+    expect(readWorkbench().sidebarCollapsed).toBe(false);
+
+    // Reclicar o painel ativo alterna o colapso (desktop) / drawer (mobile).
+    await user.click(screen.getByRole("button", { name: "Explorer" }));
+    expect(readWorkbench().sidebarCollapsed).toBe(true);
 
     await user.click(screen.getByRole("button", { name: "Explorer" }));
-    expect(
-      screen.queryByRole("navigation", { name: "Explorador" })
-    ).not.toBeInTheDocument();
+    expect(readWorkbench().sidebarCollapsed).toBe(false);
   });
 });

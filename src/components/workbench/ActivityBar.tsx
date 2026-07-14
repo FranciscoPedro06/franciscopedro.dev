@@ -1,6 +1,7 @@
 import {
   Braces,
   Briefcase,
+  Command,
   ExternalLink,
   Files,
   FolderGit2,
@@ -81,7 +82,7 @@ const NAV_ITEMS: NavItem[] = [
 const SETTINGS: PanelItem = { id: "settings", label: "Settings", icon: Settings };
 
 const itemBase =
-  "group relative flex size-10 items-center justify-center rounded-md transition-colors duration-150";
+  "group relative flex size-10 items-center justify-center rounded-md transition duration-150 motion-safe:active:scale-90";
 const active = "text-accent";
 const idle = "text-text-3 hover:bg-surface-2 hover:text-text";
 
@@ -109,15 +110,20 @@ function RailTooltip({ children }: { children: ReactNode }) {
 export function ActivityBar() {
   const { pathname } = useLocation();
   const view = useHomeView();
-  const { activeView, sidebarCollapsed } = useWorkbench();
+  const { activeView, sidebarCollapsed, mobilePanelOpen } = useWorkbench();
 
   const panelActive = (id: ActivityView) => activeView === id && !sidebarCollapsed;
 
+  // Comuta o painel: no desktop (lg+) recolhe/expande a sidebar; no mobile
+  // (<lg) abre/fecha o drawer. Cada flag só tem efeito no seu breakpoint.
   const onPanel = (id: ActivityView) => {
-    if (activeView === id && !sidebarCollapsed) {
-      setWorkbench({ sidebarCollapsed: true });
+    if (activeView === id) {
+      setWorkbench({
+        sidebarCollapsed: !sidebarCollapsed,
+        mobilePanelOpen: !mobilePanelOpen,
+      });
     } else {
-      setWorkbench({ activeView: id, sidebarCollapsed: false });
+      setWorkbench({ activeView: id, sidebarCollapsed: false, mobilePanelOpen: true });
     }
   };
 
@@ -142,7 +148,7 @@ export function ActivityBar() {
   return (
     <nav
       aria-label="Atividades"
-      className="hidden w-12 shrink-0 flex-col border-r border-border bg-surface md:flex"
+      className="flex w-12 shrink-0 flex-col border-r border-border bg-surface"
     >
       <ul className="flex flex-1 flex-col items-center gap-1 pt-2">
         {PANELS.map((item) => (
@@ -160,6 +166,7 @@ export function ActivityBar() {
                 to={item.to}
                 aria-label={item.label}
                 aria-current={on ? "true" : undefined}
+                onClick={() => setWorkbench({ mobilePanelOpen: false })}
                 className={`${itemBase} ${on ? active : idle}`}
               >
                 {on && <ActiveMark />}
@@ -172,6 +179,17 @@ export function ActivityBar() {
       </ul>
 
       <ul className="flex flex-col items-center gap-1 pb-2">
+        <li>
+          <button
+            type="button"
+            onClick={() => window.dispatchEvent(new Event("wb:command-palette"))}
+            aria-label="Abrir paleta de comandos"
+            className={`${itemBase} ${idle}`}
+          >
+            <Command size={20} strokeWidth={1.5} aria-hidden="true" />
+            <RailTooltip>Command Palette (Ctrl+Shift+P)</RailTooltip>
+          </button>
+        </li>
         {site.social.map((link) => (
           <li key={link.label}>
             <a

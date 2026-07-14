@@ -12,6 +12,12 @@ export const branch = "main";
 
 export const commits: Commit[] = [
   {
+    "hash": "5186173",
+    "subject": "feat: command palette e painel inferior (Release 0.7 · M5)",
+    "author": "FranciscoPedro06",
+    "date": "2026-07-14"
+  },
+  {
     "hash": "33e1245",
     "subject": "feat: editor multi-tab, breadcrumb e minimap decorativo (Release 0.7 · M4)",
     "author": "FranciscoPedro06",

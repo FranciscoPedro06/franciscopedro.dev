@@ -14,8 +14,10 @@ export type PanelTab = "terminal" | "problems" | "output" | "debug" | "ports";
 
 export interface WorkbenchState {
   theme: Theme;
-  /** Sidebar inteira recolhida (rail permanece). */
+  /** Sidebar inteira recolhida (lg+; rail permanece). */
   sidebarCollapsed: boolean;
+  /** Painel lateral aberto como drawer no mobile (<lg). */
+  mobilePanelOpen: boolean;
   /** Largura do explorer em px, arrastável (M3). */
   sidebarWidth: number;
   /** View do painel lateral que o rail comuta. */
@@ -34,6 +36,7 @@ export interface WorkbenchState {
 export const DEFAULTS: WorkbenchState = {
   theme: "dark",
   sidebarCollapsed: false,
+  mobilePanelOpen: false,
   sidebarWidth: 248,
   activeView: "explorer",
   explorerExpanded: { src: true, projetos: true },

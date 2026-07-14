@@ -29,8 +29,14 @@ export function CommandPaletteHost() {
         setWorkbench({ panelOpen: !readWorkbench().panelOpen });
       }
     };
+    // Gatilho por clique (rail) — abre a paleta sem teclado (mobile).
+    const onOpen = () => setOpen(true);
     window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
+    window.addEventListener("wb:command-palette", onOpen);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener("wb:command-palette", onOpen);
+    };
   }, []);
 
   if (!open) return null;

@@ -15,7 +15,7 @@
 | UI | **React 18** | Fixado pelo charter; maturidade e domínio do autor |
 | Linguagem | **TypeScript (strict)** | O conteúdo é data-driven; tipos garantem que nenhum case publique campo faltando |
 | Estilo | **Tailwind CSS 4** | Tokens do doc 04 viram `@theme`; zero CSS morto; consistência forçada |
-| Animação | **Framer Motion 11** | `whileInView`, `AnimatePresence` e `useReducedMotion` cobrem 100% do doc 04 §5 |
+| Animação | **CSS + IntersectionObserver** | Reveal, menu e terminal em CSS puro (doc 04 §5); `framer-motion` saiu da **entrada** na Release 0.7 (−~36 KB), continua disponível para uso lazy se necessário |
 | Rotas | **React Router 6** | 7 rotas, lazy loading por rota; não há justificativa para meta-framework |
 | Ícones | **lucide-react** | Tree-shakeable, stroke consistente com o doc 04 §7 |
 | Testes | **Vitest + Testing Library** | Mesmo pipeline do Vite; testes de contrato dos componentes críticos |
@@ -166,9 +166,10 @@ pipeline falha se qualquer limite for ultrapassado. Métricas de campo
 (LCP/CLS/INP/Lighthouse) entram no Lighthouse CI junto com o pre-render.
 
 Estratégias: pre-render (§6); fontes self-hosted `woff2` subset com preload
-só da Inter; Framer Motion importado por componente (tree-shaking dos
-recursos não usados); zero bibliotecas de UI/charts/carousel; imagens
-conforme §8; `content-visibility: auto` nas seções abaixo da dobra.
+só da Inter; **animação em CSS** (framer-motion fora da entrada desde a 0.7);
+superfícies pesadas do workbench (Search, Source Control, Command Palette,
+painel inferior) em chunks **lazy** — fora da entrada e do HTML de SSR; zero
+bibliotecas de UI/charts/carousel; imagens conforme §8.
 
 ## 8. Imagens e assets
 

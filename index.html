@@ -13,6 +13,7 @@
     <script>
       (function () {
         try {
+          document.documentElement.dataset.js = "1";
           var s = JSON.parse(localStorage.getItem("fp.workbench.v1") || "{}");
           var t =
             s.theme ||

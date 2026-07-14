@@ -202,8 +202,10 @@ Padrões permitidos: fade + deslocamento vertical ≤8 px na entrada de seções
 stagger longo (>80 ms por item), animação de texto letra a letra.
 
 `prefers-reduced-motion`: todas as animações de entrada viram render direto
-(sem fade/translate); transições de rota viram corte seco. Implementação via
-`useReducedMotion` do Framer Motion — obrigatório em todo componente animado.
+(sem fade/translate); transições de rota viram corte seco. Implementação em
+**CSS** (`@media (prefers-reduced-motion: reduce)`) e, no JS, via `matchMedia`
+— o `framer-motion` saiu da entrada na Release 0.7 (a revelação de scroll é
+CSS + IntersectionObserver no `Reveal`).
 
 ## 6. Componentes
 
@@ -318,22 +320,26 @@ para impedir que um formulário de contato entre "de brinde" na implementação.
 
 ### 6.13 `ActivityBar` (Release 0.7)
 
-Rail de atividades (48 px, `surface`, borda direita), visível em `md+`, com
-dois tipos de item de 20 px (Lucide, monocromático): **comutadores de
-painel** (Explorer, Search, Source Control, Settings — governam `activeView`
-no store, ADR-0012) e **atalhos de conteúdo** (Projects, Skills, Experience,
-Contact — navegam), separados por divisória; GitHub na base.
+Rail de atividades (48 px, `surface`, borda direita), **visível em todas as
+larguras** (adapta o mobile em vez de esconder), com dois tipos de item de
+20 px (Lucide, monocromático): **comutadores de painel** (Explorer, Search,
+Source Control, Settings — governam `activeView` no store, ADR-0012) e
+**atalhos de conteúdo** (Projects, Skills, Experience, Contact — navegam),
+separados por divisória; na base, gatilho da **Command Palette** e GitHub.
 Estado ativo: ícone `accent` + marcador lateral de 2 px que anima (`mark-in`,
-120 ms). Reclicar o painel ativo **recolhe** a sidebar (comportamento VS
-Code). Tooltip decorativo em mono; nome acessível pelo `aria-label`. `nav`
-rotulado "Atividades".
+120 ms); press com `scale` sutil. Reclicar o painel ativo **recolhe** a
+sidebar (lg+) ou fecha o **drawer** (mobile). Tooltip decorativo em mono;
+nome acessível pelo `aria-label`. `nav` rotulado "Atividades".
 
 ### 6.14 `SidePanel` + `Explorer` (Release 0.7)
 
 O `SidePanel` é o container do painel lateral (fundo `surface` a 60%, borda
-direita, `lg+`) que o rail comuta pela `activeView`; recolhível pela sidebar
-inteira; largura `sidebarWidth` **arrastável e persistida** por um
-`ResizeHandle` (`role="separator"`, ponteiro + setas, clamp 208–480 px).
+direita) que o rail comuta pela `activeView`. Em `lg+` é coluna inline,
+recolhível pela sidebar inteira, com largura `sidebarWidth` **arrastável e
+persistida** por um `ResizeHandle` (`role="separator"`, ponteiro + setas,
+clamp 208–480 px). Em **mobile (<lg)** vira **drawer** sobre o editor
+(backdrop, Esc e botão fechar; `mobilePanelOpen` no store) — fica `invisible`
+quando fechado (fora da árvore de acessibilidade).
 Cabeçalho com o nome da view (`type-label`); corpo rolável com
 `.scrollbar-ide`. Painéis pesados (Search, Source Control) são `lazy`.
 

@@ -18,3 +18,4 @@ achados e correções, pendências geradas, veredito.
 | Release 0.5 — Production Readiness | [release-0.5-review.md](release-0.5-review.md) | Aguardando validação |
 | Release 0.6 — Design "IDE" | [release-0.6-review.md](release-0.6-review.md) | Superada pela 0.6.1 (objetivo revisado) |
 | Release 0.6.1 — Workbench | [release-0.6.1-review.md](release-0.6.1-review.md) | Aguardando validação |
+| Release 0.7 — "É uma IDE no navegador" | [release-0.7-review.md](release-0.7-review.md) | Aguardando validação |

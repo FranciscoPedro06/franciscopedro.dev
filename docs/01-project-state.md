@@ -4,7 +4,7 @@
 > Meta-documento (ver [00-context.md](00-context.md)); a fonte normativa do
 > plano é o [07-roadmap.md](07-roadmap.md).
 
-**Última atualização:** 2026-07-13 · Release 0.6.1
+**Última atualização:** 2026-07-14 · Release 0.7
 
 ---
 
@@ -22,6 +22,7 @@
 | Release 0.5 | Production Readiness (M7): pre-render com react-dom/server (ADR-0010), SEO por coleções com `SITE_URL` única, sitemap/robots no build, 404 noindex, contratos de SEO, axe-core e Lighthouse CI, `vercel.json` | [reviews/release-0.5-review.md](reviews/release-0.5-review.md) |
 | Release 0.6 | Design "IDE" (100% visual): moldura de IDE (title bar, ActivityBar, Explorer, status bar), EditorPane com tabs e breadcrumb, cards → painéis, canvas grid + ruído, motion 120–220ms — objetivo revisado pela 0.6.1 | [reviews/release-0.6-review.md](reviews/release-0.6-review.md) |
 | Release 0.6.1 | Workbench: fim da página longa — a aplicação ocupa a viewport, as 7 seções viram views comutadas por hash (ADR-0011), EditorTabs derivadas da URL com fechar funcional, explorer real (`src/` + `projetos/` com extensões por stack), cards → linhas de arquivo, paleta grafite-quente + acento âmbar (assets regenerados), espaçamento denso — SEO, SSR, rotas, conteúdo e os 44 testes intactos | [reviews/release-0.6.1-review.md](reviews/release-0.6.1-review.md) |
+| Release 0.7 | "É uma IDE no navegador" (6 marcos): theming light+dark real (ADR-0013) + estado do shell client-persistido (ADR-0012); title/activity/status bars de software; explorer recursivo com colapso/resize persistidos, Search e Source Control (commits reais) como painéis lazy; editor multi-tab + breadcrumb + minimap; Command Palette e painel inferior (Terminal transcript) lazy; adaptação mobile (drawer); framer-motion removido da entrada (JS 110→73,5 KB) — SEO, SSR, rotas, conteúdo e os 44 testes originais intactos | [reviews/release-0.7-review.md](reviews/release-0.7-review.md) |
 
 ## Onde o produto está
 
@@ -40,19 +41,22 @@
   `https://franciscopedro-dev.vercel.app`. O build da plataforma é fixado
   no `vercel.json` (adendo da revisão 0.5): o primeiro deploy publicou só o
   SPA porque o preset da Vercel rodava `vite build` sem o pre-render.
-- **Workbench (Release 0.6.1)**: o site é uma aplicação de viewport
-  inteira — title bar, rail de views (md+), explorer em árvore (lg+),
-  editor com tabs derivadas da URL e status bar. Sem scroll global: as 7
-  seções aprovadas são views comutadas pelo hash (ADR-0011, todas montadas
-  no DOM — SEO e contratos preservados); o único scroll é o do painel do
-  editor. Paleta grafite-quente com acento âmbar (doc 02 §3, doc 04 §1);
-  projetos como linhas de arquivo com extensão derivada da stack.
-- Gate permanente verde: testes 44/44 (contratos de SEO, smoke do
-  pre-render e axe-core inclusos — nenhum teste alterado na 0.6.1); JS
-  inicial 103,3 KB / 110 KB (entrada + chunks `modulepreload`, medição da
-  0.6); chunk do case 2,9 KB / 35 KB; CSS 19,8 KB / 25 KB; Lighthouse CI
-  no workflow (a11y/BP/SEO ≥ 0,95; performance ≥ 0,90 como tripwire —
-  critério ≥ 95 do M7 se mede no preview da Vercel).
+- **IDE completa (Release 0.7)**: sobre o workbench da 0.6.1, a experiência
+  virou uma IDE de verdade — theming light+dark (ADR-0013), primeiro estado
+  de cliente do projeto restrito a cromo (ADR-0012), title/activity/status
+  bars de software, explorer recursivo (colapso/resize persistidos), Search
+  e Source Control (commits reais) como painéis lazy, editor multi-tab +
+  breadcrumb + minimap, Command Palette (Ctrl+Shift+P) e painel inferior
+  (Terminal transcript) lazy, e adaptação mobile (rail + drawer). Navegação,
+  conteúdo e SEO seguem derivados da URL/hash (ADR-0004/0011); o cromo de UI
+  é o único estado persistido. Detalhe fundador: **framer-motion saiu da
+  entrada** (Reveal/menu/terminal → CSS), abrindo a folga de orçamento.
+- Gate permanente verde: testes **56/56** (os 44 originais intactos + 12
+  novos de tema/shell/rail/explorer/search/tabs/palette/painel); **JS
+  inicial 73,5 KB / 110 KB** (queda de ~36 KB com a saída do framer);
+  maior chunk lazy 3,0 KB / 35 KB; **CSS 21,3 KB / 25 KB**; Lighthouse CI no
+  workflow (a11y/BP/SEO ≥ 0,95; performance ≥ 0,90 como tripwire — critério
+  ≥ 95 do M7 se mede no preview da Vercel).
 
 ## Pendências que bloqueiam a publicação (não o desenvolvimento)
 
@@ -64,9 +68,10 @@ dos repos FastPass, READMEs profissionais.
 
 ## Próxima release (proposta)
 
-**Release 0.7 — Pré-lançamento / v1.0** (S5 do doc 07; era a proposta de
-0.6 antes de o Francisco definir a 0.6 como Release de Design): roadmap
+**Release 0.8 — Pré-lançamento / v1.0** (S5 do doc 07; a 0.7, que era esta
+proposta, virou a Release de experiência a pedido do Francisco): roadmap
 GitHub pré-lançamento (doc 07 §3: rotação da chave Supabase, forks
 oficiais, READMEs), medição do critério ≥ 95 do M7 no deploy da Vercel e
-integração do material do Francisco conforme chegar. Escopo exato se
-valida no planejamento.
+integração do material do Francisco conforme chegar. Antes disso, o Francisco
+precisa **validar a IDE da 0.7 em navegador real** (desktop, tablet e mobile;
+tema light/dark; checklist de a11y). Escopo exato se valida no planejamento.

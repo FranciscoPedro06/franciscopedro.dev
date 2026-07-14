@@ -71,7 +71,7 @@ export function ResizeHandle({ width, min, max, onDrag, onCommit }: Props) {
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
       onKeyDown={onKeyDown}
-      className="group absolute right-0 top-0 z-10 h-full w-1 cursor-col-resize touch-none"
+      className="group absolute right-0 top-0 z-10 hidden h-full w-1 cursor-col-resize touch-none lg:block"
     >
       <span
         aria-hidden="true"

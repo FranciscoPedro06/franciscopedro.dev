@@ -1,4 +1,5 @@
-import { lazy, Suspense, useState } from "react";
+import { X } from "lucide-react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { Explorer } from "@/components/workbench/Explorer";
 import { ResizeHandle } from "@/components/workbench/ResizeHandle";
 import { SettingsPanel } from "@/components/workbench/SettingsPanel";
@@ -30,10 +31,19 @@ const MAX_WIDTH = 480;
  * alcançado pelo menu (M6 traz os drawers).
  */
 export function SidePanel() {
-  const { activeView, sidebarCollapsed, sidebarWidth } = useWorkbench();
+  const { activeView, sidebarCollapsed, mobilePanelOpen, sidebarWidth } =
+    useWorkbench();
   const [dragWidth, setDragWidth] = useState<number | null>(null);
 
-  if (sidebarCollapsed) return null;
+  // Esc fecha o drawer no mobile.
+  useEffect(() => {
+    if (!mobilePanelOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setWorkbench({ mobilePanelOpen: false });
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [mobilePanelOpen]);
 
   const width = dragWidth ?? sidebarWidth;
 
@@ -53,26 +63,47 @@ export function SidePanel() {
     );
 
   return (
-    <aside
-      aria-label={TITLES[activeView]}
-      className="relative hidden shrink-0 flex-col border-r border-border bg-surface/60 lg:flex"
-      style={{ width }}
-    >
-      <div className="flex h-8 shrink-0 items-center px-4">
-        <span className="type-label text-text-3">{TITLES[activeView]}</span>
-      </div>
-      <div className="scrollbar-ide min-h-0 flex-1 overflow-y-auto">{body}</div>
+    <>
+      {mobilePanelOpen && (
+        <button
+          type="button"
+          aria-label="Fechar painel lateral"
+          onClick={() => setWorkbench({ mobilePanelOpen: false })}
+          className="fixed inset-0 z-30 bg-black/40 lg:hidden"
+        />
+      )}
 
-      <ResizeHandle
-        width={width}
-        min={MIN_WIDTH}
-        max={MAX_WIDTH}
-        onDrag={setDragWidth}
-        onCommit={(next) => {
-          setDragWidth(null);
-          setWorkbench({ sidebarWidth: next });
-        }}
-      />
-    </aside>
+      <aside
+        aria-label={TITLES[activeView]}
+        style={{ width }}
+        className={`fixed inset-y-0 left-12 z-40 flex max-w-[80vw] flex-col border-r border-border bg-surface shadow-lg transition-transform duration-150 lg:static lg:z-auto lg:max-w-none lg:translate-x-0 lg:bg-surface/60 lg:shadow-none lg:transition-none ${
+          mobilePanelOpen ? "visible translate-x-0" : "invisible -translate-x-full"
+        } lg:visible ${sidebarCollapsed ? "lg:hidden" : "lg:flex"}`}
+      >
+        <div className="flex h-8 shrink-0 items-center px-4">
+          <span className="type-label text-text-3">{TITLES[activeView]}</span>
+          <button
+            type="button"
+            onClick={() => setWorkbench({ mobilePanelOpen: false })}
+            aria-label="Fechar painel lateral"
+            className="ml-auto flex size-6 items-center justify-center rounded-sm text-text-3 transition-colors duration-150 hover:bg-surface-2 hover:text-text lg:hidden"
+          >
+            <X size={14} strokeWidth={1.5} aria-hidden="true" />
+          </button>
+        </div>
+        <div className="scrollbar-ide min-h-0 flex-1 overflow-y-auto">{body}</div>
+
+        <ResizeHandle
+          width={width}
+          min={MIN_WIDTH}
+          max={MAX_WIDTH}
+          onDrag={setDragWidth}
+          onCommit={(next) => {
+            setDragWidth(null);
+            setWorkbench({ sidebarWidth: next });
+          }}
+        />
+      </aside>
+    </>
   );
 }

@@ -8,6 +8,26 @@ corresponde a um marco do [roadmap](docs/07-roadmap.md).
 
 ### Added
 
+- Release 0.7: "É uma IDE no navegador" — transformação completa da
+  experiência (6 marcos). **Theming light + dark real** (ADR-0013): dark é o
+  default, light é override por `data-theme` com paleta papel-quente + acento
+  bronze e contraste AA medido; script anti-flash inline aplica o tema antes
+  do paint (SSR intacto). **Estado do shell** (ADR-0012): primeiro estado de
+  cliente do projeto, restrito a cromo de UI e SSR-safe, guardando tema,
+  colapso/largura da sidebar, pastas do explorer, abas abertas e painel
+  inferior. **Title bar** de software (glyph, wordmark, menu de views, branch,
+  controles de janela). **Activity bar** com comutadores de painel (Explorer,
+  Search, Source Control, Settings) + atalhos de conteúdo + paleta de
+  comandos. **Explorer** com árvore recursiva de colapso persistido e largura
+  arrastável; **Search** (filtro instantâneo do conteúdo existente) e **Source
+  Control** (commits reais via `gen-git-log`) como painéis lazy; **Settings**
+  com aparência + retrato read-only do ferramental. **Editor multi-tab** real
+  (conjunto persistido, aba ativa pela URL, fechar/reabrir), breadcrumb e
+  **minimap** decorativo. **Command Palette** (Ctrl/⌘+Shift+P, F1) e **painel
+  inferior** (Problems/Output/Terminal/Debug/Ports; Terminal é transcript
+  roteirizado dos comandos reais) — ambos lazy. Adaptação **mobile** (rail
+  sempre visível, painel lateral vira drawer). **Status bar** rica.
+  SEO/SSR/pre-render/rotas/conteúdo e os 44 testes originais 100% intactos.
 - Release 0.6.1: Workbench — fim do paradigma de landing page: a aplicação
   ocupa a viewport inteira (title bar, rail de views, explorer, editor,
   status bar) e não existe scroll global — as 7 seções aprovadas da home
@@ -34,6 +54,11 @@ corresponde a um marco do [roadmap](docs/07-roadmap.md).
 
 ### Changed
 
+- Release 0.7: `framer-motion` saiu da entrada — `Reveal`, `MobileMenu` e o
+  Terminal passaram a usar CSS + IntersectionObserver + `matchMedia`. O JS
+  inicial caiu de ~110 KB para ~73 KB gzip, abrindo margem para o cromo de IDE
+  e o mobile sem tocar no limite do doc 06 §7. As superfícies pesadas (Search,
+  Source Control, Command Palette, painel inferior) são lazy.
 - Medição do orçamento de JS (`scripts/check-budgets.mjs`): "JS inicial"
   passou a somar o chunk de entrada e os chunks estáticos com
   `modulepreload` no `index.html` — o Rollup divide a entrada quando módulos

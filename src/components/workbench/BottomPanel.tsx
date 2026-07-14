@@ -1,7 +1,15 @@
-import { useReducedMotion } from "framer-motion";
 import { X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { type PanelTab, setWorkbench, useWorkbench } from "@/lib/workbench";
+
+/** Preferência de movimento reduzido sem depender de framer (fora da entrada). */
+function prefersReducedMotion(): boolean {
+  return (
+    typeof window !== "undefined" &&
+    typeof window.matchMedia === "function" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
+}
 
 /**
  * Painel inferior (doc 04 §6.24): abas ao estilo VS Code. Conteúdo honesto e
@@ -52,7 +60,7 @@ const PORTS: { port: string; label: string }[] = [
 ];
 
 function Terminal() {
-  const reduced = useReducedMotion() ?? false;
+  const reduced = prefersReducedMotion();
   const [shown, setShown] = useState(reduced ? TERMINAL.length : 0);
 
   useEffect(() => {
