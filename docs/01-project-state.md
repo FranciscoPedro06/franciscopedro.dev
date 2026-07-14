@@ -66,12 +66,17 @@ LinkedIn, currículo PT/EN (PDF), 2–3 resultados reais do MIS, screenshots dos
 Pré-lançamento no GitHub (doc 07 §3): rotacionar chave Supabase, fork oficial
 dos repos FastPass, READMEs profissionais.
 
-## Próxima release (proposta)
+## Próxima release (em curso)
 
-**Release 0.8 — Pré-lançamento / v1.0** (S5 do doc 07; a 0.7, que era esta
-proposta, virou a Release de experiência a pedido do Francisco): roadmap
-GitHub pré-lançamento (doc 07 §3: rotação da chave Supabase, forks
-oficiais, READMEs), medição do critério ≥ 95 do M7 no deploy da Vercel e
-integração do material do Francisco conforme chegar. Antes disso, o Francisco
-precisa **validar a IDE da 0.7 em navegador real** (desktop, tablet e mobile;
-tema light/dark; checklist de a11y). Escopo exato se valida no planejamento.
+**Release 0.8 — Redesign / Maturidade de produto.** Direção aprovada pelo
+Francisco; planejamento em
+[reviews/release-0.8-design-review.md](reviews/release-0.8-design-review.md).
+Nasce de uma auditoria de design da 0.7 que expôs a dissonância entre a moldura
+de IDE e um conteúdo ainda com linguagem de landing page. Eixo: **conteúdo como
+documento** (ADR-0014) e **sem cenografia** (ADR-0015). Cinco marcos: M1 tokens
+(linguagem visual), M2 modelo conteúdo-como-documento, M3 documentos de
+conteúdo, M4 workspace vivo + descoberta, M5 refino transversal. Preserva o
+cromo da 0.7 (ActivityBar/Explorer/EditorTabs/painéis), SSR/SEO e os 56 testes.
+O **pré-lançamento** antes proposto para a 0.8 (roadmap GitHub, material do
+Francisco, medição M7 ≥ 95) deslocou-se para a **0.9/v1.0** (doc 07 §7). A
+validação da 0.7 em navegador real segue pendente e é a base assumida.

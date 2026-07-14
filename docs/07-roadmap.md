@@ -119,6 +119,18 @@ Sprints de escopo (1–2 semanas cada, dedicação parcial):
 > diagrama do FastPass antecipado de V1-2); M7 (pre-render + SEO) fica para
 > release dedicada. Estado corrente: [01-project-state.md](01-project-state.md).
 
+> **Reordenação (Release 0.8 — Redesign).** As Releases 0.6–0.7 transformaram a
+> experiência numa IDE de verdade (fora do escopo original do roadmap, a pedido
+> do Francisco). Uma auditoria de design da 0.7 revelou dissonância entre a
+> moldura de software e o conteúdo, ainda com linguagem de landing page. A
+> **Release 0.8** passa a ser o **redesign de maturidade de produto** —
+> "conteúdo como documento" (ADR-0014) e "sem cenografia" (ADR-0015) —,
+> planejada em [reviews/release-0.8-design-review.md](reviews/release-0.8-design-review.md).
+> Em consequência, o trabalho de pré-lançamento antes proposto para a 0.8
+> (integração do material do Francisco, roadmap GitHub do §3, medição do M7
+> ≥ 95 no deploy) **desloca-se para a 0.9/v1.0** — a ordem V1-3…V1-9 e a
+> dependência externa do GitHub abaixo seguem valendo, só depois do redesign.
+
 | Sprint | Escopo | Marco |
 |---|---|---|
 | S0 ✅ | Auditoria + documentação (docs 00–07) | Documentação aprovada |

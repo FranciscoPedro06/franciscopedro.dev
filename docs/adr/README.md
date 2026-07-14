@@ -22,3 +22,5 @@ Registro imutável das decisões arquiteturais do projeto (charter §16).
 | [0011](0011-hash-driven-workbench-views.md) | Workbench de views comutadas por hash | Aceito |
 | [0012](0012-workbench-shell-state.md) | Estado do "shell" do Workbench (client-persistido, SSR-safe) | Aceito |
 | [0013](0013-theming-light-dark.md) | Theming light + dark | Aceito |
+| [0014](0014-content-as-document.md) | Conteúdo como documento (o editor renderiza o arquivo, não uma landing) | Aceito |
+| [0015](0015-no-scenography-real-function.md) | Sem cenografia: toda superfície tem função real | Aceito |

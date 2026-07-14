@@ -19,3 +19,4 @@ achados e correções, pendências geradas, veredito.
 | Release 0.6 — Design "IDE" | [release-0.6-review.md](release-0.6-review.md) | Superada pela 0.6.1 (objetivo revisado) |
 | Release 0.6.1 — Workbench | [release-0.6.1-review.md](release-0.6.1-review.md) | Aguardando validação |
 | Release 0.7 — "É uma IDE no navegador" | [release-0.7-review.md](release-0.7-review.md) | Aguardando validação |
+| Release 0.8 — Design Review & Direção de Arte (planejamento) | [release-0.8-design-review.md](release-0.8-design-review.md) | Aprovado (direção) — implementação em curso |
