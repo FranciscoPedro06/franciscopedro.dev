@@ -21,13 +21,8 @@ export function Explorer() {
   const view = useHomeView();
 
   return (
-    <nav
-      aria-label="Explorador"
-      className="hidden w-60 shrink-0 overflow-y-auto border-r border-border bg-surface/60 lg:block"
-    >
-      <p className="type-label px-4 pb-1 pt-3 text-text-3">Portfolio</p>
-
-      <ul className="px-1 pb-4 font-mono text-small">
+    <nav aria-label="Explorador">
+      <ul className="px-1 pb-4 pt-1 font-mono text-small">
         <li>
           <p className="flex items-center gap-1.5 px-3 py-1 text-text-2">
             <ChevronDown size={14} strokeWidth={1.5} aria-hidden="true" />

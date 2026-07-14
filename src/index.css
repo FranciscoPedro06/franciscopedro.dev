@@ -221,3 +221,10 @@
     transform: translateY(4px);
   }
 }
+
+/* Marcador lateral do item ativo do rail (só opacidade — o translate é classe). */
+@keyframes mark-in {
+  from {
+    opacity: 0;
+  }
+}

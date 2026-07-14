@@ -263,22 +263,26 @@ Justificativa: ritmo repetido de abertura de seção — `label` mono
 ("PROJETOS") + `h2` + parágrafo opcional (`text-2`). Garante consistência de
 hierarquia em todas as seções.
 
-### 6.6 `NavBar`
+### 6.6 `NavBar` (title bar — Release 0.7)
 
-Title bar do workbench (Release 0.6.1): a primeira faixa da aplicação —
-48 px, fundo `surface`, borda inferior `border`. Esquerda: wordmark.
-Direita (md+): as views como itens de menu de aplicação + `Button
-secondary` (Currículo). Item ativo: fundo `surface-2` + texto `text` (a
-view do hash). Abaixo de md: botão de menu abre overlay tela cheia com os
-mesmos itens em `h3`, foco preso (focus trap), fecha com Esc.
+A primeira faixa da aplicação (48 px, `surface`, borda inferior) com
+aparência de software desktop. Esquerda: glyph âmbar + wordmark (nome do
+workspace) · divisória · as views como **barra de menu** (item ativo
+`surface-2` + `text`). Direita: indicador de **branch** (`⎇ main`, mono),
+**controles de janela** decorativos (min/max/close, `aria-hidden`) e, abaixo
+de md, o botão de menu que abre o overlay tela cheia (foco preso, Esc
+fecha). Contrato: os 6 links de `site.nav` e o botão "Menu" seguem sempre
+presentes (o `NavBar.test` os exige).
 
-### 6.7 `Footer`
+### 6.7 `Footer` (status bar — Release 0.7)
 
-Status bar do workbench (Release 0.6.1): a última faixa da aplicação — uma
-linha fina em mono 13 px, fundo `surface`, borda superior — com os mesmos
-contatos de sempre, o colofão técnico ("React · Vite · TypeScript — código
-no GitHub") e o copyright. O colofão cede o lugar em telas < md (some por
-CSS, permanece no DOM). Sem newsletter, sem mapa do site duplicado.
+A última faixa (28 px, mono, `surface`, borda superior), densa como a de uma
+IDE. Esquerda: branch, contador de problemas (`✓ 0  △ 0`, verdadeiro),
+`Build · Tests ✓`. Direita: fatos técnicos estáveis (UTF-8, TypeScript,
+React, Vite, Pre-render, SSR, SEO, Vercel — que codificam o colofão + o
+pipeline), os contatos de sempre, o link do repositório e o copyright
+(conteúdo editorial preservado), e o `ThemeToggle`. Itens menos críticos
+cedem espaço por breakpoint (somem por CSS, seguem no DOM).
 
 ### 6.8 `TimelineItem`
 
@@ -312,27 +316,31 @@ prova visual — moldura única impede a colagem de estilos diferentes.
 **Não existem na v1.** Não há formulário (decisão do charter §8). Registrado
 para impedir que um formulário de contato entre "de brinde" na implementação.
 
-### 6.13 `ActivityBar` (Release 0.6.1)
+### 6.13 `ActivityBar` (Release 0.7)
 
-Justificativa: o workbench precisa de um rail de atalhos que transmita
-"aplicação", não "site". Coluna da aplicação (48 px, fundo `surface`, borda
-direita), visível em `md+`. Uma view por ícone Lucide 20 px
-(`HOME_VIEWS`) + GitHub na base — nenhum destino novo. Estado ativo pela
-view do hash: ícone `accent` + marcador de 2 px na borda esquerda. Tooltip
-decorativo em mono ao hover/foco (o nome acessível vem do `aria-label`).
-`nav` rotulado "Atalhos".
+Rail de atividades (48 px, `surface`, borda direita), visível em `md+`, com
+dois tipos de item de 20 px (Lucide, monocromático): **comutadores de
+painel** (Explorer, Settings — governam `activeView` no store, ADR-0012; e
+Search + Source Control na M3) e **atalhos de conteúdo** (Projects, Skills,
+Experience, Contact — navegam), separados por divisória; GitHub na base.
+Estado ativo: ícone `accent` + marcador lateral de 2 px que anima (`mark-in`,
+120 ms). Reclicar o painel ativo **recolhe** a sidebar (comportamento VS
+Code). Tooltip decorativo em mono; nome acessível pelo `aria-label`. `nav`
+rotulado "Atividades".
 
-### 6.14 `Explorer` (Release 0.6.1)
+### 6.14 `SidePanel` + `Explorer` (Release 0.7)
 
-Justificativa: a árvore de arquivos é o coração da metáfora — e aqui ela é
-a árvore **real** da aplicação. Coluna ao lado do rail (240 px, fundo
-`surface` a 60%, borda direita), visível em `lg+`. Árvore estática (sem
-estado de colapso): `src/` com uma view por arquivo (`overview.tsx`,
-`engenharia.tsx`…) e a pasta `projetos/` — o cabeçalho abre o índice
-`/projetos` e os filhos são os 5 cases com extensão derivada da stack real
-(`fastpass.tsx`, `reconhecimento-facial.py`, `carrinho-inteligente.java`…,
-via `projectFile`). Mono 14 px; item ativo com fundo `accent-dim`; chevrons
-e ícones de arquivo decorativos. `nav` rotulado "Explorador".
+O `SidePanel` é o container do painel lateral (fundo `surface` a 60%, borda
+direita, `lg+`) que o rail comuta pela `activeView`; recolhível pela sidebar
+inteira; largura `sidebarWidth` (arrastável na M3). Cabeçalho com o nome da
+view (`type-label`); corpo rolável com `.scrollbar-ide`.
+
+O `Explorer` é o corpo da view `explorer`: a árvore **real** da aplicação —
+`src/` com uma view por arquivo (`overview.tsx`, `engenharia.tsx`…) e a
+pasta `projetos/` (cabeçalho abre `/projetos`; filhos são os 5 cases com
+extensão derivada da stack, via `projectFile`). Mono 14 px; item ativo
+`accent-dim`. A árvore recursiva com colapso persistido entra na M3. `nav`
+rotulado "Explorador".
 
 ### 6.15 `EditorTabs` (Release 0.6.1)
 
@@ -366,6 +374,14 @@ Theme". Botão da status bar (e comando da palette, M5) com ícone Lucide
 tema atual ("Alternar tema (atual: escuro)"). O tema já foi pintado antes do
 React pelo script anti-flash (ADR-0013); o botão só troca e persiste (store
 do ADR-0012). Sem estilo de tema inline — só alterna `data-theme` no `<html>`.
+
+### 6.18 `SettingsPanel` (Release 0.7)
+
+Corpo da view `settings` do `SidePanel`. Seção **Appearance**: seleção de
+tema (a única parte funcional). Seção **Workspace**: retrato **verdadeiro** e
+read-only do ferramental do repositório (Prettier, ESLint flat, TS strict,
+Tailwind v4, Vitest, Vite + pre-render) — framed como `.vscode/settings`,
+nada inventado ("Settings decorativo" do brief, mas honesto).
 
 ## 7. Ícones
 

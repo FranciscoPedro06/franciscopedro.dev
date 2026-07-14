@@ -1,36 +1,94 @@
 import {
   Braces,
-  Database,
+  Briefcase,
   ExternalLink,
+  Files,
   FolderGit2,
-  GitBranch,
-  House,
   Mail,
-  User,
+  Settings,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import type { ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { site } from "@/content/site";
-import { HOME_VIEWS, useHomeView } from "@/lib/views";
+import { useHomeView } from "@/lib/views";
+import {
+  type ActivityView,
+  setWorkbench,
+  useWorkbench,
+} from "@/lib/workbench";
 
-/** Ícone por view — Lucide, o sistema de ícones do doc 04 §7. */
-const VIEW_ICONS: Record<string, LucideIcon> = {
-  overview: House,
-  projetos: FolderGit2,
-  engenharia: Braces,
-  dados: Database,
-  trajetoria: GitBranch,
-  sobre: User,
-  contato: Mail,
-};
+/**
+ * Rail de atividades do workbench (doc 04 §6.13). Dois tipos de item:
+ * comutadores de painel lateral (Explorer, Settings — governam `activeView`)
+ * e atalhos de conteúdo (Projects, Skills, Experience, Contact — navegam).
+ * Search e Source Control entram na M3, quando seus painéis existem.
+ */
 
-const itemClasses = (active: boolean) =>
-  `group relative flex size-10 items-center justify-center rounded-md transition-colors duration-150 ${
-    active ? "text-accent" : "text-text-3 hover:bg-surface-2 hover:text-text"
-  }`;
+interface PanelItem {
+  id: ActivityView;
+  label: string;
+  icon: LucideIcon;
+}
 
-/** Tooltip decorativo do rail — o nome acessível vem do aria-label. */
+interface NavItem {
+  id: string;
+  label: string;
+  icon: LucideIcon;
+  to: string;
+  match: (pathname: string, view: string) => boolean;
+}
+
+const PANELS: PanelItem[] = [{ id: "explorer", label: "Explorer", icon: Files }];
+
+const NAV_ITEMS: NavItem[] = [
+  {
+    id: "projetos",
+    label: "Projects",
+    icon: FolderGit2,
+    to: "/projetos",
+    match: (p) => p.startsWith("/projetos"),
+  },
+  {
+    id: "engenharia",
+    label: "Skills",
+    icon: Braces,
+    to: "/#engenharia",
+    match: (p, v) => p === "/" && v === "engenharia",
+  },
+  {
+    id: "trajetoria",
+    label: "Experience",
+    icon: Briefcase,
+    to: "/#trajetoria",
+    match: (p, v) => p === "/" && v === "trajetoria",
+  },
+  {
+    id: "contato",
+    label: "Contact",
+    icon: Mail,
+    to: "/#contato",
+    match: (p, v) => p === "/" && v === "contato",
+  },
+];
+
+const SETTINGS: PanelItem = { id: "settings", label: "Settings", icon: Settings };
+
+const itemBase =
+  "group relative flex size-10 items-center justify-center rounded-md transition-colors duration-150";
+const active = "text-accent";
+const idle = "text-text-3 hover:bg-surface-2 hover:text-text";
+
+/** Marcador lateral do item ativo — anima com micro-fade/scale. */
+function ActiveMark() {
+  return (
+    <span
+      aria-hidden="true"
+      className="pointer-events-none absolute left-0 top-1/2 h-5 w-0.5 origin-center -translate-y-1/2 rounded-full bg-accent motion-safe:animate-[mark-in_120ms_ease-out]"
+    />
+  );
+}
+
 function RailTooltip({ children }: { children: ReactNode }) {
   return (
     <span
@@ -42,40 +100,63 @@ function RailTooltip({ children }: { children: ReactNode }) {
   );
 }
 
-/**
- * Rail de atalhos do workbench (doc 04 §6.13, Release 0.6.1): uma view por
- * ícone, em md+. Estado ativo pela view do hash; tooltips decorativos.
- */
 export function ActivityBar() {
   const { pathname } = useLocation();
   const view = useHomeView();
+  const { activeView, sidebarCollapsed } = useWorkbench();
+
+  const panelActive = (id: ActivityView) => activeView === id && !sidebarCollapsed;
+
+  const onPanel = (id: ActivityView) => {
+    if (activeView === id && !sidebarCollapsed) {
+      setWorkbench({ sidebarCollapsed: true });
+    } else {
+      setWorkbench({ activeView: id, sidebarCollapsed: false });
+    }
+  };
+
+  const panelButton = (item: PanelItem) => {
+    const on = panelActive(item.id);
+    const Icon = item.icon;
+    return (
+      <button
+        type="button"
+        onClick={() => onPanel(item.id)}
+        aria-label={item.label}
+        aria-pressed={on}
+        className={`${itemBase} ${on ? active : idle}`}
+      >
+        {on && <ActiveMark />}
+        <Icon size={20} strokeWidth={1.5} aria-hidden="true" />
+        <RailTooltip>{item.label}</RailTooltip>
+      </button>
+    );
+  };
 
   return (
     <nav
-      aria-label="Atalhos"
+      aria-label="Atividades"
       className="hidden w-12 shrink-0 flex-col border-r border-border bg-surface md:flex"
     >
       <ul className="flex flex-1 flex-col items-center gap-1 pt-2">
-        {HOME_VIEWS.map((item) => {
-          const Icon = VIEW_ICONS[item.id];
-          if (!Icon) return null;
-          const active =
-            (pathname === "/" && view === item.id) ||
-            (item.id === "projetos" && pathname.startsWith("/projetos"));
+        {PANELS.map((item) => (
+          <li key={item.id}>{panelButton(item)}</li>
+        ))}
+
+        <li aria-hidden="true" className="my-1 h-px w-6 bg-border" />
+
+        {NAV_ITEMS.map((item) => {
+          const on = item.match(pathname, view);
+          const Icon = item.icon;
           return (
             <li key={item.id}>
               <Link
-                to={item.id === "overview" ? "/" : `/#${item.id}`}
+                to={item.to}
                 aria-label={item.label}
-                aria-current={active ? "true" : undefined}
-                className={itemClasses(active)}
+                aria-current={on ? "true" : undefined}
+                className={`${itemBase} ${on ? active : idle}`}
               >
-                {active && (
-                  <span
-                    aria-hidden="true"
-                    className="absolute left-0 top-1/2 h-5 w-0.5 -translate-y-1/2 rounded-full bg-accent"
-                  />
-                )}
+                {on && <ActiveMark />}
                 <Icon size={20} strokeWidth={1.5} aria-hidden="true" />
                 <RailTooltip>{item.label}</RailTooltip>
               </Link>
@@ -92,13 +173,14 @@ export function ActivityBar() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`${link.label} (abre em nova aba)`}
-              className={itemClasses(false)}
+              className={`${itemBase} ${idle}`}
             >
               <ExternalLink size={20} strokeWidth={1.5} aria-hidden="true" />
               <RailTooltip>{link.label} ↗</RailTooltip>
             </a>
           </li>
         ))}
+        <li>{panelButton(SETTINGS)}</li>
       </ul>
     </nav>
   );

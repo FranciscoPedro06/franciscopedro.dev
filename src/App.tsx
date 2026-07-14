@@ -6,7 +6,7 @@ import { ScrollManager } from "@/components/layout/ScrollManager";
 import { SkipLink } from "@/components/layout/SkipLink";
 import { ActivityBar } from "@/components/workbench/ActivityBar";
 import { EditorTabs } from "@/components/workbench/EditorTabs";
-import { Explorer } from "@/components/workbench/Explorer";
+import { SidePanel } from "@/components/workbench/SidePanel";
 import { Home } from "@/pages/Home";
 
 // Rotas secundárias em chunks próprios (doc 06 §4); /resume e /escrita
@@ -34,7 +34,7 @@ export function App() {
       <NavBar />
       <div className="flex min-h-0 flex-1">
         <ActivityBar />
-        <Explorer />
+        <SidePanel />
         <main id="conteudo" className="flex min-w-0 flex-1 flex-col">
           <EditorTabs />
           <div
