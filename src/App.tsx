@@ -6,6 +6,7 @@ import { ScrollManager } from "@/components/layout/ScrollManager";
 import { SkipLink } from "@/components/layout/SkipLink";
 import { ActivityBar } from "@/components/workbench/ActivityBar";
 import { EditorTabs } from "@/components/workbench/EditorTabs";
+import { Minimap } from "@/components/workbench/Minimap";
 import { SidePanel } from "@/components/workbench/SidePanel";
 import { Home } from "@/pages/Home";
 
@@ -37,19 +38,22 @@ export function App() {
         <SidePanel />
         <main id="conteudo" className="flex min-w-0 flex-1 flex-col">
           <EditorTabs />
-          <div
-            id="editor-scroll"
-            className="editor-scroll scrollbar-ide min-h-0 flex-1 overflow-y-auto"
-          >
-            {/* Fallback é o fundo puro — sem spinner (doc 08 §5) */}
-            <Suspense fallback={null}>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/projetos" element={<Projects />} />
-                <Route path="/projetos/:slug" element={<CasePage />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </Suspense>
+          <div className="flex min-h-0 flex-1">
+            <div
+              id="editor-scroll"
+              className="editor-scroll scrollbar-ide min-h-0 flex-1 overflow-y-auto"
+            >
+              {/* Fallback é o fundo puro — sem spinner (doc 08 §5) */}
+              <Suspense fallback={null}>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/projetos" element={<Projects />} />
+                  <Route path="/projetos/:slug" element={<CasePage />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </Suspense>
+            </div>
+            <Minimap />
           </div>
         </main>
       </div>

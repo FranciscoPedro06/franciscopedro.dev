@@ -344,29 +344,29 @@ traz uma view por arquivo (`overview.tsx`, `engenharia.tsx`…) e a pasta
 cases com extensão derivada da stack, via `projectFile`). Mono 14 px; item
 ativo `accent-dim`. `nav` rotulado "Explorador".
 
-### 6.15 `EditorTabs` (Release 0.6.1)
+### 6.15 `EditorTabs` (multi-tab — Release 0.7)
 
-Justificativa: numa IDE, navegar é abrir arquivos. Faixa de tabs no topo do
-editor + breadcrumb decorativo (`aria-hidden`), tudo **derivado da URL**
-(ADR-0004/0011): a tab `overview.tsx` é fixa (a "welcome page") e o arquivo
-aberto — view (`sobre.tsx`), pasta (`projetos`), case (`fastpass.tsx`) ou
-`404.html` — entra ao lado, ativa (linha superior `accent` de 2 px, ponto
-indicador, `aria-current="page"`), com **fechar funcional**: fecha para o
-contexto de origem (view → overview; case → `/projetos`), alvo de 24 px,
-`aria-label` próprio. A faixa é um `nav` rotulado "Arquivos abertos". Regra
-editorial: tabs e breadcrumbs são chrome da metáfora (nomes derivados de
-slugs/rotas existentes) — nunca código falso, nunca conteúdo inventado.
+Numa IDE, navegar é abrir arquivos — e aqui há **multi-tab real**. A aba
+`overview.tsx` é fixa; abrir qualquer arquivo (view, `projetos`, case,
+`404.html`) cria a sua aba ao lado. O *conjunto* de abas abertas é estado de
+cliente persistido (`openTabs`, ADR-0012); a **aba ativa deriva da URL**
+(ADR-0004/0011 — SEO e voltar intactos), com linha superior `accent`, ponto
+indicador e `aria-current="page"`. Fechar remove a aba e navega ao vizinho
+(a overview é o piso); botão de 20 px com `aria-label` próprio, revelado no
+hover. Overflow horizontal com `.scrollbar-ide`. Abaixo, o **breadcrumb**
+(`aria-hidden`) reflete a trilha do arquivo atual (portfolio › src ›
+projetos › case), com o último segmento realçado. Regra editorial: tabs e
+breadcrumb são chrome (nomes derivados de rotas/slugs) — nunca inventados.
 
 ### 6.16 `Workbench` (Release 0.6.1)
 
 O frame da aplicação (implementado no `App`): `100dvh`, `overflow-hidden`,
-em faixas — title bar (§6.6) · [rail (§6.13) | explorer (§6.14) | editor] ·
-status bar (§6.7). **Não existe scroll global**: o único scroll é o do
-painel do editor (`#editor-scroll`), suave (respeitando
-`prefers-reduced-motion`). As views da home ficam todas montadas e a ativa
-é comutada pelo hash (ADR-0011); a comutação anima com `view-in` (200 ms,
-fade + 4 px). Landmarks: `header`, `nav`s rotulados, `main` único,
-`footer`.
+em faixas — title bar (§6.6) · [rail (§6.13) | side panel (§6.14) | editor +
+minimap (§6.22)] · status bar (§6.7). **Não existe scroll global**: o único
+scroll é o do painel do editor (`#editor-scroll`), suave (respeitando
+`prefers-reduced-motion`). As views da home ficam todas montadas e a ativa é
+comutada pelo hash (ADR-0011); a comutação anima com `view-in` (180 ms, fade
++ 4 px). Landmarks: `header`, `nav`s rotulados, `main` único, `footer`.
 
 ### 6.17 `ThemeToggle` (Release 0.7)
 
@@ -400,6 +400,14 @@ instantâneo (todos os termos, substring) sobre um índice do conteúdo **que
 já existe** — views, cases (nome/resumo/stack/slug) e trajetória. Resultados
 agrupados navegam para a rota/hash. Foco automático ao abrir (comando "Focus
 Search"). Nenhum dado novo. Chunk `lazy`.
+
+### 6.22 `Minimap` (Release 0.7)
+
+Coluna decorativa (56 px) à direita do editor, só em `xl+`: uma silhueta de
+"código" (barras estáveis, geradas uma vez) com um indicador de viewport que
+acompanha o scroll de `#editor-scroll` (listener com `requestAnimationFrame`).
+Puramente visual (`aria-hidden`) — não representa conteúdo real; é chrome que
+completa a leitura de "editor". CSS + um listener leve; zero ícones.
 
 ## 7. Ícones
 

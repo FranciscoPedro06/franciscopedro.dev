@@ -12,6 +12,12 @@ export const branch = "main";
 
 export const commits: Commit[] = [
   {
+    "hash": "e06c4e5",
+    "subject": "feat: explorer com colapso, resize, Search e Source Control (Release 0.7 · M3)",
+    "author": "FranciscoPedro06",
+    "date": "2026-07-14"
+  },
+  {
     "hash": "4abdeb0",
     "subject": "feat: title bar, activity bar e status bar de IDE + painel comutavel (Release 0.7 · M2)",
     "author": "FranciscoPedro06",

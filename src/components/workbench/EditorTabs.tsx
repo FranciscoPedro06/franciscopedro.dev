@@ -1,113 +1,149 @@
-import { ChevronRight, X } from "lucide-react";
-import { Fragment } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { ChevronRight, FileCode, X } from "lucide-react";
+import { Fragment, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { findProject } from "@/content/projects";
 import { projectFile, useHomeView } from "@/lib/views";
+import { setWorkbench, useWorkbench } from "@/lib/workbench";
 
-interface OpenFile {
+/**
+ * Faixa de tabs do editor (doc 04 §6.15, Release 0.7): multi-tab **real**. A
+ * aba ativa deriva da URL (SEO/voltar intactos, ADR-0004/0011); o *conjunto*
+ * de abas abertas é estado de cliente persistido (ADR-0012). `overview.tsx` é
+ * fixa. Abrir um arquivo cria a tab; fechar remove e navega ao vizinho. O
+ * breadcrumb é chrome (aria-hidden). Nomes derivam de rotas/slugs — nunca
+ * conteúdo inventado.
+ */
+
+const OVERVIEW = "/";
+
+interface FileMeta {
   name: string;
-  /** Fechar o arquivo navega para cá (a tab overview não fecha). */
-  closeTo: string;
   crumb: string[];
 }
 
-/** Resolve o "arquivo aberto" a partir da URL — nenhum estado além dela (ADR-0004). */
-function useOpenFile(): OpenFile | null {
-  const { pathname } = useLocation();
-  const view = useHomeView();
+/** Chave de aba a partir da localização (home usa hash; rotas usam pathname). */
+function keyFromLocation(pathname: string, view: string): string {
+  if (pathname === "/") return view === "overview" ? OVERVIEW : `/#${view}`;
+  return pathname;
+}
 
-  if (pathname === "/") {
-    if (view === "overview") return null;
-    return {
-      name: `${view}.tsx`,
-      closeTo: "/",
-      crumb: ["portfolio", "src", `${view}.tsx`],
-    };
+/** Nome de arquivo e trilha para uma chave de aba. */
+function describe(key: string): FileMeta {
+  if (key === OVERVIEW) {
+    return { name: "overview.tsx", crumb: ["portfolio", "src", "overview.tsx"] };
   }
-  if (pathname === "/projetos") {
-    return {
-      name: "projetos",
-      closeTo: "/",
-      crumb: ["portfolio", "src", "projetos"],
-    };
+  if (key.startsWith("/#")) {
+    const file = `${key.slice(2)}.tsx`;
+    return { name: file, crumb: ["portfolio", "src", file] };
   }
-  const caseMatch = pathname.match(/^\/projetos\/([^/]+)$/);
-  if (caseMatch) {
-    const project = findProject(caseMatch[1]);
+  if (key === "/projetos") {
+    return { name: "projetos", crumb: ["portfolio", "src", "projetos"] };
+  }
+  const match = key.match(/^\/projetos\/(.+)$/);
+  if (match) {
+    const project = findProject(match[1]);
     if (project) {
       const file = projectFile(project);
-      return {
-        name: file,
-        closeTo: "/projetos",
-        crumb: ["portfolio", "src", "projetos", file],
-      };
+      return { name: file, crumb: ["portfolio", "src", "projetos", file] };
     }
   }
-  return {
-    name: "404.html",
-    closeTo: "/",
-    crumb: ["portfolio", "404.html"],
-  };
+  return { name: "404.html", crumb: ["portfolio", "404.html"] };
 }
 
 const tabBase =
-  "flex shrink-0 items-center gap-2 border-r border-border border-t-2 px-3 py-1.5 font-mono text-label font-normal normal-case tracking-normal transition-colors duration-150";
+  "group relative flex shrink-0 items-center gap-2 border-r border-border border-t-2 pl-3 pr-1.5 py-1.5 font-mono text-label font-normal normal-case tracking-normal transition-colors duration-150";
 
-/**
- * Faixa de tabs do editor (doc 04 §6.15, Release 0.6.1): a tab `overview.tsx`
- * é fixa (a "welcome page" do workbench) e o arquivo aberto entra ao lado,
- * com fechar funcional — fechar volta ao contexto de origem. Tudo derivado
- * da URL; o breadcrumb é visual apenas (aria-hidden).
- */
 export function EditorTabs() {
-  const file = useOpenFile();
+  const { pathname } = useLocation();
+  const view = useHomeView();
+  const navigate = useNavigate();
+  const { openTabs } = useWorkbench();
+
+  const currentKey = keyFromLocation(pathname, view);
+
+  // Abrir um arquivo cria sua aba (pós-hidratação; overview é implícita).
+  useEffect(() => {
+    if (currentKey === OVERVIEW) return;
+    if (!openTabs.includes(currentKey)) {
+      setWorkbench({ openTabs: [...openTabs, currentKey] });
+    }
+  }, [currentKey, openTabs]);
+
+  // Ordem exibida: overview fixa + abas abertas + a atual (caso ainda não
+  // persistida — mantém render idêntico ao SSR antes da hidratação).
+  const keys = [OVERVIEW, ...openTabs.filter((key) => key !== OVERVIEW)];
+  if (currentKey !== OVERVIEW && !keys.includes(currentKey)) keys.push(currentKey);
+
+  const closeTab = (key: string) => {
+    const index = keys.indexOf(key);
+    const next = openTabs.filter((item) => item !== key);
+    setWorkbench({ openTabs: next });
+    if (key === currentKey) navigate(keys[index - 1] ?? OVERVIEW);
+  };
+
+  const current = describe(currentKey);
 
   return (
     <div className="shrink-0 border-b border-border bg-surface">
-      <nav aria-label="Arquivos abertos" className="flex overflow-x-auto">
-        {file ? (
-          <Link
-            to="/"
-            className={`${tabBase} border-t-transparent text-text-3 hover:bg-surface-2 hover:text-text-2`}
-          >
-            overview.tsx
-          </Link>
-        ) : (
-          <span
-            aria-current="page"
-            className={`${tabBase} border-t-accent bg-bg text-text`}
-          >
-            <span aria-hidden="true" className="size-1.5 rounded-full bg-accent" />
-            overview.tsx
-          </span>
-        )}
-
-        {file && (
-          <span
-            aria-current="page"
-            className={`${tabBase} gap-2.5 border-t-accent bg-bg pr-1.5 text-text`}
-          >
-            <span aria-hidden="true" className="size-1.5 rounded-full bg-accent" />
-            {file.name}
-            <Link
-              to={file.closeTo}
-              aria-label={`Fechar ${file.name}`}
-              className="flex size-6 items-center justify-center rounded-sm text-text-3 transition-colors duration-150 hover:bg-surface-2 hover:text-text"
+      <nav
+        aria-label="Arquivos abertos"
+        className="scrollbar-ide flex overflow-x-auto"
+      >
+        {keys.map((key) => {
+          const active = key === currentKey;
+          const { name } = describe(key);
+          const closable = key !== OVERVIEW;
+          return (
+            <span
+              key={key}
+              className={`${tabBase} ${
+                active
+                  ? "border-t-accent bg-bg text-text"
+                  : "border-t-transparent text-text-3 hover:bg-surface-2/60 hover:text-text-2"
+              }`}
             >
-              <X size={12} strokeWidth={1.5} aria-hidden="true" />
-            </Link>
-          </span>
-        )}
+              <Link
+                to={key}
+                aria-current={active ? "page" : undefined}
+                className="flex items-center gap-1.5"
+              >
+                {active ? (
+                  <span
+                    aria-hidden="true"
+                    className="size-1.5 rounded-full bg-accent"
+                  />
+                ) : (
+                  <FileCode size={13} strokeWidth={1.5} aria-hidden="true" />
+                )}
+                {name}
+              </Link>
+              {closable ? (
+                <button
+                  type="button"
+                  onClick={() => closeTab(key)}
+                  aria-label={`Fechar ${name}`}
+                  className="flex size-5 items-center justify-center rounded-sm text-text-3 opacity-60 transition-colors duration-150 hover:bg-surface-2 hover:text-text hover:opacity-100 group-hover:opacity-100"
+                >
+                  <X size={12} strokeWidth={1.5} aria-hidden="true" />
+                </button>
+              ) : (
+                <span aria-hidden="true" className="w-1" />
+              )}
+            </span>
+          );
+        })}
       </nav>
 
       <div
         aria-hidden="true"
         className="flex flex-wrap items-center gap-1.5 border-t border-border px-4 py-1.5 font-mono text-label font-normal normal-case tracking-normal text-text-3"
       >
-        {(file?.crumb ?? ["portfolio", "src", "overview.tsx"]).map((segment, index) => (
+        {current.crumb.map((segment, index) => (
           <Fragment key={`${segment}-${index}`}>
             {index > 0 && <ChevronRight size={12} strokeWidth={1.5} />}
-            <span>{segment}</span>
+            <span className={index === current.crumb.length - 1 ? "text-text-2" : ""}>
+              {segment}
+            </span>
           </Fragment>
         ))}
       </div>
