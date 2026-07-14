@@ -9,6 +9,11 @@
 
 ## 1. Tokens de cor
 
+> **Dois temas (Release 0.7, ADR-0013).** O escuro é o default (`:root`); o
+> claro é override por atributo (`:root[data-theme="light"]`). A tabela §1.1–1.3
+> é o tema escuro; a §1.5 é o claro. Toda cor nova precisa de valor nos dois
+> temas — sempre medida (o Lighthouse é o juiz; `axe` não pinta pixels).
+
 ### 1.1 Neutros (grafite quente — Release 0.6.1)
 
 | Token | Hex | Uso |
@@ -66,6 +71,34 @@ O fundo global é o canvas de uma IDE: grid de 48 px quase imperceptível +
 ruído SVG (`feTurbulence`, opacidade 0,028) numa camada fixa atrás de todo o
 conteúdo — CSS puro, sem canvas nem JS. Painéis e editores usam fundos
 sólidos (`bg`, `surface`) por cima; o canvas só aparece no espaço negativo.
+No tema claro `grid-line` é `rgba(28, 27, 25, 0.04)` (§1.5).
+
+### 1.5 Tema claro (papel-quente — Release 0.7, ADR-0013)
+
+Paleta clara, quente e monocromática (não "site de IA"): papel off-white e
+acento **bronze** (o âmbar do escuro reprova o contraste no claro). Override
+dos mesmos tokens sob `:root[data-theme="light"]`.
+
+| Token | Hex / valor | Uso |
+|---|---|---|
+| `bg` | `#FAF9F7` | Fundo global e do editor |
+| `surface` | `#F1EEE9` | Barras do workbench, painéis |
+| `surface-2` | `#E7E3DC` | Elevação secundária (hover, tags, tooltips) |
+| `border` | `#DED9D1` | Bordas padrão |
+| `border-strong` | `#C7C0B4` | Bordas interativas em hover/foco |
+| `text` | `#1C1B19` | Texto primário, títulos |
+| `text-2` | `#55514B` | Texto secundário |
+| `text-3` | `#5F5A52` | Metadados, captions, placeholders |
+| `accent` | `#9A6B16` | Foco, estados ativos, marcadores |
+| `accent-bright` | `#7A5410` | Hover de link, texto sobre `accent-dim` |
+| `accent-dim` | `rgba(154, 107, 22, 0.14)` | Fundos sutis (item ativo, seleção) |
+| `success` | `#15803D` | Indicadores "em produção" |
+| `danger` | `#DC2626` | Erros de navegação (404) |
+
+Contrast check (medido por script, mesma regra da §1.1): `text` 16,4:1 ·
+`text-2` 7,5:1 · `text-3` 6,5:1 sobre `bg`; todos os três ≥ 5,3:1 até sobre
+`surface-2`. `accent` sobre `bg` 4,45:1 (≥ 3:1 para foco/UI); `accent-bright`
+6,4:1 (serve como texto). Todos os pares de texto ≥ AA (4,5:1).
 
 ## 2. Tipografia
 
@@ -124,12 +157,20 @@ Base 4 px (escala Tailwind padrão). Valores canônicos do workbench
 
 | Token | Valor | Uso |
 |---|---|---|
-| `radius-sm` | 8 px | Tags, badges, inputs |
-| `radius-md` | 12 px | Botões, cards |
-| `radius-lg` | 16 px | Molduras de screenshot, cards grandes |
+| `radius-sm` | 4 px | Tags, badges, inputs, itens de chrome |
+| `radius-md` | 6 px | Botões, cards |
+| `radius-lg` | 10 px | Molduras de screenshot, cards grandes |
 
-Bordas sempre 1 px. **Sem sombras** na v1: elevação por cor de fundo
-(`surface` → `surface-2`) e borda — sombras em dark theme viram lama visual.
+Raios apertados (Release 0.7): cara de IDE, não de card. Bordas sempre 1 px.
+**Sem sombras** na v1: elevação por cor de fundo (`surface` → `surface-2`) e
+borda — sombras viram lama visual, sobretudo no tema escuro.
+
+### 3.4 Scrollbar (Release 0.7)
+
+Utilitária `.scrollbar-ide` (CSS puro): fina, thumb `border-strong` que some
+no fundo e vira `text-3` no hover; trilho transparente. Aplicada aos painéis
+roláveis do workbench (editor, explorer, painel inferior). O único scroll da
+aplicação continua sendo o do editor (`#editor-scroll`, ADR-0011).
 
 ## 4. Breakpoints
 
@@ -145,14 +186,14 @@ Padrão Tailwind — sem customização (menos surpresa, mais documentação):
 
 ## 5. Motion
 
-Faixa única da Release 0.6: **120–220 ms** — movimento de software, não de
-site. Nada anima por mais de 220 ms.
+Faixa única da Release 0.7: **120–180 ms** — movimento de software, não de
+site. Nada anima por mais de 180 ms (apertado desde a 0.6, que ia a 220).
 
 | Token | Valor | Uso |
 |---|---|---|
-| `duration-fast` | 150 ms | Hover, foco, press, tooltips do rail |
-| `duration-base` | 200 ms | Comutação de view (`view-in`), overlay do menu |
-| `duration-slow` | 220 ms | Revelação no scroll do painel (uma vez só) |
+| `duration-fast` | 120 ms | Hover, foco, press, tooltips, ripple |
+| `duration-base` | 150 ms | Comutação de view (`view-in`), overlay do menu |
+| `duration-slow` | 180 ms | Revelação no scroll do painel (uma vez só) |
 | `ease-out-soft` | `cubic-bezier(0.16, 1, 0.3, 1)` | Tudo |
 
 Padrões permitidos: fade + deslocamento vertical ≤8 px na entrada de seções
@@ -316,6 +357,15 @@ painel do editor (`#editor-scroll`), suave (respeitando
 é comutada pelo hash (ADR-0011); a comutação anima com `view-in` (200 ms,
 fade + 4 px). Landmarks: `header`, `nav`s rotulados, `main` único,
 `footer`.
+
+### 6.17 `ThemeToggle` (Release 0.7)
+
+Justificativa: uma IDE alterna tema, e a paleta de comandos expõe "Change
+Theme". Botão da status bar (e comando da palette, M5) com ícone Lucide
+(`Moon`/`Sun`, 13 px) + rótulo `Dark`/`Light` em mono. `aria-label` diz o
+tema atual ("Alternar tema (atual: escuro)"). O tema já foi pintado antes do
+React pelo script anti-flash (ADR-0013); o botão só troca e persiste (store
+do ADR-0012). Sem estilo de tema inline — só alterna `data-theme` no `<html>`.
 
 ## 7. Ícones
 

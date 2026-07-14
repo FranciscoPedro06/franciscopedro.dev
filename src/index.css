@@ -5,10 +5,11 @@
 
 /*
  * Design tokens — fonte da verdade: docs/04-design-system.md.
- * Nenhum valor visual fora deste bloco.
+ * Nenhum valor visual fora deste bloco. O tema escuro é o default (`:root`);
+ * o claro é override por atributo (`:root[data-theme="light"]`, ADR-0013).
  */
 @theme {
-  /* Neutros — grafite quente (doc 04 §1.1, Release 0.6.1) */
+  /* Neutros — grafite quente (doc 04 §1.1) */
   --color-bg: #121110;
   --color-surface: #191816;
   --color-surface-2: #22201d;
@@ -18,7 +19,7 @@
   --color-text-2: #a7a29a;
   --color-text-3: #8e8981;
 
-  /* Acento — âmbar discreto (doc 04 §1.2, Release 0.6.1) */
+  /* Acento — âmbar discreto (doc 04 §1.2) */
   --color-accent: #d9a866;
   --color-accent-bright: #ecc78f;
   --color-accent-dim: rgba(217, 168, 102, 0.12);
@@ -27,7 +28,7 @@
   --color-success: #4ade80;
   --color-danger: #f87171;
 
-  /* Canvas da IDE (doc 04 §1.4 — Release 0.6) */
+  /* Canvas da IDE (doc 04 §1.4) */
   --color-grid-line: rgba(242, 240, 237, 0.025);
 
   /* Tipografia (doc 04 §2) */
@@ -69,13 +70,38 @@
   --text-label--letter-spacing: 0.08em;
   --text-label--font-weight: 600;
 
-  /* Raios (doc 04 §3.3) */
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
+  /* Raios (doc 04 §3.3) — apertados para cara de IDE (Release 0.7) */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
 
   /* Motion (doc 04 §5) */
   --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/*
+ * Tema claro (ADR-0013) — paleta papel-quente + acento bronze, contraste AA
+ * medido (doc 04 §1.5). Sobrescreve os mesmos tokens; as utilitárias do
+ * Tailwind referenciam `var(--color-*)`, então a troca é só cascata.
+ */
+:root[data-theme="light"] {
+  --color-bg: #faf9f7;
+  --color-surface: #f1eee9;
+  --color-surface-2: #e7e3dc;
+  --color-border: #ded9d1;
+  --color-border-strong: #c7c0b4;
+  --color-text: #1c1b19;
+  --color-text-2: #55514b;
+  --color-text-3: #5f5a52;
+
+  --color-accent: #9a6b16;
+  --color-accent-bright: #7a5410;
+  --color-accent-dim: rgba(154, 107, 22, 0.14);
+
+  --color-success: #15803d;
+  --color-danger: #dc2626;
+
+  --color-grid-line: rgba(28, 27, 25, 0.04);
 }
 
 @layer base {
@@ -140,14 +166,43 @@
     text-transform: uppercase;
   }
 
-  /* Entrada de view do workbench (doc 08 §2 — Release 0.6.1) */
+  /* Entrada de view do workbench (doc 08 §2 — Release 0.7: 120–180ms) */
   .view-enter {
-    animation: view-in 200ms var(--ease-out-soft);
+    animation: view-in 180ms var(--ease-out-soft);
   }
 
   /* Scroll do painel do editor — o único scroll da aplicação */
   .editor-scroll {
     scroll-behavior: smooth;
+  }
+
+  /*
+   * Scrollbar estilo IDE (doc 04 §3.4 — Release 0.7): fina e discreta, some
+   * no fundo, ganha corpo no hover. Aplicada aos painéis roláveis do
+   * workbench (editor, explorer, painel inferior).
+   */
+  .scrollbar-ide {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border-strong) transparent;
+  }
+  .scrollbar-ide::-webkit-scrollbar {
+    width: 11px;
+    height: 11px;
+  }
+  .scrollbar-ide::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .scrollbar-ide::-webkit-scrollbar-thumb {
+    background: var(--color-border-strong);
+    background-clip: padding-box;
+    border: 3px solid transparent;
+    border-radius: 8px;
+  }
+  .scrollbar-ide::-webkit-scrollbar-thumb:hover {
+    background: var(--color-text-3);
+  }
+  .scrollbar-ide::-webkit-scrollbar-corner {
+    background: transparent;
   }
 
   @media (prefers-reduced-motion: reduce) {

@@ -1,3 +1,4 @@
+import { ThemeToggle } from "@/components/workbench/ThemeToggle";
 import { footerCopy, site } from "@/content/site";
 
 const itemClasses =
@@ -46,7 +47,12 @@ export function Footer() {
         .
       </p>
 
-      <p className={`${itemClasses} ml-auto text-text-3`}>{footerCopy.copyright}</p>
+      <div className="ml-auto flex items-center gap-x-4">
+        <p className={`${itemClasses} text-text-3`}>{footerCopy.copyright}</p>
+        <span className={itemClasses}>
+          <ThemeToggle />
+        </span>
+      </div>
     </footer>
   );
 }

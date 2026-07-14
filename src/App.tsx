@@ -39,7 +39,7 @@ export function App() {
           <EditorTabs />
           <div
             id="editor-scroll"
-            className="editor-scroll min-h-0 flex-1 overflow-y-auto"
+            className="editor-scroll scrollbar-ide min-h-0 flex-1 overflow-y-auto"
           >
             {/* Fallback é o fundo puro — sem spinner (doc 08 §5) */}
             <Suspense fallback={null}>

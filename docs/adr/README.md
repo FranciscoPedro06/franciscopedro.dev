@@ -20,3 +20,5 @@ Registro imutável das decisões arquiteturais do projeto (charter §16).
 | [0009](0009-domain-wordmark.md) | Wordmark: o domínio como marca | Aceito |
 | [0010](0010-prerender-react-dom-server.md) | Pre-render com react-dom/server sobre o entry SSR do Vite | Aceito |
 | [0011](0011-hash-driven-workbench-views.md) | Workbench de views comutadas por hash | Aceito |
+| [0012](0012-workbench-shell-state.md) | Estado do "shell" do Workbench (client-persistido, SSR-safe) | Aceito |
+| [0013](0013-theming-light-dark.md) | Theming light + dark | Aceito |

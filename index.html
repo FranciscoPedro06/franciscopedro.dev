@@ -3,10 +3,28 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="theme-color" content="#0B0C0E" />
+    <meta name="theme-color" content="#191816" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Tema antes do paint (ADR-0013): evita flash e mismatch de hidratação.
+         Dark é o default; light vem de localStorage ou prefers-color-scheme. -->
+    <script>
+      (function () {
+        try {
+          var s = JSON.parse(localStorage.getItem("fp.workbench.v1") || "{}");
+          var t =
+            s.theme ||
+            (window.matchMedia("(prefers-color-scheme: light)").matches
+              ? "light"
+              : "dark");
+          document.documentElement.dataset.theme = t;
+          var m = document.querySelector('meta[name="theme-color"]');
+          if (m) m.content = t === "light" ? "#F1EEE9" : "#191816";
+        } catch (e) {}
+      })();
+    </script>
 
     <!-- seo:start — bloco por rota: o pre-render (ADR-0010) o substitui no build;
          o conteúdo abaixo vale só para o dev server (home) -->
