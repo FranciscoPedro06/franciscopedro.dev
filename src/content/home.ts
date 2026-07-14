@@ -8,7 +8,7 @@ export const hero = {
 };
 
 export const featuredWork = {
-  label: "PROJETOS",
+  comment: "seleção · 3 de 5 estudos de caso",
   title: "Estudos de caso",
   description:
     "Três projetos em profundidade: problema, arquitetura, decisões e o que eu faria diferente. Código aberto em todos.",
@@ -16,7 +16,7 @@ export const featuredWork = {
 };
 
 export const engineering = {
-  label: "ENGENHARIA",
+  comment: "princípios com evidência + stack",
   title: "Como eu construo",
   description:
     "Método importa tanto quanto resultado. Estes são os princípios que aplico — inclusive neste site, que tem charter, design system e decisões arquiteturais documentadas no repositório.",
@@ -65,7 +65,7 @@ export const engineering = {
 };
 
 export const dataSection = {
-  label: "DADOS",
+  comment: "analista de dados · MIS",
   title: "O outro lado do ciclo",
   description:
     "Como Analista de Dados em MIS, meu trabalho é transformar operação em informação: extrair, tratar e apresentar dados de forma que alguém consiga decidir olhando para eles.",
@@ -83,12 +83,12 @@ export const skills: Skill[] = [
 ];
 
 export const timelineSection = {
-  label: "TRAJETÓRIA",
+  comment: "2024 → hoje",
   title: "Dois anos, medidos em projetos",
 };
 
 export const about = {
-  label: "SOBRE",
+  comment: "perfil",
   title: "Software e dados, no mesmo ciclo",
   paragraphs: [
     "Sou Técnico em Desenvolvimento de Sistemas e Analista de Dados na área de MIS. Comecei em 2024 escrevendo C no terminal; de lá para cá, passei por Java, Android, Spring Boot, Python e cheguei ao FastPass — um produto com front-end em React, back-end em Laravel e um microserviço de visão computacional em FastAPI, do qual sou o principal autor.",
@@ -97,14 +97,14 @@ export const about = {
 };
 
 export const contact = {
-  label: "CONTATO",
+  comment: "contato direto, sem formulário",
   title: "Vamos conversar",
   /** Exibida apenas quando o e-mail público existir (doc 05 §2.6). */
   emailIntro: "O caminho mais rápido é o e-mail. Respondo mesmo.",
 };
 
 export const projectsPage = {
-  label: "PROJETOS",
+  comment: "5 sistemas · do firmware ao dashboard",
   title: "Todos os projetos",
   description:
     "Cinco sistemas, cinco estudos de caso — do firmware ao dashboard. Cada um registra o problema, as decisões e o que eu levaria para o próximo.",

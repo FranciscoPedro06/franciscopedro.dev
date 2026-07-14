@@ -1,6 +1,6 @@
-import { Button } from "@/components/ui/Button";
+import { Link } from "react-router-dom";
+import { DocHeader } from "@/components/ui/DocHeader";
 import { Reveal } from "@/components/ui/Reveal";
-import { SectionHeading } from "@/components/ui/SectionHeading";
 import { contact } from "@/content/home";
 import { site } from "@/content/site";
 
@@ -8,32 +8,42 @@ import { site } from "@/content/site";
 export function Contact() {
   return (
     <Reveal>
-      <SectionHeading
+      <DocHeader
         headingId="contato-titulo"
-        label={contact.label}
+        comment={contact.comment}
         title={contact.title}
-        description={site.email ? contact.emailIntro : undefined}
+        lead={site.email ? contact.emailIntro : undefined}
       />
 
       {site.email && (
         <a
           href={`mailto:${site.email}`}
-          className="mt-6 inline-block font-mono text-h3 text-accent transition-colors duration-150 hover:text-accent-bright"
+          className="mt-5 inline-block font-mono text-h3 text-accent transition-colors duration-150 hover:text-accent-bright"
         >
           {site.email}
         </a>
       )}
 
-      <div className="mt-8 flex flex-wrap gap-3">
+      <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-small">
         {site.social.map((link) => (
-          <Button key={link.label} variant="secondary" href={link.url}>
-            {link.label} ↗
-          </Button>
+          <a
+            key={link.label}
+            href={link.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 text-text-2 transition-colors duration-150 hover:text-text"
+          >
+            {link.label}
+            <span aria-hidden="true">↗</span>
+          </a>
         ))}
         {site.resumeReady && (
-          <Button variant="secondary" to="/resume">
+          <Link
+            to="/resume"
+            className="text-text-2 transition-colors duration-150 hover:text-text"
+          >
             Currículo
-          </Button>
+          </Link>
         )}
       </div>
     </Reveal>

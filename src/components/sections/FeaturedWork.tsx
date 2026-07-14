@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
+import { DocHeader } from "@/components/ui/DocHeader";
 import { ProjectCard } from "@/components/ui/ProjectCard";
 import { Reveal } from "@/components/ui/Reveal";
-import { SectionHeading } from "@/components/ui/SectionHeading";
 import { featuredWork } from "@/content/home";
 import { highlighted } from "@/content/projects";
 
@@ -11,24 +11,24 @@ export function FeaturedWork() {
 
   return (
     <Reveal>
-      <SectionHeading
+      <DocHeader
         headingId="projetos-titulo"
-        label={featuredWork.label}
+        comment={featuredWork.comment}
         title={featuredWork.title}
-        description={featuredWork.description}
+        lead={featuredWork.description}
       />
 
-      <div className="mt-8 border-t border-border">
+      <div className="mt-6 border-t border-border">
         <ProjectCard project={main} variant="featured" />
         {rest.map((project) => (
           <ProjectCard key={project.slug} project={project} />
         ))}
       </div>
 
-      <div className="mt-8">
+      <div className="mt-5">
         <Link
           to="/projetos"
-          className="inline-flex items-center gap-1 text-body font-medium text-accent transition-colors duration-150 hover:text-accent-bright"
+          className="inline-flex items-center gap-1 font-mono text-small text-accent transition-colors duration-150 hover:text-accent-bright"
         >
           {featuredWork.allProjectsCta} <span aria-hidden="true">→</span>
         </Link>

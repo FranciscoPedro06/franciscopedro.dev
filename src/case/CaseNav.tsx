@@ -12,7 +12,7 @@ export function CaseNav({
   return (
     <nav
       aria-label="Outros projetos"
-      className="mt-24 flex justify-between gap-4 border-t border-border pt-8"
+      className="mt-16 flex justify-between gap-4 border-t border-border pt-6"
     >
       {previous ? (
         <Link

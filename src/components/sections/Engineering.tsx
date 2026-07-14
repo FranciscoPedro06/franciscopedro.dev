@@ -1,5 +1,5 @@
+import { DocHeader } from "@/components/ui/DocHeader";
 import { Reveal } from "@/components/ui/Reveal";
-import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Tag } from "@/components/ui/Tag";
 import { engineering } from "@/content/home";
 
@@ -8,35 +8,35 @@ export function Engineering() {
   return (
     <>
       <Reveal>
-        <SectionHeading
+        <DocHeader
           headingId="engenharia-titulo"
-          label={engineering.label}
+          comment={engineering.comment}
           title={engineering.title}
-          description={engineering.description}
+          lead={engineering.description}
         />
       </Reveal>
 
-      {/* Princípios como painéis numerados do workbench */}
-      <Reveal className="mt-8 grid gap-3 md:grid-cols-2">
+      {/* Princípios como entradas de documento (NN + título — evidência), não
+          grade de cards com borda — densidade de spec, não de landing. */}
+      <Reveal className="mt-6 border-t border-border">
         {engineering.principles.map((principle, index) => (
-          <div
-            key={principle.title}
-            className="rounded-md border border-border bg-surface p-4 md:p-5"
-          >
-            <span aria-hidden="true" className="type-label text-text-3">
+          <div key={principle.title} className="flex gap-4 border-b border-border py-4">
+            <span aria-hidden="true" className="shrink-0 font-mono text-small text-text-3">
               {String(index + 1).padStart(2, "0")}
             </span>
-            <h3 className="mt-2 text-h3 text-text">{principle.title}</h3>
-            <p className="mt-2 text-body text-text-2">{principle.evidence}</p>
+            <div>
+              <h3 className="text-body font-semibold text-text">{principle.title}</h3>
+              <p className="mt-1 max-w-[62ch] text-body text-text-2">{principle.evidence}</p>
+            </div>
           </div>
         ))}
       </Reveal>
 
-      <Reveal className="mt-10 grid gap-6 md:grid-cols-2">
+      <Reveal className="mt-8 grid gap-x-8 gap-y-5 sm:grid-cols-2">
         {engineering.stack.map((group) => (
           <div key={group.category}>
             <h3 className="type-label text-text-3">{group.category}</h3>
-            <div className="mt-2.5 flex flex-wrap gap-2">
+            <div className="mt-2 flex flex-wrap gap-1.5">
               {group.items.map((item) => (
                 <Tag key={item}>{item}</Tag>
               ))}

@@ -247,6 +247,12 @@ na v1 (nenhum caso de uso).
 Decisão notável: o botão primário é **claro, não teal** — reforça a regra de
 contenção do acento e dá aparência editorial.
 
+**Release 0.8:** os variants preenchidos (`primary`/`secondary`) saíram do
+**conteúdo** — as ações dos documentos (overview, contato, cases) são
+**afordâncias de workspace**: links mono em linha (`GitHub ↗`, `Contato →`),
+não botões de campanha (ADR-0014). O `Button` permanece para controles de
+**chrome** (o gatilho "Menu" no mobile, o "Fechar" do menu — `ghost`).
+
 ### 6.2 `Tag`
 
 Justificativa: vocabulário visual único para tecnologias em cards e cases.
@@ -480,13 +486,19 @@ significado.
   se faltar um valor, o token nasce aqui primeiro.
 - Componente novo só com justificativa escrita (adenda a este doc).
 - Variantes antes de novos componentes; composição antes de variantes.
-- Exemplo canônico de composição de uma view da home (Release 0.6.1 — a
-  `View` é o wrapper do gestor de views em `pages/Home`):
+- Exemplo canônico de composição de um documento da home (Release 0.8 — a
+  `View` é o wrapper do gestor de views em `pages/Home`; o documento abre com
+  `DocHeader`, não `SectionHeading`):
 
 ```
 <View id="projetos" active={active} labelledBy="projetos-titulo">
-  <SectionHeading label="PROJETOS" title="Estudos de caso" />
-  <div class="border-t border-border">
+  <DocHeader
+    headingId="projetos-titulo"
+    comment="seleção · 3 de 5 estudos de caso"
+    title="Estudos de caso"
+    lead="…"
+  />
+  <div class="mt-6 border-t border-border">
     <Card variant="featured" project={fastpass} />
     <Card project={apiFacial} /> …
   </div>

@@ -12,6 +12,12 @@ export const branch = "main";
 
 export const commits: Commit[] = [
   {
+    "hash": "a7f377e",
+    "subject": "feat: modelo conteudo-como-documento (Release 0.8 · M2)",
+    "author": "FranciscoPedro06",
+    "date": "2026-07-14"
+  },
+  {
     "hash": "2af68be",
     "subject": "feat: linguagem visual da 0.8 — tokens (Release 0.8 · M1)",
     "author": "FranciscoPedro06",
@@ -122,12 +128,6 @@ export const commits: Commit[] = [
   {
     "hash": "7194153",
     "subject": "docs: add accessibility foundation, sprint reviews and CI budget enforcement",
-    "author": "FranciscoPedro06",
-    "date": "2026-07-11"
-  },
-  {
-    "hash": "e31f52a",
-    "subject": "feat: establish brand assets and experience foundation",
     "author": "FranciscoPedro06",
     "date": "2026-07-11"
   }

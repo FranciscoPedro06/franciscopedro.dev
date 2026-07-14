@@ -1,6 +1,5 @@
 import { Link, useParams } from "react-router-dom";
 import { Badge } from "@/components/ui/Badge";
-import { Button } from "@/components/ui/Button";
 import { Tag } from "@/components/ui/Tag";
 import { byOrder, findProject } from "@/content/projects";
 import { notFoundRoute } from "@/content/routes";
@@ -30,36 +29,43 @@ export function CasePage() {
   const next = byOrder[index + 1];
 
   return (
-    <div className="px-5 py-6 md:px-8 md:py-8 lg:px-10">
+    <div className="px-5 py-5 md:px-8 md:py-7">
       <Link
         to="/projetos"
-        className="text-small text-text-2 transition-colors duration-150 hover:text-text"
+        className="font-mono text-small text-text-2 transition-colors duration-150 hover:text-text"
       >
-        ← Projetos
+        ← projetos
       </Link>
 
-      <header className="mt-6">
+      <header className="mt-5">
         <Badge>{project.badge}</Badge>
         <h1 className="mt-3 text-h1-sm text-text lg:text-h1">{project.name}</h1>
-        <p className="mt-4 max-w-prose text-body-lg text-text-2">{project.summary}</p>
-        <div className="mt-5 flex flex-wrap gap-2">
+        <p className="mt-3 max-w-[64ch] text-body-lg text-text-2">{project.summary}</p>
+        <div className="mt-4 flex flex-wrap gap-1.5">
           {project.tags.map((tag) => (
             <Tag key={tag}>{tag}</Tag>
           ))}
         </div>
-        <div className="mt-6 flex flex-wrap gap-3">
+        <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-small">
           {project.links.github.map((repo) => (
-            <Button key={repo.url} variant="secondary" href={repo.url}>
-              GitHub — {repo.label} ↗
-            </Button>
+            <a
+              key={repo.url}
+              href={repo.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-text-2 transition-colors duration-150 hover:text-text"
+            >
+              GitHub — {repo.label}
+              <span aria-hidden="true">↗</span>
+            </a>
           ))}
         </div>
       </header>
 
       {project.sections.length > 0 && (
-        <div className="mt-12 lg:grid lg:grid-cols-[200px_minmax(0,1fr)] lg:gap-10">
+        <div className="mt-8 lg:grid lg:grid-cols-[180px_minmax(0,1fr)] lg:gap-10">
           <CaseIndex sections={project.sections} />
-          <div className="space-y-12">
+          <div className="space-y-10">
             {project.sections.map((section) => (
               <CaseSection key={section.kind} section={section} />
             ))}
