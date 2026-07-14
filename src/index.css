@@ -228,3 +228,10 @@
     opacity: 0;
   }
 }
+
+/* Cursor do terminal (painel inferior). */
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}

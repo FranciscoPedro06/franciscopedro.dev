@@ -5,6 +5,8 @@ import { NavBar } from "@/components/layout/NavBar";
 import { ScrollManager } from "@/components/layout/ScrollManager";
 import { SkipLink } from "@/components/layout/SkipLink";
 import { ActivityBar } from "@/components/workbench/ActivityBar";
+import { BottomPanelHost } from "@/components/workbench/BottomPanelHost";
+import { CommandPaletteHost } from "@/components/workbench/CommandPaletteHost";
 import { EditorTabs } from "@/components/workbench/EditorTabs";
 import { Minimap } from "@/components/workbench/Minimap";
 import { SidePanel } from "@/components/workbench/SidePanel";
@@ -57,7 +59,9 @@ export function App() {
           </div>
         </main>
       </div>
+      <BottomPanelHost />
       <Footer />
+      <CommandPaletteHost />
     </div>
   );
 }

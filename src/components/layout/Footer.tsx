@@ -1,6 +1,7 @@
 import { Check, GitBranch, TriangleAlert } from "lucide-react";
 import { ThemeToggle } from "@/components/workbench/ThemeToggle";
 import { footerCopy, site } from "@/content/site";
+import { setWorkbench } from "@/lib/workbench";
 
 /**
  * Status bar do workbench (doc 04 §6.7): a faixa inferior da aplicação — uma
@@ -25,14 +26,19 @@ export function Footer() {
         <GitBranch size={12} strokeWidth={1.5} aria-hidden="true" />
         main
       </span>
-      <span aria-hidden="true" className={`hidden items-center gap-2 sm:flex ${chip}`}>
-        <span className="flex items-center gap-1">
+      <button
+        type="button"
+        onClick={() => setWorkbench({ panelOpen: true, panelTab: "problems" })}
+        aria-label="Abrir painel Problems: 0 erros, 0 avisos"
+        className={`hidden items-center gap-2 rounded-sm px-1 transition-colors duration-150 hover:text-text sm:flex ${chip}`}
+      >
+        <span aria-hidden="true" className="flex items-center gap-1">
           <Check size={12} strokeWidth={2} />0
         </span>
-        <span className="flex items-center gap-1">
+        <span aria-hidden="true" className="flex items-center gap-1">
           <TriangleAlert size={11} strokeWidth={1.5} />0
         </span>
-      </span>
+      </button>
       <span className={`hidden items-center gap-1.5 text-success md:flex ${chip}`}>
         <Check size={12} strokeWidth={2} aria-hidden="true" />
         <span className="text-text-3">Build · Tests ✓</span>

@@ -409,6 +409,24 @@ acompanha o scroll de `#editor-scroll` (listener com `requestAnimationFrame`).
 Puramente visual (`aria-hidden`) — não representa conteúdo real; é chrome que
 completa a leitura de "editor". CSS + um listener leve; zero ícones.
 
+### 6.23 `CommandPalette` (Release 0.7, lazy)
+
+Modal de comandos: `Ctrl/⌘+Shift+P` ou `F1` (host eager minúsculo só com o
+listener; a paleta é `lazy`). Padrão combobox/listbox — input com
+`aria-activedescendant`, setas navegam, Enter executa, Esc fecha, clique no
+backdrop fecha. **Todo comando é ação real ou rota existente**: Go/Open
+(navegação), View/Focus Search/Toggle Sidebar/Toggle Panel (store), Change
+Theme, Open GitHub/Repository (externos). Nada decorativo.
+
+### 6.24 `BottomPanel` (Release 0.7, lazy)
+
+Painel inferior estilo VS Code (`Ctrl/⌘+J` ou clique no indicador de
+problemas da status bar; `lazy`). Abas: **Problems** (reflete o gate — 0/0,
+ESLint/tsc/Vitest/build), **Output** (pipeline real), **Terminal**
+(transcript roteirizado dos comandos reais do projeto, com playback e cursor;
+respeita `prefers-reduced-motion`), **Debug Console**, **Ports** (portas de
+dev reais). Conteúdo honesto, derivado do projeto. `role="tablist"`.
+
 ## 7. Ícones
 
 Lucide, 16 px (inline com texto), 20 px (botões), 22 px (ActivityBar) ou
