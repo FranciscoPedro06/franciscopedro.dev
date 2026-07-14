@@ -276,11 +276,17 @@ não um cartão nem um painel.
   hover eleva o fundo (`surface-2` a 50%) e desloca a seta 4 px. Sem zoom
   de imagem, sem glow.
 
-### 6.5 `SectionHeading`
+### 6.5 `DocHeader` (Release 0.8, ADR-0014) — sucede `SectionHeading`
 
-Justificativa: ritmo repetido de abertura de seção — `label` mono
-("PROJETOS") + `h2` + parágrafo opcional (`text-2`). Garante consistência de
-hierarquia em todas as seções.
+Abertura de **documento**, não de seção de marketing. Substitui o
+`SectionHeading` (que tinha um `label` mono em caixa alta gritando a categoria
+— "PROJETOS" — acima do título, o vocabulário de landing). A voz agora é de
+documentação: um **comentário mono de topo de arquivo** (`// {propósito real}`,
+com o `//` decorativo e `aria-hidden`) + título semântico + lead opcional. A
+escala visual (`display`/`h1`/`h2`) é independente do nível do heading
+(hierarquia sem saltos). No `overview`, a identidade é o cabeçalho: papel como
+comentário, nome em `display`, ações como afordâncias de workspace (links mono),
+não botões de campanha. `SectionHeading` sai à medida que as views migram (M3).
 
 ### 6.6 `NavBar` (title bar — Release 0.7)
 
@@ -384,8 +390,8 @@ breadcrumb são chrome (nomes derivados de rotas/slugs) — nunca inventados.
 ### 6.16 `Workbench` (Release 0.6.1)
 
 O frame da aplicação (implementado no `App`): `100dvh`, `overflow-hidden`,
-em faixas — title bar (§6.6) · [rail (§6.13) | side panel (§6.14) | editor +
-minimap (§6.22)] · status bar (§6.7). **Não existe scroll global**: o único
+em faixas — title bar (§6.6) · [rail (§6.13) | side panel (§6.14) | editor] ·
+status bar (§6.7). **Não existe scroll global**: o único
 scroll é o do painel do editor (`#editor-scroll`), suave (respeitando
 `prefers-reduced-motion`). As views da home ficam todas montadas e a ativa é
 comutada pelo hash (ADR-0011); a comutação anima com `view-in` (180 ms, fade
@@ -424,13 +430,12 @@ já existe** — views, cases (nome/resumo/stack/slug) e trajetória. Resultados
 agrupados navegam para a rota/hash. Foco automático ao abrir (comando "Focus
 Search"). Nenhum dado novo. Chunk `lazy`.
 
-### 6.22 `Minimap` (Release 0.7)
+### 6.22 `Minimap` — removido na Release 0.8 (ADR-0015)
 
-Coluna decorativa (56 px) à direita do editor, só em `xl+`: uma silhueta de
-"código" (barras estáveis, geradas uma vez) com um indicador de viewport que
-acompanha o scroll de `#editor-scroll` (listener com `requestAnimationFrame`).
-Puramente visual (`aria-hidden`) — não representa conteúdo real; é chrome que
-completa a leitura de "editor". CSS + um listener leve; zero ícones.
+O minimap decorativo (silhueta de "código" que não representava conteúdo real)
+**deixou de existir**: era cenografia — o "tell" máximo de screenshot. A
+direita do editor passa a ser o espaço em branco honesto de um documento
+alinhado à esquerda (Zed/JetBrains com minimap desligado), não uma régua falsa.
 
 ### 6.23 `CommandPalette` (Release 0.7, lazy)
 

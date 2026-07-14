@@ -31,7 +31,7 @@ function View({
       id={id}
       aria-labelledby={labelledBy}
       className={
-        active === id ? "view-enter px-5 py-6 md:px-8 md:py-8 lg:px-10" : "hidden"
+        active === id ? "view-enter px-5 py-5 md:px-8 md:py-7" : "hidden"
       }
     >
       {children}
@@ -50,7 +50,7 @@ export function Home() {
 
   return (
     <>
-      <View id="overview" active={active}>
+      <View id="overview" active={active} labelledBy="overview-titulo">
         <Hero />
       </View>
       <View id="projetos" active={active} labelledBy="projetos-titulo">

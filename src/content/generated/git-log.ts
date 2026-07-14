@@ -12,6 +12,12 @@ export const branch = "main";
 
 export const commits: Commit[] = [
   {
+    "hash": "2af68be",
+    "subject": "feat: linguagem visual da 0.8 — tokens (Release 0.8 · M1)",
+    "author": "FranciscoPedro06",
+    "date": "2026-07-14"
+  },
+  {
     "hash": "9efb4eb",
     "subject": "docs: abre Release 0.8 (redesign) — Design Review, ADR-0014/0015, roadmap",
     "author": "FranciscoPedro06",
@@ -122,12 +128,6 @@ export const commits: Commit[] = [
   {
     "hash": "e31f52a",
     "subject": "feat: establish brand assets and experience foundation",
-    "author": "FranciscoPedro06",
-    "date": "2026-07-11"
-  },
-  {
-    "hash": "6dcd028",
-    "subject": "feat: establish project foundation and design tokens",
     "author": "FranciscoPedro06",
     "date": "2026-07-11"
   }
