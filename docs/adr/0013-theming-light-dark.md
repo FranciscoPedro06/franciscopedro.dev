@@ -2,6 +2,10 @@
 
 **Status:** Aceito (decisão do Francisco, Release 0.7)
 **Data:** 2026-07-14
+**Nota (Release 0.9):** o **mecanismo** aqui decidido (dark default, light por
+`data-theme`, script anti-flash, SSR-safe, contraste medido) segue em vigor. Os
+**valores de paleta** (grafite-quente + âmbar/bronze) foram **superados pela
+ADR-0016** (Dim Sage). Onde este ADR cita hexes, a fonte atual é o doc 04 §1.
 
 ## Contexto
 

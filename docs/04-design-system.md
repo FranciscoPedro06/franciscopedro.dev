@@ -9,50 +9,56 @@
 
 ## 1. Tokens de cor
 
-> **Dois temas (Release 0.7, ADR-0013).** O escuro é o default (`:root`); o
-> claro é override por atributo (`:root[data-theme="light"]`). A tabela §1.1–1.3
-> é o tema escuro; a §1.5 é o claro. Toda cor nova precisa de valor nos dois
-> temas — sempre medida (o Lighthouse é o juiz; `axe` não pinta pixels).
+> **Dois temas (mecanismo da ADR-0013; valores da Release 0.9, ADR-0016).** O
+> escuro é o default (`:root`); o claro é override por atributo
+> (`:root[data-theme="light"]`). A tabela §1.1–1.3 é o tema escuro; a §1.5 é o
+> claro. Toda cor nova precisa de valor nos dois temas — **sempre medida** por
+> script OKLCH → WCAG sobre os pixels renderizados (o Lighthouse é o juiz final;
+> `axe` não pinta pixels — lição da 0.5).
 
-### 1.1 Neutros (grafite quente — Release 0.6.1)
-
-| Token | Hex | Uso |
-|---|---|---|
-| `bg` | `#121110` | Fundo global e do editor (canvas plano) |
-| `surface` | `#191816` | Barras do workbench, painéis, blocos de código |
-| `surface-2` | `#22201D` | Elevação secundária (hover, tags, tooltips) |
-| `surface-3` | `#2A2723` | Estado ativo/selecionado, superfície elevada (Release 0.8) |
-| `border` | `#2D2B27` | Bordas padrão (1 px) |
-| `border-strong` | `#3C3934` | Bordas de elementos interativos em hover/foco |
-| `text` | `#F2F0ED` | Texto primário, títulos |
-| `text-2` | `#A7A29A` | Texto secundário, parágrafos longos |
-| `text-3` | `#8E8981` | Metadados, captions, placeholders |
-
-Justificativa: grafite **quente**, sem azul perceptível — a linguagem dos
-editores profissionais (revisão 0.6.1: os neutros frios anteriores + teal
-liam como "estética de IA"). A rampa é de **quatro superfícies** — `bg`
-(canvas) < `surface` (cromo) < `surface-2` (hover) < `surface-3` (ativo) —, o
-que dá profundidade por plano **sem sombra** (Release 0.8). Três níveis de
-texto bastam; mais níveis diluem a hierarquia.
-
-Contrast check (calculado na revisão 0.6.1): `text` 16,6:1 sobre `bg` ·
-`text-2` 7,4:1 · `text-3` 5,4:1 — e `text-3` ≥ 4,68:1 até sobre
-`surface-2`, o fundo mais claro. Todos os pares ≥ AA (4,5:1) em qualquer
-tamanho de texto. **Restrição da `surface-3`:** pareia com `text`/`text-2`
-(≥ 5,9:1); `text-3` sobre `surface-3` cai a ~4,3:1 — por isso `surface-3` só
-recebe texto primário/secundário (o padrão em linha ativa/selecionada). (Lição
-da 0.5 mantida: contraste se mede, não se declara — o Lighthouse é o juiz.)
-
-### 1.2 Acento
+### 1.1 Neutros (Dim Sage — Release 0.9, ADR-0016)
 
 | Token | Hex | Uso |
 |---|---|---|
-| `accent` | `#D9A866` | Foco, estados ativos, marcadores, ponto do logo |
-| `accent-bright` | `#ECC78F` | Hover de link, foco |
-| `accent-dim` | `rgba(217, 168, 102, 0.12)` | Fundos sutis (item ativo do explorer, seleção) |
+| `bg` | `#0C110D` | Fundo global e do editor (canvas plano) |
+| `surface` | `#141916` | Barras do workbench, painéis, blocos de código |
+| `surface-2` | `#1D231F` | Elevação secundária (hover, tags, tooltips) |
+| `surface-3` | `#272E29` | Estado ativo/selecionado, superfície elevada |
+| `border` | `#323934` | Bordas padrão (1 px) — hairline afinada |
+| `border-strong` | `#4A524C` | Bordas de elementos interativos em hover/foco |
+| `text` | `#E3E8E4` | Texto primário, títulos (não é branco puro — baixo glare) |
+| `text-2` | `#B9C0BB` | Texto secundário, parágrafos longos |
+| `text-3` | `#8E9690` | Metadados, captions, placeholders |
 
-Contraste de `accent` sobre `bg`: 8,8:1 — serve para texto de qualquer
-tamanho. O acento **indica** (foco, estado); nunca pinta superfícies.
+Justificativa: neutros de undertone **verde-sálvia** em OKLCH — undertone único
+e comprometido (M0 princípio 2), o oposto do cinza-neutro-por-comitê e do
+âmbar-sobre-grafite da 0.8 que liam como template de IA. **Long-session first**
+(M0 princípio 12): o texto primário **não é branco puro** e o contraste de topo é
+contido — menos glare na leitura prolongada. A rampa é de **quatro superfícies**
+— `bg` (canvas) < `surface` (cromo) < `surface-2` (hover) < `surface-3` (ativo)
+— com definição entre planos ampliada e hairlines afinadas: profundidade por
+plano **sem sombra** (ADR-0015). Três níveis de texto bastam; mais diluem a
+hierarquia (a rampa tem folga medida para um 4º nível de cromo esmaecido, a
+introduzir só quando houver consumidor — doc 04 §9).
+
+Contrast check (medido, OKLCH → WCAG): `text` **15,4:1** sobre `bg` · `text-2`
+**9,6:1** sobre `surface` · `text-3` **5,9:1** sobre `surface`. **`surface-3`
+(linha ativa):** `text` 11,2:1 · `text-2` **7,5:1** — a restrição de pareamento
+da 0.8 caiu: `text-3` agora atinge AA até sobre `surface-3`. Todos os pares de
+texto ≥ AA (4,5:1) em qualquer tamanho; hairline `border-strong`/`surface`
+2,2:1 (visível). Nos dois temas.
+
+### 1.2 Acento (pinho — ADR-0016)
+
+| Token | Hex | Uso |
+|---|---|---|
+| `accent` | `#5ACABA` | Foco, estados ativos, marcadores, ponto do logo |
+| `accent-bright` | `#6CE2D1` | Hover de link, foco |
+| `accent-dim` | `rgba(90, 202, 186, 0.13)` | Fundos sutis (item ativo do explorer, seleção) |
+
+Contraste de `accent` sobre `surface`: **9,0:1** (sobre `bg` 9,6:1) — serve para
+texto de qualquer tamanho e para o anel de foco (mais evidente que o âmbar da
+0.8, ainda contido). O acento **indica** (foco, estado); nunca pinta superfícies.
 
 **Regras de contenção** (invioláveis): o acento nunca preenche botões grandes,
 nunca coloriza títulos inteiros, nunca aparece em mais de ~5% da área visível.
@@ -61,10 +67,13 @@ nunca coloriza títulos inteiros, nunca aparece em mais de ~5% da área visível
 
 | Token | Hex | Uso |
 |---|---|---|
-| `success` | `#4ADE80` | Raro — indicadores "online/em produção" |
-| `danger` | `#F87171` | Raro — erros de navegação (404) |
+| `success` | `#89D298` | Raro — indicadores "online/em produção", gate verde |
+| `danger` | `#ED756E` | Raro — erros de navegação (404) |
 
-Sem `warning` na v1: não há caso de uso. Não criar token sem uso.
+`success`/`danger` sobre `surface` ≥ 6:1 (dark) e ≥ 4,4:1 (light), como sinal
+(UI ≥ 3:1). Sem `warning` na v1: não há caso de uso. As **cores de documento do
+git** (adicionado/modificado/removido) entram na M3, quando o Explorer as
+consumir — nenhum token nasce sem uso (§9).
 
 ### 1.4 Canvas da IDE — retirado na Release 0.8 (ADR-0015)
 
@@ -73,34 +82,35 @@ existir**: era textura sem função — um "tell" de screenshot e de estética d
 IA. A estrutura passa a vir das réguas reais do cromo (bordas de painel); o
 fundo é `bg` chapado, plano de software (Zed/Linear). Nenhum token de grid.
 
-### 1.5 Tema claro (papel-quente — Release 0.7, ADR-0013)
+### 1.5 Tema claro (Dim Sage claro — Release 0.9, ADR-0016)
 
-Paleta clara, quente e monocromática (não "site de IA"): papel off-white e
-acento **bronze** (o âmbar do escuro reprova o contraste no claro). Override
-dos mesmos tokens sob `:root[data-theme="light"]`.
+Paleta clara verde-sálvia, monocromática e de baixo contraste-de-topo (não
+"site de IA"): papel off-white esverdeado e acento **pinho profundo** (o pinho
+claro do escuro reprova o contraste no claro). Override dos mesmos tokens sob
+`:root[data-theme="light"]`.
 
 | Token | Hex / valor | Uso |
 |---|---|---|
-| `bg` | `#FAF9F7` | Fundo global e do editor |
-| `surface` | `#F1EEE9` | Barras do workbench, painéis |
-| `surface-2` | `#E7E3DC` | Elevação secundária (hover, tags, tooltips) |
-| `surface-3` | `#DAD4CA` | Estado ativo/selecionado, superfície elevada |
-| `border` | `#DED9D1` | Bordas padrão |
-| `border-strong` | `#C7C0B4` | Bordas interativas em hover/foco |
-| `text` | `#1C1B19` | Texto primário, títulos |
-| `text-2` | `#55514B` | Texto secundário |
-| `text-3` | `#5F5A52` | Metadados, captions, placeholders |
-| `accent` | `#9A6B16` | Foco, estados ativos, marcadores |
-| `accent-bright` | `#7A5410` | Hover de link, texto sobre `accent-dim` |
-| `accent-dim` | `rgba(154, 107, 22, 0.14)` | Fundos sutis (item ativo, seleção) |
-| `success` | `#15803D` | Indicadores "em produção" |
-| `danger` | `#DC2626` | Erros de navegação (404) |
+| `bg` | `#F5FAF6` | Fundo global e do editor |
+| `surface` | `#E8EFE9` | Barras do workbench, painéis |
+| `surface-2` | `#DCE4DD` | Elevação secundária (hover, tags, tooltips) |
+| `surface-3` | `#D0DAD2` | Estado ativo/selecionado, superfície elevada |
+| `border` | `#D1DAD3` | Bordas padrão |
+| `border-strong` | `#B3BEB6` | Bordas interativas em hover/foco |
+| `text` | `#1F2621` | Texto primário, títulos |
+| `text-2` | `#475049` | Texto secundário |
+| `text-3` | `#606962` | Metadados, captions, placeholders |
+| `accent` | `#00706B` | Foco, estados ativos, marcadores |
+| `accent-bright` | `#005A55` | Hover de link, texto sobre `accent-dim` |
+| `accent-dim` | `rgba(0, 112, 107, 0.09)` | Fundos sutis (item ativo, seleção) |
+| `success` | `#1D7D3E` | Indicadores "em produção" |
+| `danger` | `#BE2323` | Erros de navegação (404) |
 
-Contrast check (medido por script, mesma regra da §1.1): `text` 16,4:1 ·
-`text-2` 7,5:1 · `text-3` 6,5:1 sobre `bg`; todos os três ≥ 5,3:1 até sobre
-`surface-2`; sobre `surface-3`, `text-3` ≈ 4,8:1 (o piso da rampa, ainda ≥ AA).
-`accent` sobre `bg` 4,45:1 (≥ 3:1 para foco/UI); `accent-bright`
-6,4:1 (serve como texto). Todos os pares de texto ≥ AA (4,5:1).
+Contrast check (medido, OKLCH → WCAG): `text` **14,7:1** · `text-2` 7,9:1 ·
+`text-3` 5,4:1 sobre `bg`; sobre `surface`, `text-2` 7,2:1 e `text-3` **4,9:1**;
+sobre `surface-3` (linha ativa), `text-2` 5,8:1. `accent` sobre `surface`
+**5,1:1** (serve como texto e foco); `accent-bright` 6,9:1. Todos os pares de
+texto ≥ AA (4,5:1).
 
 ## 2. Tipografia
 

@@ -46,7 +46,7 @@ export const DEFAULTS: WorkbenchState = {
 };
 
 const KEY = "fp.workbench.v1";
-const THEME_COLOR: Record<Theme, string> = { dark: "#191816", light: "#F1EEE9" };
+const THEME_COLOR: Record<Theme, string> = { dark: "#141916", light: "#E8EFE9" };
 
 const listeners = new Set<() => void>();
 
