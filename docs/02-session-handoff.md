@@ -5,56 +5,54 @@
 > Release — contém apenas o necessário para iniciar a próxima sessão, nunca
 > histórico.
 
-**Data:** 2026-07-14 · **Release encerrada:** 0.7 — "É uma IDE no navegador"
+**Data:** 2026-07-14 · **Release encerrada:** 0.8 — "Redesign / Maturidade de produto"
 
 ## Próximo objetivo
 
-**Validação em navegador real da 0.7 pelo Francisco** antes de qualquer novo
-código: a release mudou a experiência inteira (theming, estado de cliente,
-palette, painel inferior, drawer mobile) e só passou pelo gate automatizado.
-Depois, **Release 0.8 — Pré-lançamento / v1.0** (doc 07 §3): roadmap GitHub,
-medição do M7 (≥ 95) no deploy e integração do material do Francisco (doc 05
-§7) conforme chegar.
+**Validação em navegador real do redesign 0.8 pelo Francisco** antes de
+qualquer novo código: as Releases 0.6–0.8 mudaram a experiência inteira e só
+passaram pelo gate automatizado. Checklist: desktop/tablet/mobile, tema
+light/dark, NVDA/Tab/zoom 200 %, e a **pergunta-guia do ADR-0014** — "sem os
+ícones e o Explorer, ainda parece software?". Depois, **Release 0.9 —
+Pré-lançamento / v1.0** (doc 07 §3): roadmap GitHub, medição do M7 (≥ 95) no
+deploy e integração do material do Francisco (doc 05 §7) conforme chegar.
 
 ## Arquivos provavelmente envolvidos
 
-- `src/lib/workbench.ts` — o store do shell (ADR-0012). Todo cromo novo passa
-  por aqui; todo campo tem um `DEFAULT` (contrato de SSR).
-- `src/components/workbench/` — ActivityBar, SidePanel (+ Explorer, Settings,
-  Search‡, SourceControl‡), EditorTabs, Minimap, CommandPalette‡ (+ Host),
-  BottomPanel‡ (+ Host), ResizeHandle, ThemeToggle. (‡ = chunk lazy.)
-- `src/index.css` — tokens dos dois temas (dark `:root` + light
-  `[data-theme=light]`), `.scrollbar-ide`, `.reveal`, keyframes.
-- `index.html` — script anti-flash (tema + `data-js`) antes do paint.
-- `scripts/gen-git-log.mjs` → `src/content/generated/git-log.ts` — commits
-  reais do Source Control; regenerado no `build` (e por `npm run gen:gitlog`).
+- `src/components/ui/DocHeader.tsx` — a abertura de todo documento (ADR-0014):
+  comentário mono de topo de arquivo + título + lead. Todo conteúdo novo passa
+  por aqui, não mais por um `SectionHeading` (removido).
+- `src/pages/Home.tsx` (wrapper `View`) + `src/components/sections/*` — as 7
+  views como documentos densos alinhados à esquerda; `Hero` é o `overview`.
+- `src/index.css` — tokens dos dois temas (escala 0.8, `surface-3`,
+  `.elevated`); **sem** canvas de fundo. Fonte da verdade: doc 04.
+- `src/components/layout/Footer.tsx` / `NavBar.tsx` — status bar com branch +
+  último commit reais (`git-log`) e o gatilho command-first da title bar.
 - `src/lib/seo.ts` (`SITE_URL`), `src/content/site.ts` (e-mail, LinkedIn,
-  `resumeReady`) — pendências de material entram aqui.
+  `resumeReady`) — pendências de material entram aqui (0.9).
 
 ## Decisões desta release
 
-- **ADR-0012 (estado do shell):** primeiro estado de cliente do projeto, só
-  cromo de UI, SSR-safe. Navegação/SEO seguem na URL/hash (ADR-0004/0011); a
-  aba ativa vem da URL, só o *conjunto* de abas é client-state.
-- **ADR-0013 (theming light+dark):** dark default; light por `data-theme`;
-  anti-flash inline; SSR intacto; paleta light medida (doc 04 §1.5).
-- **framer-motion saiu da entrada:** Reveal/MobileMenu/Terminal → CSS +
-  IntersectionObserver + matchMedia. JS inicial 110 → **73,5 KB**. A regra do
-  orçamento (doc 06 §7) não se ajusta — o cromo novo coube porque o framer saiu.
-- **Superfícies pesadas são lazy:** Search, Source Control, Command Palette e
-  painel inferior — fora da entrada e do HTML de SSR.
+- **ADR-0014 (conteúdo como documento):** o editor renderiza o arquivo como
+  documento (alinhado à esquerda, denso, cabeçalho de arquivo, ações como links
+  de workspace), não como seção de marketing. HTML semântico intacto — SSR/SEO/
+  axe/56 testes verdes. A navegação segue na URL/hash (ADR-0004/0011).
+- **ADR-0015 (sem cenografia):** toda superfície tem função real; canvas e
+  minimap decorativos removidos; a liveness vem de dados reais (git-log), nunca
+  de atividade ou imperfeição fabricadas.
+- **Linguagem visual 0.8:** escala tipográfica contida (teto 40 px, corpo
+  15 px, uma voz), rampa de neutros com `surface-3`, elevação só em camadas
+  flutuantes, densidade dupla (cromo/leitura). Planejamento e direção de arte
+  completos em [reviews/release-0.8-design-review.md](reviews/release-0.8-design-review.md).
 
 ## Observações
 
-- **Folga de orçamento agora é grande** (73,5/110 KB) — mas a disciplina
+- **Folga de orçamento** segue grande (JS 74,4/110, CSS 21,1/25) — a disciplina
   continua: features pesadas nascem lazy; medir a cada marco.
-- Pontos novos do checklist manual de a11y: drawer mobile (backdrop, Esc,
-  foco), combobox da paleta (`aria-activedescendant`), `role=separator` do
-  resize (setas), tablist do painel inferior, tema light/dark sem flash.
-- As Releases 0.3–0.7 aguardam validação do Francisco em navegador real
-  (NVDA, Tab, zoom 200%, mobile).
-- O critério M7 (performance ≥ 95) segue aberto; a saída do framer deve
-  ajudar. Medir no PageSpeed/CI (no Windows local o Lighthouse CI precisa de
-  `CHROME_PATH` apontando para o Edge).
+- **`Button`** existe só para chrome (Menu/Fechar); ações de conteúdo são links
+  de workspace. Não reintroduzir botões preenchidos no conteúdo.
+- A **overview** é propositalmente concisa (abertura de README); enriquecer só
+  se a validação pedir — sem fabricar dados (charter §5–7).
 - Pendências de material que bloqueiam a publicação: ver
-  [01-project-state.md](01-project-state.md).
+  [01-project-state.md](01-project-state.md). As Releases 0.3–0.8 aguardam
+  validação do Francisco em navegador real.

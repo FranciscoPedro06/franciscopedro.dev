@@ -8,6 +8,23 @@ corresponde a um marco do [roadmap](docs/07-roadmap.md).
 
 ### Added
 
+- Release 0.8: "Redesign / Maturidade de produto" — fecha a dissonância entre a
+  moldura de IDE e um conteúdo que ainda tinha linguagem de landing page (5
+  marcos), a partir de uma auditoria de design da 0.7. **Conteúdo como
+  documento** (ADR-0014): o editor abre o arquivo como documento, não como
+  seção de marketing — `DocHeader` (comentário mono de topo de arquivo +
+  título + lead) no lugar do `SectionHeading`; `overview` reconstruído como
+  cabeçalho de arquivo (papel como comentário, nome em `display`), alinhado à
+  esquerda e denso, sem hero centralizado; ações como afordâncias de workspace
+  (links mono), não botões de campanha. **Linguagem visual** (M1): escala
+  tipográfica contida (teto 40 px, corpo 15 px, uma voz), rampa de neutros com
+  `surface-3`, elevação `.elevated` (só camadas flutuantes), densidade dupla
+  (cromo/leitura). **De-carding**: princípios de Engenharia e competências de
+  Dados viram listas de documento, não grades de cards com borda. **Workspace
+  vivo de dados reais** (M4): status bar com branch e último commit reais do
+  `git-log` (data relativa viva, SSR-safe) que abre o Source Control, e um
+  gatilho *command-first* visível na title bar (a descoberta que faltava). 404
+  re-vozeado como documento. Contratos de SSR/SEO/rotas e os 56 testes intactos.
 - Release 0.7: "É uma IDE no navegador" — transformação completa da
   experiência (6 marcos). **Theming light + dark real** (ADR-0013): dark é o
   default, light é override por `data-theme` com paleta papel-quente + acento
@@ -54,6 +71,13 @@ corresponde a um marco do [roadmap](docs/07-roadmap.md).
 
 ### Changed
 
+- Release 0.8 — **removidos** (ADR-0015, "sem cenografia"): o canvas decorativo
+  de fundo (grid + ruído, `body::before`) e o `Minimap` decorativo — textura e
+  widget sem função, "tells" de screenshot/IA; a estrutura passa a vir das
+  réguas reais do cromo e a direita do editor vira espaço em branco honesto de
+  documento. `SectionHeading` (padrão de abertura de marketing) foi retirado em
+  favor do `DocHeader`. Os variants preenchidos do `Button` saíram do conteúdo
+  (agora links de workspace); o `Button` permanece só para chrome.
 - Release 0.7: `framer-motion` saiu da entrada — `Reveal`, `MobileMenu` e o
   Terminal passaram a usar CSS + IntersectionObserver + `matchMedia`. O JS
   inicial caiu de ~110 KB para ~73 KB gzip, abrindo margem para o cromo de IDE

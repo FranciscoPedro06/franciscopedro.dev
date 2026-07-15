@@ -12,6 +12,12 @@ export const branch = "main";
 
 export const commits: Commit[] = [
   {
+    "hash": "73e807d",
+    "subject": "feat: workspace vivo + descoberta, de dados reais (Release 0.8 · M4)",
+    "author": "FranciscoPedro06",
+    "date": "2026-07-14"
+  },
+  {
     "hash": "19a3340",
     "subject": "feat: documentos de conteudo na voz de workspace (Release 0.8 · M3)",
     "author": "FranciscoPedro06",
@@ -122,12 +128,6 @@ export const commits: Commit[] = [
   {
     "hash": "a0311c4",
     "subject": "feat: deliver FastPass case study as complete release",
-    "author": "FranciscoPedro06",
-    "date": "2026-07-11"
-  },
-  {
-    "hash": "971fd60",
-    "subject": "feat: build homepage and navigation experience",
     "author": "FranciscoPedro06",
     "date": "2026-07-11"
   }
