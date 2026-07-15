@@ -1,14 +1,14 @@
 import { Check, GitBranch, TriangleAlert } from "lucide-react";
 import { ThemeToggle } from "@/components/workbench/ThemeToggle";
+import { branch, commits } from "@/content/generated/git-log";
 import { footerCopy, site } from "@/content/site";
-import { setWorkbench } from "@/lib/workbench";
+import { setWorkbench, useHydrated } from "@/lib/workbench";
 
 /**
- * Status bar do workbench (doc 04 §6.7): a faixa inferior da aplicação — uma
- * linha densa em mono, com indicadores técnicos **verdadeiros** do projeto à
- * esquerda e os contatos/colofão/copyright de sempre à direita (conteúdo
- * editorial preservado), além do alternador de tema. Itens menos críticos
- * cedem espaço por breakpoint (somem via CSS, seguem no DOM).
+ * Status bar do workbench (doc 04 §6.7): a faixa inferior — densa em mono, com
+ * indicadores técnicos **verdadeiros** à esquerda (branch e último commit reais
+ * do git-log; problemas e build refletindo o gate) e contatos/colofão à
+ * direita. Itens menos críticos cedem espaço por breakpoint (somem via CSS).
  */
 
 const chip =
@@ -18,14 +18,47 @@ const link = `${chip} transition-colors duration-150 hover:text-text`;
 /** Fatos técnicos estáveis do projeto (a stack do colofão + o pipeline). */
 const FACTS = ["UTF-8", "TypeScript", "React", "Vite", "Pre-render", "SSR", "SEO", "Vercel"];
 
+/** Data relativa curta e honesta (pt-BR). Só roda no cliente (ver `useHydrated`). */
+function relativeDate(iso: string): string {
+  const then = new Date(`${iso}T12:00:00`).getTime();
+  const days = Math.round((Date.now() - then) / 86_400_000);
+  if (days <= 0) return "hoje";
+  if (days === 1) return "ontem";
+  if (days < 30) return `há ${days}d`;
+  const months = Math.round(days / 30);
+  if (months < 12) return `há ${months} ${months > 1 ? "meses" : "mês"}`;
+  const years = Math.round(months / 12);
+  return `há ${years} ${years > 1 ? "anos" : "ano"}`;
+}
+
 export function Footer() {
+  const hydrated = useHydrated();
+  const last = commits[0];
+
   return (
     <footer className="flex h-7 shrink-0 items-center gap-3 border-t border-border bg-surface px-3 text-text-3">
-      {/* Esquerda: branch, problemas, build */}
+      {/* Esquerda: branch + último commit (reais) + problemas + build */}
       <span className={`flex items-center gap-1.5 ${chip}`}>
         <GitBranch size={12} strokeWidth={1.5} aria-hidden="true" />
-        main
+        {branch}
       </span>
+
+      {last && (
+        <button
+          type="button"
+          onClick={() =>
+            setWorkbench({ activeView: "scm", sidebarCollapsed: false, mobilePanelOpen: true })
+          }
+          aria-label={`Último commit ${last.hash}, ${last.date}. Abrir Source Control`}
+          className={`hidden items-center gap-1.5 rounded-sm px-1 transition-colors duration-150 hover:text-text md:flex ${chip}`}
+        >
+          <span className="text-accent">{last.hash}</span>
+          <span aria-hidden="true">·</span>
+          {/* Data relativa só após hidratar — o SSR emite a data absoluta, sem mismatch. */}
+          <span>{hydrated ? relativeDate(last.date) : last.date}</span>
+        </button>
+      )}
+
       <button
         type="button"
         onClick={() => setWorkbench({ panelOpen: true, panelTab: "problems" })}
@@ -39,14 +72,14 @@ export function Footer() {
           <TriangleAlert size={11} strokeWidth={1.5} />0
         </span>
       </button>
-      <span className={`hidden items-center gap-1.5 text-success md:flex ${chip}`}>
+      <span className={`hidden items-center gap-1.5 text-success lg:flex ${chip}`}>
         <Check size={12} strokeWidth={2} aria-hidden="true" />
         <span className="text-text-3">Build · Tests ✓</span>
       </span>
 
       {/* Direita: fatos técnicos + contatos + colofão + copyright + tema */}
       <div className="ml-auto flex items-center gap-3">
-        <span aria-hidden="true" className="hidden items-center gap-3 lg:flex">
+        <span aria-hidden="true" className="hidden items-center gap-3 xl:flex">
           {FACTS.map((fact) => (
             <span key={fact} className={chip}>
               {fact}

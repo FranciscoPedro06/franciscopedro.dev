@@ -1,7 +1,8 @@
-import { GitBranch, Minus, Square, X } from "lucide-react";
+import { Command, GitBranch, Minus, Square, X } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/Button";
+import { branch } from "@/content/generated/git-log";
 import { site } from "@/content/site";
 import { useHomeView } from "@/lib/views";
 import { MobileMenu } from "./MobileMenu";
@@ -59,14 +60,32 @@ export function NavBar() {
         )}
       </nav>
 
-      {/* Cluster direito: branch + controles de janela decorativos */}
+      {/* Cluster direito: gatilho de comandos + branch + controles de janela */}
       <div className="ml-auto flex items-center gap-1">
+        {/* Command-first (Release 0.8): entrada visível para a paleta — a
+            descoberta que faltava. Dispara o mesmo evento do rail/atalho. */}
+        <button
+          type="button"
+          onClick={() => window.dispatchEvent(new Event("wb:command-palette"))}
+          aria-label="Abrir paleta de comandos"
+          className="hidden items-center gap-2 rounded-sm border border-border bg-bg px-2 py-1 font-mono text-label font-normal normal-case tracking-normal text-text-3 transition-colors duration-150 hover:border-border-strong hover:text-text-2 md:flex"
+        >
+          <Command size={12} strokeWidth={1.5} aria-hidden="true" />
+          <span>Comandos</span>
+          <kbd
+            aria-hidden="true"
+            className="rounded-[3px] border border-border bg-surface-2 px-1 text-[10px] leading-4 text-text-3"
+          >
+            ⇧⌘P
+          </kbd>
+        </button>
+
         <span
           className="hidden items-center gap-1.5 rounded-sm px-2 py-1 font-mono text-label font-normal normal-case tracking-normal text-text-3 md:flex"
           title="Branch atual"
         >
           <GitBranch size={13} strokeWidth={1.5} aria-hidden="true" />
-          main
+          {branch}
         </span>
 
         <div aria-hidden="true" className="hidden items-center md:flex">

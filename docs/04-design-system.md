@@ -299,17 +299,22 @@ não botões de campanha. `SectionHeading` sai à medida que as views migram (M3
 A primeira faixa da aplicação (48 px, `surface`, borda inferior) com
 aparência de software desktop. Esquerda: glyph âmbar + wordmark (nome do
 workspace) · divisória · as views como **barra de menu** (item ativo
-`surface-2` + `text`). Direita: indicador de **branch** (`⎇ main`, mono),
-**controles de janela** decorativos (min/max/close, `aria-hidden`) e, abaixo
-de md, o botão de menu que abre o overlay tela cheia (foco preso, Esc
+`surface-2` + `text`). Direita: **gatilho da paleta de comandos** (Release 0.8
+— "Comandos ⇧⌘P", a entrada *command-first* visível que faltava para a
+descoberta; dispara o mesmo evento do rail), indicador de **branch** (real, do
+`git-log`), **controles de janela** decorativos (min/max/close, `aria-hidden`)
+e, abaixo de md, o botão de menu que abre o overlay tela cheia (foco preso, Esc
 fecha). Contrato: os 6 links de `site.nav` e o botão "Menu" seguem sempre
 presentes (o `NavBar.test` os exige).
 
 ### 6.7 `Footer` (status bar — Release 0.7)
 
 A última faixa (28 px, mono, `surface`, borda superior), densa como a de uma
-IDE. Esquerda: branch, contador de problemas (`✓ 0  △ 0`, verdadeiro),
-`Build · Tests ✓`. Direita: fatos técnicos estáveis (UTF-8, TypeScript,
+IDE. Esquerda: branch (real, do `git-log`), **último commit** (hash em `accent`
++ data relativa viva — "hoje", "há 3d"; a relativa só após hidratar, o SSR
+emite a data absoluta, sem mismatch — Release 0.8; clicar abre o Source
+Control), contador de problemas (`✓ 0  △ 0`, verdadeiro), `Build · Tests ✓`.
+Direita: fatos técnicos estáveis (UTF-8, TypeScript,
 React, Vite, Pre-render, SSR, SEO, Vercel — que codificam o colofão + o
 pipeline), os contatos de sempre, o link do repositório e o copyright
 (conteúdo editorial preservado), e o `ThemeToggle`. Itens menos críticos
