@@ -7,15 +7,15 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { Resvg } from "@resvg/resvg-js";
 import satori from "satori";
 
-// Tokens (docs/04-design-system.md §1 — Dim Sage, Release 0.9, ADR-0016)
+// Tokens (docs/04-design-system.md §1 — grafite quente, Release 0.6.1)
 const C = {
-  bg: "#0C110D",
-  surface: "#141916",
-  border: "#323934",
-  text: "#E3E8E4",
-  text2: "#B9C0BB",
-  text3: "#8E9690",
-  accent: "#5ACABA",
+  bg: "#121110",
+  surface: "#191816",
+  border: "#2D2B27",
+  text: "#F2F0ED",
+  text2: "#A7A29A",
+  text3: "#8E8981",
+  accent: "#D9A866",
 };
 
 const FONT_DIR = "node_modules/@fontsource/jetbrains-mono/files";

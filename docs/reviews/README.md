@@ -21,5 +21,3 @@ achados e correções, pendências geradas, veredito.
 | Release 0.7 — "É uma IDE no navegador" | [release-0.7-review.md](release-0.7-review.md) | Aguardando validação |
 | Release 0.8 — Design Review & Direção de Arte (planejamento) | [release-0.8-design-review.md](release-0.8-design-review.md) | Direção aprovada pelo Francisco |
 | Release 0.8 — Redesign / Maturidade de produto | [release-0.8-review.md](release-0.8-review.md) | Aguardando validação |
-| Release 0.9 — Visual Language Research (M0) | [release-0.9-visual-language-research.md](release-0.9-visual-language-research.md) | Base aprovada pelo Francisco |
-| Release 0.9 — Design Review & Direção de Arte (planejamento) | [release-0.9-design-review.md](release-0.9-design-review.md) | Direção Dim Sage aprovada; em andamento |

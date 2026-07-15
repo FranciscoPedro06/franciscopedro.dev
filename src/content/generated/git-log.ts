@@ -12,12 +12,6 @@ export const branch = "main";
 
 export const commits: Commit[] = [
   {
-    "hash": "37f5d16",
-    "subject": "feat: refino transversal e fecho da Release 0.8 (M5)",
-    "author": "FranciscoPedro06",
-    "date": "2026-07-14"
-  },
-  {
     "hash": "73e807d",
     "subject": "feat: workspace vivo + descoberta, de dados reais (Release 0.8 · M4)",
     "author": "FranciscoPedro06",
@@ -130,5 +124,11 @@ export const commits: Commit[] = [
     "subject": "docs: establish session continuity system (Release 0.3.1)",
     "author": "FranciscoPedro06",
     "date": "2026-07-12"
+  },
+  {
+    "hash": "a0311c4",
+    "subject": "feat: deliver FastPass case study as complete release",
+    "author": "FranciscoPedro06",
+    "date": "2026-07-11"
   }
 ];

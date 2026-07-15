@@ -8,20 +8,6 @@ corresponde a um marco do [roadmap](docs/07-roadmap.md).
 
 ### Added
 
-- Release 0.9 (em andamento): "Design Maturity II" — reescrita da linguagem
-  visual do produto como identidade própria, mantendo arquitetura e princípios
-  aprovados. Novo objetivo: **parecer software profissional que por acaso usa a
-  metáfora estrutural de uma IDE** — as IDEs passam a ser referência estrutural,
-  não visual. **M0 — Visual Language Research**: 13 princípios extraídos de
-  Linear/Arc/Zed/Fleet/IntelliJ/Raycast/Warp/Superhuman/Tana/Craft (incl.
-  Long-session Design e Design by Subtraction), documentados como base canônica.
-  **M1 — Linguagem visual (tokens, ADR-0016)**: nova paleta **Dim Sage** —
-  neutros OKLCH de undertone verde-sálvia, baixo glare (texto primário não é
-  branco puro), acento **pinho** contido, definição entre planos ampliada e
-  hairlines afinadas; três propostas completas foram materializadas e comparadas,
-  cada uma com contraste medido (OKLCH → WCAG). Supersede a cor da ADR-0013 (o
-  mecanismo de theming permanece); assets de marca regenerados. AA medido nos
-  dois temas; SSR/SEO/rotas e os 56 testes intactos; orçamentos dentro do limite.
 - Release 0.8: "Redesign / Maturidade de produto" — fecha a dissonância entre a
   moldura de IDE e um conteúdo que ainda tinha linguagem de landing page (5
   marcos), a partir de uma auditoria de design da 0.7. **Conteúdo como
