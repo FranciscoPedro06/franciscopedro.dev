@@ -1,4 +1,4 @@
-import { Command, GitBranch, Minus, Square, X } from "lucide-react";
+import { Command, GitBranch } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/Button";
@@ -87,20 +87,6 @@ export function NavBar() {
           <GitBranch size={13} strokeWidth={1.5} aria-hidden="true" />
           {branch}
         </span>
-
-        <div aria-hidden="true" className="hidden items-center md:flex">
-          {[Minus, Square].map((Icon, i) => (
-            <span
-              key={i}
-              className="flex size-8 items-center justify-center text-text-3"
-            >
-              <Icon size={13} strokeWidth={1.5} />
-            </span>
-          ))}
-          <span className="flex size-8 items-center justify-center text-text-3 transition-colors duration-150 hover:bg-danger/80 hover:text-text">
-            <X size={14} strokeWidth={1.5} />
-          </span>
-        </div>
 
         <div className="md:hidden">
           <Button

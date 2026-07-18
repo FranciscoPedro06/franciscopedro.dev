@@ -12,6 +12,24 @@ export const branch = "main";
 
 export const commits: Commit[] = [
   {
+    "hash": "dfd1e89",
+    "subject": "revert: desfaz a identidade \"Dim Sage\" (b8cff3d) — decisao tomada antes da hora",
+    "author": "FranciscoPedro06",
+    "date": "2026-07-14"
+  },
+  {
+    "hash": "b8cff3d",
+    "subject": "feat: linguagem visual propria — Dim Sage (Release 0.9 · M0+M1)",
+    "author": "FranciscoPedro06",
+    "date": "2026-07-14"
+  },
+  {
+    "hash": "37f5d16",
+    "subject": "feat: refino transversal e fecho da Release 0.8 (M5)",
+    "author": "FranciscoPedro06",
+    "date": "2026-07-14"
+  },
+  {
     "hash": "73e807d",
     "subject": "feat: workspace vivo + descoberta, de dados reais (Release 0.8 · M4)",
     "author": "FranciscoPedro06",
@@ -112,23 +130,5 @@ export const commits: Commit[] = [
     "subject": "feat: make the site production-ready with prerender and SEO (Release 0.5)",
     "author": "FranciscoPedro06",
     "date": "2026-07-12"
-  },
-  {
-    "hash": "28d0958",
-    "subject": "feat: complete the four remaining engineering case studies (Release 0.4)",
-    "author": "FranciscoPedro06",
-    "date": "2026-07-12"
-  },
-  {
-    "hash": "0e331e8",
-    "subject": "docs: establish session continuity system (Release 0.3.1)",
-    "author": "FranciscoPedro06",
-    "date": "2026-07-12"
-  },
-  {
-    "hash": "a0311c4",
-    "subject": "feat: deliver FastPass case study as complete release",
-    "author": "FranciscoPedro06",
-    "date": "2026-07-11"
   }
 ];

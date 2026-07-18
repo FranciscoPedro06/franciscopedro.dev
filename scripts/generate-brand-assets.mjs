@@ -9,13 +9,13 @@ import satori from "satori";
 
 // Tokens (docs/04-design-system.md §1 — grafite quente, Release 0.6.1)
 const C = {
-  bg: "#121110",
-  surface: "#191816",
-  border: "#2D2B27",
-  text: "#F2F0ED",
-  text2: "#A7A29A",
-  text3: "#8E8981",
-  accent: "#D9A866",
+  bg: "#1A1C20",
+  surface: "#212429",
+  border: "#2E323A",
+  text: "#ECEDF0",
+  text2: "#A4A8B0",
+  text3: "#8F949C",
+  accent: "#F4F6F9",
 };
 
 const FONT_DIR = "node_modules/@fontsource/jetbrains-mono/files";

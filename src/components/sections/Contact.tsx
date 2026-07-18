@@ -18,7 +18,7 @@ export function Contact() {
       {site.email && (
         <a
           href={`mailto:${site.email}`}
-          className="mt-5 inline-block font-mono text-h3 text-accent transition-colors duration-150 hover:text-accent-bright"
+          className="mt-5 inline-block font-mono text-h3 text-accent underline decoration-accent/40 underline-offset-4 transition-colors duration-150 hover:decoration-accent"
         >
           {site.email}
         </a>

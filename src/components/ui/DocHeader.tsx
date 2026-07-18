@@ -41,7 +41,7 @@ export function DocHeader({
           {comment}
         </p>
       )}
-      <Heading id={headingId} className={`mt-2 ${sizeClass} text-text`}>
+      <Heading id={headingId} className={`mt-2 font-serif ${sizeClass} text-text`}>
         {title}
       </Heading>
       {lead && (

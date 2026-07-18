@@ -1,5 +1,6 @@
 @import "tailwindcss";
-@import "@fontsource-variable/inter";
+@import "@fontsource-variable/ibm-plex-sans";
+@import "@fontsource-variable/newsreader";
 @import "@fontsource/jetbrains-mono/400.css";
 @import "@fontsource/jetbrains-mono/600.css";
 
@@ -9,42 +10,51 @@
  * o claro é override por atributo (`:root[data-theme="light"]`, ADR-0013).
  */
 @theme {
-  /* Neutros — grafite quente (doc 04 §1.1). Rampa de 4 superfícies + 3 textos:
+  /* Neutros — grafite frio, família de editor (doc 04 §1.1). Cinza-ardósia
+     neutro-frio: no bairro do VS Code (calmo, de ferramenta) mas com temperatura
+     própria — frio, não o neutro-morno do VS Code nem o grafite-quente "premium"
+     anterior. Rampa de 4 superfícies + 3 textos:
      bg (canvas) < surface (cromo) < surface-2 (hover) < surface-3 (ativo). */
-  --color-bg: #121110;
-  --color-surface: #191816;
-  --color-surface-2: #22201d;
-  --color-surface-3: #2a2723;
-  --color-border: #2d2b27;
-  --color-border-strong: #3c3934;
-  --color-text: #f2f0ed;
-  --color-text-2: #a7a29a;
-  --color-text-3: #8e8981;
+  --color-bg: #1a1c20;
+  --color-surface: #212429;
+  --color-surface-2: #2a2e34;
+  --color-surface-3: #33373e;
+  --color-border: #2e323a;
+  --color-border-strong: #3f444d;
+  --color-text: #ecedf0;
+  --color-text-2: #a4a8b0;
+  --color-text-3: #8f949c;
 
-  /* Acento — âmbar discreto (doc 04 §1.2). Cor = significado: foco, estado
-     ativo, não-salvo, atenção — nunca decoração. */
-  --color-accent: #d9a866;
-  --color-accent-bright: #ecc78f;
-  --color-accent-dim: rgba(217, 168, 102, 0.12);
+  /* "Acento" sem hue (doc 04 §1.2) — a jogada menos-IA é recusar a cor de marca.
+     A ênfase é TINTA, não cor: ativo/foco/não-salvo/atenção se dão por brilho
+     (tinta mais clara que o texto), nunca por decoração. Cor cromática fica só
+     onde é semântica real e verdadeira — `success` e `danger`. */
+  --color-accent: #f4f6f9;
+  --color-accent-bright: #ffffff;
+  --color-accent-dim: rgba(244, 246, 249, 0.1);
 
   /* Estados semânticos (doc 04 §1.3) */
   --color-success: #4ade80;
   --color-danger: #f87171;
 
-  /* Tipografia (doc 04 §2) */
-  --font-sans: "Inter Variable", system-ui, sans-serif;
+  /* Tipografia (doc 04 §2). Sistema autoral de três vozes: IBM Plex Sans para
+     leitura e cromo (sans de engenharia, não a Inter default); Newsreader nos
+     títulos de documento (voz humana, tensão contra o editor); JetBrains Mono
+     só onde é código de fato — labels, dados, chrome de terminal. */
+  --font-sans: "IBM Plex Sans Variable", system-ui, sans-serif;
+  --font-serif: "Newsreader Variable", Georgia, "Times New Roman", serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
   /* Escala tipográfica (doc 04 §2.2, Release 0.8) — contida e de infraestrutura,
      não de marketing: uma única voz, teto de 40px, corpo denso de 15px. */
   --text-display: 2.5rem;
   --text-display--line-height: 2.75rem;
-  --text-display--letter-spacing: -0.03em;
-  --text-display--font-weight: 600;
+  --text-display--letter-spacing: -0.015em;
+  --text-display--font-weight: 500;
   --text-display-sm: 2rem;
   --text-display-sm--line-height: 2.25rem;
-  --text-display-sm--letter-spacing: -0.03em;
-  --text-display-sm--font-weight: 600;
+  --text-display-sm--letter-spacing: -0.015em;
+  --text-display-sm--font-weight: 500;
   --text-h1: 1.75rem;
   --text-h1--line-height: 2.125rem;
   --text-h1--letter-spacing: -0.02em;
@@ -97,9 +107,11 @@
   --color-text-2: #55514b;
   --color-text-3: #5f5a52;
 
-  --color-accent: #9a6b16;
-  --color-accent-bright: #7a5410;
-  --color-accent-dim: rgba(154, 107, 22, 0.14);
+  /* Dual claro: a ênfase é a tinta mais ESCURA (contraste por profundidade,
+     não por hue). Cromático só em `success`/`danger`. */
+  --color-accent: #14120f;
+  --color-accent-bright: #000000;
+  --color-accent-dim: rgba(20, 18, 15, 0.07);
 
   --color-success: #15803d;
   --color-danger: #dc2626;

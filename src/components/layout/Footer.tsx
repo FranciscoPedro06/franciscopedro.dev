@@ -15,9 +15,6 @@ const chip =
   "font-mono text-label font-normal normal-case tracking-normal text-text-3";
 const link = `${chip} transition-colors duration-150 hover:text-text`;
 
-/** Fatos técnicos estáveis do projeto (a stack do colofão + o pipeline). */
-const FACTS = ["UTF-8", "TypeScript", "React", "Vite", "Pre-render", "SSR", "SEO", "Vercel"];
-
 /** Data relativa curta e honesta (pt-BR). Só roda no cliente (ver `useHydrated`). */
 function relativeDate(iso: string): string {
   const then = new Date(`${iso}T12:00:00`).getTime();
@@ -77,16 +74,8 @@ export function Footer() {
         <span className="text-text-3">Build · Tests ✓</span>
       </span>
 
-      {/* Direita: fatos técnicos + contatos + colofão + copyright + tema */}
+      {/* Direita: contatos + colofão + copyright + tema */}
       <div className="ml-auto flex items-center gap-3">
-        <span aria-hidden="true" className="hidden items-center gap-3 xl:flex">
-          {FACTS.map((fact) => (
-            <span key={fact} className={chip}>
-              {fact}
-            </span>
-          ))}
-        </span>
-
         <nav
           aria-label="Contatos"
           className="flex items-center gap-3 border-l border-border pl-3"

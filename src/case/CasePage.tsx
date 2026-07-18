@@ -39,7 +39,7 @@ export function CasePage() {
 
       <header className="mt-5">
         <Badge>{project.badge}</Badge>
-        <h1 className="mt-3 text-h1-sm text-text lg:text-h1">{project.name}</h1>
+        <h1 className="mt-3 font-serif text-h1-sm text-text lg:text-h1">{project.name}</h1>
         <p className="mt-3 max-w-[64ch] text-body-lg text-text-2">{project.summary}</p>
         <div className="mt-4 flex flex-wrap gap-1.5">
           {project.tags.map((tag) => (
