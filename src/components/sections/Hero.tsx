@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { DocHeader } from "@/components/ui/DocHeader";
 import { hero } from "@/content/home";
 import { site } from "@/content/site";
+import { brandIcon } from "@/lib/brand";
 
 /**
  * Documento `overview` (doc 03 §5.1, ADR-0014): o arquivo aberto por padrão.
@@ -23,18 +24,21 @@ export function Hero() {
         lead={hero.paragraph}
       >
         <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-small">
-          {site.social.map((link) => (
-            <a
-              key={link.label}
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-text-2 transition-colors duration-150 hover:text-text"
-            >
-              {link.label}
-              <span aria-hidden="true">↗</span>
-            </a>
-          ))}
+          {site.social.map((link) => {
+            const Icon = brandIcon(link.label);
+            return (
+              <a
+                key={link.label}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-text-2 transition-colors duration-150 hover:text-text"
+              >
+                {Icon && <Icon className="size-4" />}
+                {link.label}
+              </a>
+            );
+          })}
           {site.resumeReady && (
             <Link
               to="/resume"

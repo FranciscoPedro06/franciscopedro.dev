@@ -24,7 +24,11 @@ export const site: SiteConfig = {
       url: "https://github.com/FranciscoPedro06",
       external: true,
     },
-    // LinkedIn: [PENDENTE] doc 05 §7
+    {
+      label: "LinkedIn",
+      url: "https://www.linkedin.com/in/francisco-pedro-5150492ba/",
+      external: true,
+    },
   ],
   seo: {
     title: "Francisco Pedro — Desenvolvedor de Sistemas & Analista de Dados",

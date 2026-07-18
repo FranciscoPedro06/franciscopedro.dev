@@ -14,6 +14,7 @@ import type { LucideIcon } from "lucide-react";
 import type { ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { site } from "@/content/site";
+import { brandIcon } from "@/lib/brand";
 import { useHomeView } from "@/lib/views";
 import {
   type ActivityView,
@@ -190,20 +191,27 @@ export function ActivityBar() {
             <RailTooltip>Command Palette (Ctrl+Shift+P)</RailTooltip>
           </button>
         </li>
-        {site.social.map((link) => (
-          <li key={link.label}>
-            <a
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`${link.label} (abre em nova aba)`}
-              className={`${itemBase} ${idle}`}
-            >
-              <ExternalLink size={20} strokeWidth={1.5} aria-hidden="true" />
-              <RailTooltip>{link.label} ↗</RailTooltip>
-            </a>
-          </li>
-        ))}
+        {site.social.map((link) => {
+          const Icon = brandIcon(link.label);
+          return (
+            <li key={link.label}>
+              <a
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${link.label} (abre em nova aba)`}
+                className={`${itemBase} ${idle}`}
+              >
+                {Icon ? (
+                  <Icon width={20} height={20} />
+                ) : (
+                  <ExternalLink size={20} strokeWidth={1.5} aria-hidden="true" />
+                )}
+                <RailTooltip>{link.label} ↗</RailTooltip>
+              </a>
+            </li>
+          );
+        })}
         <li>{panelButton(SETTINGS)}</li>
       </ul>
     </nav>

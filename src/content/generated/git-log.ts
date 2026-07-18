@@ -12,6 +12,12 @@ export const branch = "main";
 
 export const commits: Commit[] = [
   {
+    "hash": "5277d11",
+    "subject": "feat: identidade visual editorial-técnica — serifa, tinta monocromática, canvas ardósia",
+    "author": "FranciscoPedro06",
+    "date": "2026-07-18"
+  },
+  {
     "hash": "dfd1e89",
     "subject": "revert: desfaz a identidade \"Dim Sage\" (b8cff3d) — decisao tomada antes da hora",
     "author": "FranciscoPedro06",
@@ -122,12 +128,6 @@ export const commits: Commit[] = [
   {
     "hash": "95e4963",
     "subject": "fix: pin the Vercel build to the prerender pipeline",
-    "author": "FranciscoPedro06",
-    "date": "2026-07-12"
-  },
-  {
-    "hash": "ae7ef59",
-    "subject": "feat: make the site production-ready with prerender and SEO (Release 0.5)",
     "author": "FranciscoPedro06",
     "date": "2026-07-12"
   }

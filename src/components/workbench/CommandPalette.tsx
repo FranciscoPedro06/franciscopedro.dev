@@ -32,7 +32,6 @@ export function CommandPalette({ onClose }: { onClose: () => void }) {
   const commands = useMemo<Command[]>(() => {
     const openView = (view: ActivityView) =>
       setWorkbench({ activeView: view, sidebarCollapsed: false });
-    const github = site.social.find((s) => s.label === "GitHub");
 
     const list: Command[] = [
       { id: "go-overview", label: "Go: Overview", hint: "/", run: () => navigate("/") },
@@ -52,8 +51,8 @@ export function CommandPalette({ onClose }: { onClose: () => void }) {
       { id: "open-terminal", label: "Terminal: Focus", hint: "painel inferior", run: () => setWorkbench({ panelOpen: true, panelTab: "terminal" }) },
       { id: "change-theme", label: "Preferences: Change Theme", hint: "aparência", keywords: "dark light tema", run: toggleTheme },
     ];
-    if (github) {
-      list.push({ id: "open-github", label: "Open GitHub", hint: "externo ↗", run: () => window.open(github.url, "_blank", "noopener") });
+    for (const s of site.social) {
+      list.push({ id: `open-${s.label.toLowerCase()}`, label: `Open ${s.label}`, hint: "externo ↗", run: () => window.open(s.url, "_blank", "noopener") });
     }
     list.push({ id: "open-repo", label: "Open Repository", hint: "externo ↗", keywords: "codigo source", run: () => window.open(site.repositoryUrl, "_blank", "noopener") });
     return list;

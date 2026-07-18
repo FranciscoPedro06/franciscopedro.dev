@@ -2,6 +2,7 @@ import { Check, GitBranch, TriangleAlert } from "lucide-react";
 import { ThemeToggle } from "@/components/workbench/ThemeToggle";
 import { branch, commits } from "@/content/generated/git-log";
 import { footerCopy, site } from "@/content/site";
+import { brandIcon } from "@/lib/brand";
 import { setWorkbench, useHydrated } from "@/lib/workbench";
 
 /**
@@ -80,17 +81,21 @@ export function Footer() {
           aria-label="Contatos"
           className="flex items-center gap-3 border-l border-border pl-3"
         >
-          {site.social.map((item) => (
-            <a
-              key={item.label}
-              href={item.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={link}
-            >
-              {item.label} ↗
-            </a>
-          ))}
+          {site.social.map((item) => {
+            const Icon = brandIcon(item.label);
+            return (
+              <a
+                key={item.label}
+                href={item.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`inline-flex items-center gap-1.5 ${link}`}
+              >
+                {Icon && <Icon className="size-3.5" />}
+                {item.label}
+              </a>
+            );
+          })}
           {site.email && (
             <a href={`mailto:${site.email}`} className={`hidden sm:inline ${link}`}>
               {site.email}
