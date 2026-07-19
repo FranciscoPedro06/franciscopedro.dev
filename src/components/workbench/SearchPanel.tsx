@@ -1,7 +1,8 @@
-import { FileCode, FolderGit2, Milestone, Search, X } from "lucide-react";
+import { Milestone, Search, X } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { FileGlyph } from "@/components/ui/FileGlyph";
 import { byOrder } from "@/content/projects";
 import { timeline } from "@/content/timeline";
 import { HOME_VIEWS, projectFile } from "@/lib/views";
@@ -17,7 +18,9 @@ type Group = "Views" | "Projects" | "Timeline";
 interface Item {
   id: string;
   group: Group;
-  icon: LucideIcon;
+  /** Resultados-arquivo usam o FileGlyph (ADR-0017); os demais, um Lucide. */
+  file?: string;
+  icon?: LucideIcon;
   label: string;
   detail: string;
   to: string;
@@ -28,7 +31,7 @@ const INDEX: Item[] = [
   ...HOME_VIEWS.map((view) => ({
     id: `view:${view.id}`,
     group: "Views" as const,
-    icon: FileCode,
+    file: view.file,
     label: view.file,
     detail: view.label,
     to: view.id === "overview" ? "/" : `/#${view.id}`,
@@ -37,7 +40,7 @@ const INDEX: Item[] = [
   ...byOrder.map((project) => ({
     id: `project:${project.slug}`,
     group: "Projects" as const,
-    icon: FolderGit2,
+    file: projectFile(project),
     label: projectFile(project),
     detail: project.summary,
     to: `/projetos/${project.slug}`,
@@ -122,12 +125,18 @@ export function SearchPanel() {
                         to={item.to}
                         className="flex items-start gap-2 px-4 py-1 text-text-3 transition-colors duration-150 hover:bg-surface-2 hover:text-text-2"
                       >
-                        <Icon
-                          size={13}
-                          strokeWidth={1.5}
-                          aria-hidden="true"
-                          className="mt-0.5 shrink-0"
-                        />
+                        {item.file ? (
+                          <FileGlyph file={item.file} className="mt-0.5" />
+                        ) : (
+                          Icon && (
+                            <Icon
+                              size={13}
+                              strokeWidth={1.5}
+                              aria-hidden="true"
+                              className="mt-0.5 shrink-0"
+                            />
+                          )
+                        )}
                         <span className="min-w-0">
                           <span className="block truncate text-text-2">{item.label}</span>
                           <span className="block truncate text-label text-text-3">

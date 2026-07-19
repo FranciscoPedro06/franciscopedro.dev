@@ -39,10 +39,16 @@ e nunca tinham sido usados (stagger, press).
 - **Validação visual fina**: o alinhamento das guias de indentação com
   chevrons/glifos foi calibrado às cegas — conferir em navegador. (O dial do
   badge de letras foi exercido: virou forma SVG por decisão do Francisco.)
-- O `SearchPanel` ainda usa `FileCode` genérico nos resultados — adotar
-  `FileGlyph` ali é candidato natural se a validação aprovar os glifos.
+- ~~O `SearchPanel` ainda usa `FileCode` genérico nos resultados~~ — **fechada**:
+  com os glifos coloridos validados ("era esse tipo de cores que faltava"),
+  os resultados-arquivo da busca (Views e Projects) adotaram o `FileGlyph`
+  (o `FolderGit2` dos projetos, aliás, estava semanticamente errado — são
+  arquivos, não repositórios). Timeline mantém `Milestone` (não é arquivo).
 
 ## Veredito
 
-Gate verde nos 3 commits. **Aguarda validação em navegador pelo Francisco**
-(fila: 0.6–0.8, 0.9.1, 0.9.2).
+Gate verde nos 3 commits. **Os glifos de arquivo foram validados pelo
+Francisco em navegador** ao longo de dois dials (letras → formas SVG →
+logos reais coloridos, ADR-0017): "era esse tipo de cores que faltava". A
+mecânica restante da release (guias, stagger, cromo) segue na fila de
+validação geral (0.6–0.8, 0.9.1).
