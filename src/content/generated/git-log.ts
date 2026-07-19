@@ -12,6 +12,30 @@ export const branch = "main";
 
 export const commits: Commit[] = [
   {
+    "hash": "44053ef",
+    "subject": "@ feat: stagger de 60ms nas listas curtas — a cascata que o doc 08 ja permitia",
+    "author": "FranciscoPedro06",
+    "date": "2026-07-19"
+  },
+  {
+    "hash": "da8202f",
+    "subject": "@ feat: glifos tipograficos por tipo de arquivo + craft do Explorer",
+    "author": "FranciscoPedro06",
+    "date": "2026-07-19"
+  },
+  {
+    "hash": "666c819",
+    "subject": "@ docs: encerramento da Release 0.9.1 — micro-interacoes funcionais",
+    "author": "FranciscoPedro06",
+    "date": "2026-07-19"
+  },
+  {
+    "hash": "7f08d47",
+    "subject": "@ feat: o terminal digita — comandos tecla a tecla, output em fluxo",
+    "author": "FranciscoPedro06",
+    "date": "2026-07-19"
+  },
+  {
     "hash": "ecec3c1",
     "subject": "@ fix: estabiliza a suite — timeouts folgados para axe e chunks lazy",
     "author": "FranciscoPedro06",
@@ -104,30 +128,6 @@ export const commits: Commit[] = [
   {
     "hash": "dd75637",
     "subject": "feat: microinteracoes, mobile e orcamento; fecha Release 0.7 (M6)",
-    "author": "FranciscoPedro06",
-    "date": "2026-07-14"
-  },
-  {
-    "hash": "5186173",
-    "subject": "feat: command palette e painel inferior (Release 0.7 · M5)",
-    "author": "FranciscoPedro06",
-    "date": "2026-07-14"
-  },
-  {
-    "hash": "33e1245",
-    "subject": "feat: editor multi-tab, breadcrumb e minimap decorativo (Release 0.7 · M4)",
-    "author": "FranciscoPedro06",
-    "date": "2026-07-14"
-  },
-  {
-    "hash": "e06c4e5",
-    "subject": "feat: explorer com colapso, resize, Search e Source Control (Release 0.7 · M3)",
-    "author": "FranciscoPedro06",
-    "date": "2026-07-14"
-  },
-  {
-    "hash": "4abdeb0",
-    "subject": "feat: title bar, activity bar e status bar de IDE + painel comutavel (Release 0.7 · M2)",
     "author": "FranciscoPedro06",
     "date": "2026-07-14"
   }

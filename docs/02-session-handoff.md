@@ -5,42 +5,46 @@
 > Release — contém apenas o necessário para iniciar a próxima sessão, nunca
 > histórico.
 
-**Data:** 2026-07-19 · **Release encerrada:** 0.9.1 — "Micro-interações funcionais"
+**Data:** 2026-07-19 · **Release encerrada:** 0.9.2 — "Craft do workbench"
+(mesma sessão fechou a 0.9.1 — "Micro-interações funcionais")
 
 ## Próximo objetivo
 
-A 0.9.1 (4 marcos + fix de suíte) está commitada com gate verde, **sem
-validação em navegador ainda** — entra na mesma fila das 0.6–0.8. A validação
-manual (desktop/tablet/mobile, tema light/dark, NVDA/Tab/zoom 200 %) é o
-próximo passo natural; da 0.9.1 interessam os dials de sensação: **ritmo do
-terminal** (18/240/90ms) e **peso do highlight** da paleta. Depois,
-**Pré-lançamento / v1.0** (doc 07 §3): roadmap GitHub (rotação da chave
-Supabase, forks oficiais, READMEs), medição do M7 (≥ 95) no deploy e
-integração do material restante do Francisco (foto, e-mail, CV PT/EN,
-resultados do MIS, screenshots).
+As 0.9.1 e 0.9.2 estão commitadas e publicadas com gate verde, **sem
+validação em navegador ainda** — mesma fila das 0.6–0.8. A validação manual
+(desktop/tablet/mobile, tema light/dark, NVDA/Tab/zoom 200 %) é o próximo
+passo natural; interessam em particular os dials de sensação: **ritmo do
+terminal** (18/240/90ms), **peso do highlight** da paleta, **tamanho do
+FileGlyph** (8 px) e o **alinhamento das guias de indentação** do Explorer
+(calibrados às cegas, sem conferência visual). Depois, **Pré-lançamento /
+v1.0** (doc 07 §3): roadmap GitHub (rotação da chave Supabase, forks
+oficiais, READMEs), medição do M7 (≥ 95) no deploy e integração do material
+restante do Francisco (foto, e-mail, CV PT/EN, resultados do MIS,
+screenshots).
 
 ## Arquivos provavelmente envolvidos
 
-- `src/components/workbench/CommandPalette.tsx` — match highlight
-  (`matchRanges` + `Highlighted`; tokens compartilhados com o filtro).
+- `src/components/ui/FileGlyph.tsx` — badge por extensão (usado em
+  `Explorer`, `EditorTabs`, `ProjectCard`; `SearchPanel` ainda não — candidato).
+- `src/components/workbench/Explorer.tsx` — guias de indentação + pasta
+  com estado (dials de alinhamento aqui).
+- `src/components/ui/Reveal.tsx` — prop `delay` (stagger 60ms).
+- `src/components/workbench/CommandPalette.tsx` — match highlight.
 - `src/components/layout/Footer.tsx` — chip de build derivado de
-  `src/content/routes.ts` (rotas + 404), abre a aba Output.
-- `src/components/workbench/BottomPanel.tsx` — Terminal em duas velocidades
-  (tecla 18ms · Enter 240ms · output 90ms/linha).
-- `Hero`/`FeaturedWork`/`CaseNav`/`EditorTabs` — setas deslizantes + foco.
+  `src/content/routes.ts`; `BottomPanel.tsx` — Terminal em duas velocidades.
 - `vite.config.ts` + `src/test/setup.ts` — timeouts da suíte (20s/5s).
 
 ## Decisões desta release
 
-- **Sem ADR novo** — a release aplica princípios vigentes: anti-fabricação
-  (ADR-0015/0016) e "motion é informação" (doc 08 §1).
+- **Sem ADR novo** nas duas releases — aplicam princípios vigentes:
+  anti-fabricação (ADR-0015/0016) e "motion é informação" (doc 08 §1).
 - **Exceção registrada no doc 08 §3**: o Terminal digita os comandos `$` —
-  digitação é o comportamento nativo do objeto representado; a proibição de
-  "texto digitando" segue integral para prosa/títulos. Sujeita a veto do
-  Francisco na validação.
-- **Interatividade = feedback funcional**, nunca decoração: highlight por
-  tinta, chip derivado de dado real, vocabulário de motion existente (4px,
-  150ms) aplicado por inteiro — nenhum timing novo, nenhuma cor nova.
+  digitação é o comportamento nativo do objeto representado; a proibição
+  segue integral para prosa/títulos. Sujeita a veto na validação.
+- **Beleza = aprofundar a ficção da IDE** (0.9.2), não decorar: glifos
+  tipográficos, guias de árvore, stagger/press que o doc 08 já permitia.
+- **Cor por tipo de arquivo foi recusada** (seria decorativa, contra
+  ADR-0016 §1.2) — fork documentado no doc 04 §7; mudar exige revisar o ADR.
 
 ## Observações
 

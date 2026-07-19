@@ -8,6 +8,19 @@ corresponde a um marco do [roadmap](docs/07-roadmap.md).
 
 ### Added
 
+- Release 0.9.2: "Craft do workbench" — a beleza aprofunda a **ficção da
+  IDE**, não decora a superfície. **FileGlyph**: badge tipográfico mono por
+  tipo de arquivo (TS/PY/JA/JS, derivado da extensão, `currentColor`) no
+  Explorer, tabs e linhas de projeto — reconhecimento pela forma tipográfica,
+  coerente com as três vozes (ADR-0016). Explorer com **guias de indentação**
+  (hairline por nível) e pasta refletindo o colapso. **Stagger de 60ms**
+  (permitido pelo doc 08 §3 desde sempre, inédito até aqui) nas três listas
+  curtas: FeaturedWork, `/projetos` e timeline. **Vida no cromo**: pop do
+  ícone na troca de tema, tabs novas com fade, press `scale(0.98/0.90)` do
+  doc 08 §2 estendido do rail ao resto do cromo. Nenhuma cor nova; tudo
+  opacity/transform, motion-safe, 120–220ms. Gate 58/58; JS 75,6/110 KB,
+  CSS 21,4/25 KB. Recusados: cor por tipo de arquivo (decorativa —
+  exigiria revisar o ADR-0016), partículas/parallax/gradientes (doc 08 §3).
 - Release 0.9.1: "Micro-interações funcionais" — a interatividade sobe sem
   reintroduzir decoração: numa IDE, feedback é **função**. **Match highlight**
   na Command Palette (trechos que casaram acendem por tecla — `<mark>` sem

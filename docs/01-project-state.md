@@ -4,7 +4,7 @@
 > Meta-documento (ver [00-context.md](00-context.md)); a fonte normativa do
 > plano é o [07-roadmap.md](07-roadmap.md).
 
-**Última atualização:** 2026-07-19 · Release 0.9.1
+**Última atualização:** 2026-07-19 · Release 0.9.2
 
 ---
 
@@ -26,6 +26,7 @@
 | Release 0.8 | "Redesign / Maturidade de produto" (5 marcos): fecha a dissonância moldura×conteúdo a partir de uma auditoria de design. **Conteúdo como documento** (ADR-0014): `DocHeader` no lugar do `SectionHeading`, `overview` como cabeçalho de arquivo (sem hero centralizado), ações como links de workspace. **Sem cenografia** (ADR-0015): canvas e minimap decorativos removidos. Linguagem visual contida (teto 40 px, corpo 15 px, `surface-3`, elevação só flutuante); de-carding de Engenharia/Dados; status bar com branch+commit reais e gatilho command-first — SSR/SEO/rotas e os 56 testes intactos | [reviews/release-0.8-review.md](reviews/release-0.8-review.md) |
 | Release 0.9 | "Identidade visual editorial-técnica" (ADR-0016): mantém a estrutura de IDE e troca a textura, que havia pousado no centroide "premium/dark de IA". Três vozes tipográficas (Newsreader serifa nos títulos, IBM Plex Sans no corpo/cromo ex-Inter, JetBrains Mono no código); **acento sem hue** (ênfase por tinta; cromático só em success/danger); canvas grafite-quente → cinza-ardósia frio; cromo fabricado removido (controles de janela + faixa de "fatos"); **LinkedIn** integrado + ícones de marca SVG monocromáticos (GitHub/LinkedIn). Gate verde, 56 testes intactos — **validado pelo Francisco em navegador** | [reviews/release-0.9-review.md](reviews/release-0.9-review.md) |
 | Release 0.9.1 | "Micro-interações funcionais" (4 marcos + fix): interatividade como **feedback de ferramenta**, não decoração — match highlight na Command Palette (tinta + peso, por tecla), chip de build **derivado** do registro de rotas na status bar (fim do `Build · Tests ✓` fixo), setas deslizando em todos os links-seta + paridade de teclado no fechar-tab, Terminal digitando comandos tecla a tecla (exceção registrada no doc 08 §3). Suíte estabilizada (timeouts folgados; o flake era mais amplo que o SearchPanel). Gate verde 58/58 | [reviews/release-0.9.1-review.md](reviews/release-0.9.1-review.md) |
+| Release 0.9.2 | "Craft do workbench" (3 marcos): a beleza aprofunda a ficção da IDE — **FileGlyph** (badge tipográfico por tipo de arquivo, `currentColor`) no Explorer/tabs/linhas de projeto, guias de indentação + pasta com estado na árvore, **stagger de 60ms** (permitido no doc 08 §3, inédito) nas três listas curtas, pop do ícone de tema, fade de tab nova e press `scale` estendido ao cromo. Cor por tipo recusada (decorativa). Gate verde 58/58 | [reviews/release-0.9.2-review.md](reviews/release-0.9.2-review.md) |
 
 ## Onde o produto está
 
@@ -75,6 +76,10 @@
   decoração — highlight de match na paleta, chip de build derivado e clicável
   na status bar, setas que deslizam em todos os links-seta, terminal que digita
   os comandos. Nenhum timing novo (vocabulário do doc 08), nenhuma cor nova.
+- **Craft do workbench (Release 0.9.2)**: a ficção da IDE ganhou o detalhe que
+  uma IDE real tem — glifos tipográficos por tipo de arquivo (`FileGlyph`),
+  guias de indentação e pasta com estado no Explorer, cascata de 60ms nas
+  listas curtas, pop no toggle de tema, fade em tab nova e press no cromo.
 - Gate permanente verde: testes **58/58** (estabilizados — timeouts folgados
   para axe + chunks lazy; o "flake do SearchPanel" era mais amplo e variável);
   **JS inicial 75,6 KB / 110 KB**;

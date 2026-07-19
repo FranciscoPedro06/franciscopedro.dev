@@ -417,7 +417,10 @@ com **colapso de pastas persistido** (ADR-0012) e chevrons que giram. `src/`
 traz uma view por arquivo (`overview.tsx`, `engenharia.tsx`…) e a pasta
 `projetos/` (o chevron recolhe; o nome abre `/projetos`; filhos são os 5
 cases com extensão derivada da stack, via `projectFile`). Mono 14 px; item
-ativo `accent-dim`. `nav` rotulado "Explorador".
+ativo `accent-dim`. `nav` rotulado "Explorador". **Craft de árvore (0.9.2)**:
+guias de indentação (hairline vertical por nível — estrutura real, não
+textura), pasta refletindo o estado (`Folder`/`FolderOpen`) e `FileGlyph`
+(§7) no lugar do ícone genérico.
 
 ### 6.15 `EditorTabs` (multi-tab — Release 0.7)
 
@@ -512,6 +515,14 @@ Lucide, 16 px (inline com texto), 20 px (botões), 22 px (ActivityBar) ou
 12–14 px (chrome da IDE: tabs, breadcrumb, árvore), stroke 1.5, cor herdada
 do texto. `aria-hidden` por padrão — o texto adjacente (ou o `aria-label` do
 interativo) carrega o significado.
+
+**Glifos de tipo de arquivo (Release 0.9.2):** `FileGlyph` — badge mono de
+15×17 px com as duas primeiras letras da extensão (TS, PY, JA, JS; regra
+derivável, sem mapeamento bespoke), borda `border-strong`, texto 8 px 600,
+`currentColor`. Substitui o `FileCode` genérico no Explorer, nas tabs
+inativas e nas linhas de projeto — reconhecimento pela forma **tipográfica**,
+coerente com as três vozes (§2). Cor por tipo (à la VS Code) foi **recusada**:
+seria cor decorativa (contra §1.2); mudar isso exige revisar o ADR-0016.
 
 **Ícones de marca (Release 0.9, ADR-0016):** GitHub e LinkedIn têm SVG de marca
 inline (`BrandIcon.tsx`, paths oficiais), **monocromáticos via `currentColor`** —

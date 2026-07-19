@@ -31,6 +31,8 @@
 | Press de botão/card | `scale(0.98)`, 150ms | Feedback tátil do clique |
 | Seta de card **e de link-seta** em hover (0.9.1: Hero, CTA, CaseNav — anterior desliza p/ esquerda) | translateX 4px, 150ms | Reforça a direção da ação |
 | Tooltip do rail (ActivityBar) | fade de opacidade 150ms | Nomeia o ícone sem saltar |
+| Troca de ícone de estado (ThemeToggle — 0.9.2) | `icon-pop`: opacity + rotate + scale, 150ms | Marca o estado novo no clique |
+| Tab nova do editor (0.9.2) | fade 150ms na montagem | A aba aparece, não teleporta |
 | Abertura do menu mobile | fade 200ms | Suaviza a troca de contexto |
 | Transição de rota | fade 200ms | Continuidade entre páginas |
 | Alternador PT/EN (`/resume`) | crossfade 150ms do conteúdo | Marca a troca sem "piscar" |
