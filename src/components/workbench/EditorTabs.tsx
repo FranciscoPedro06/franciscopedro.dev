@@ -122,7 +122,7 @@ export function EditorTabs() {
                   type="button"
                   onClick={() => closeTab(key)}
                   aria-label={`Fechar ${name}`}
-                  className="flex size-5 items-center justify-center rounded-sm text-text-3 opacity-60 transition-colors duration-150 hover:bg-surface-2 hover:text-text hover:opacity-100 group-hover:opacity-100"
+                  className="flex size-5 items-center justify-center rounded-sm text-text-3 opacity-60 transition-colors duration-150 hover:bg-surface-2 hover:text-text hover:opacity-100 focus-visible:opacity-100 group-hover:opacity-100"
                 >
                   <X size={12} strokeWidth={1.5} aria-hidden="true" />
                 </button>

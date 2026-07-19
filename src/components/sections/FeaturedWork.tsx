@@ -28,9 +28,16 @@ export function FeaturedWork() {
       <div className="mt-5">
         <Link
           to="/projetos"
-          className="inline-flex items-center gap-1 font-mono text-small text-accent transition-colors duration-150 hover:text-accent-bright"
+          className="group inline-flex items-center gap-1 font-mono text-small text-accent transition-colors duration-150 hover:text-accent-bright"
         >
-          {featuredWork.allProjectsCta} <span aria-hidden="true">→</span>
+          {featuredWork.allProjectsCta}{" "}
+          {/* Seta desliza no hover — padrão do ProjectCard (doc 08 §2). */}
+          <span
+            aria-hidden="true"
+            className="transition-transform duration-150 group-hover:translate-x-1"
+          >
+            →
+          </span>
         </Link>
       </div>
     </Reveal>

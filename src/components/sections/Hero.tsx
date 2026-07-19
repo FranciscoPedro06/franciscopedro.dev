@@ -49,10 +49,16 @@ export function Hero() {
           )}
           <Link
             to="/#contato"
-            className="inline-flex items-center gap-1 text-accent transition-colors duration-150 hover:text-accent-bright"
+            className="group inline-flex items-center gap-1 text-accent transition-colors duration-150 hover:text-accent-bright"
           >
             Contato
-            <span aria-hidden="true">→</span>
+            {/* Seta desliza no hover — padrão do ProjectCard (doc 08 §2). */}
+            <span
+              aria-hidden="true"
+              className="transition-transform duration-150 group-hover:translate-x-1"
+            >
+              →
+            </span>
           </Link>
         </div>
       </DocHeader>
