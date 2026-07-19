@@ -516,13 +516,15 @@ Lucide, 16 px (inline com texto), 20 px (botões), 22 px (ActivityBar) ou
 do texto. `aria-hidden` por padrão — o texto adjacente (ou o `aria-label` do
 interativo) carrega o significado.
 
-**Glifos de tipo de arquivo (Release 0.9.2):** `FileGlyph` — badge mono de
-15×17 px com as duas primeiras letras da extensão (TS, PY, JA, JS; regra
-derivável, sem mapeamento bespoke), borda `border-strong`, texto 8 px 600,
-`currentColor`. Substitui o `FileCode` genérico no Explorer, nas tabs
-inativas e nas linhas de projeto — reconhecimento pela forma **tipográfica**,
-coerente com as três vozes (§2). Cor por tipo (à la VS Code) foi **recusada**:
-seria cor decorativa (contra §1.2); mudar isso exige revisar o ADR-0016.
+**Glifos de tipo de arquivo (Release 0.9.2):** `FileGlyph` — ícone SVG por
+extensão, na **mesma voz stroked do cromo** (Lucide 13 px, stroke 1.5):
+`Atom`→tsx/ts (React), `Worm`→py (Python), `Coffee`→java, `Braces`→js,
+`CodeXml`→html, `FileCode` como fallback. Reconhecimento pela **forma**,
+cor pelo contexto (`currentColor`). A primeira versão usava badge de letras
+(TS/PY/JA); o Francisco pediu formas SVG na validação — logos de marca
+preenchidos foram descartados por destoar do sistema stroked a 13 px. Cor
+por tipo (à la VS Code) segue **recusada**: seria cor decorativa (contra
+§1.2); mudar isso exige revisar o ADR-0016.
 
 **Ícones de marca (Release 0.9, ADR-0016):** GitHub e LinkedIn têm SVG de marca
 inline (`BrandIcon.tsx`, paths oficiais), **monocromáticos via `currentColor`** —

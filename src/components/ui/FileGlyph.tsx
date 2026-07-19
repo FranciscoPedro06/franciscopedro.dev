@@ -1,11 +1,23 @@
+import { Atom, Braces, Coffee, CodeXml, FileCode, Worm } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+
 /**
- * Glifo de tipo de arquivo (Release 0.9.2): badge tipográfico mono derivado
- * da extensão — TS, PY, JA, JS… — no lugar de um ícone genérico único. O
- * reconhecimento é pela forma **tipográfica** (a identidade é de três vozes,
- * ADR-0016) e a cor vem do contexto (`currentColor`), mesmo princípio dos
- * ícones de marca (doc 04 §7). Nenhum mapeamento bespoke: as duas primeiras
- * letras da extensão, maiúsculas — regra derivável, como tudo no workbench.
+ * Glifo de tipo de arquivo (Release 0.9.2; forma SVG por decisão do Francisco
+ * na validação — substituiu o badge de letras): ícone derivado da extensão,
+ * na mesma voz stroked do cromo (Lucide, stroke 1.5) — não logos de marca
+ * preenchidos, que destoariam a 13 px. Reconhecimento pela forma
+ * (Atom→React, Worm→Python, Coffee→Java), cor pelo contexto (`currentColor`)
+ * — mesmo princípio dos ícones de marca (doc 04 §7).
  */
+const ICON_BY_EXT: Record<string, LucideIcon> = {
+  tsx: Atom,
+  ts: Atom,
+  js: Braces,
+  py: Worm,
+  java: Coffee,
+  html: CodeXml,
+};
+
 export function FileGlyph({
   file,
   className,
@@ -14,12 +26,13 @@ export function FileGlyph({
   className?: string;
 }) {
   const ext = file.split(".").pop() ?? "";
+  const Icon = ICON_BY_EXT[ext] ?? FileCode;
   return (
-    <span
+    <Icon
+      size={13}
+      strokeWidth={1.5}
       aria-hidden="true"
-      className={`flex h-[15px] w-[17px] shrink-0 select-none items-center justify-center rounded-[3px] border border-border-strong font-mono text-[8px] font-semibold leading-none ${className ?? ""}`}
-    >
-      {ext.slice(0, 2).toUpperCase()}
-    </span>
+      className={`shrink-0 ${className ?? ""}`}
+    />
   );
 }

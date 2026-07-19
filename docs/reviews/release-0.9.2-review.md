@@ -13,7 +13,7 @@ e nunca tinham sido usados (stagger, press).
 
 | Marco | Entregue | Onde |
 |---|---|---|
-| M1 | **FileGlyph**: badge tipográfico mono derivado da extensão (TS/PY/JA/JS — duas primeiras letras, regra derivável) no lugar do `FileCode` genérico, em Explorer, EditorTabs e ProjectCard; craft de árvore no Explorer — **guias de indentação** (hairline por nível) e pasta `projetos/` refletindo o colapso (Folder/FolderOpen) | `FileGlyph.tsx`, `Explorer`, `EditorTabs`, `ProjectCard` |
+| M1 | **FileGlyph**: glifo por tipo de arquivo no lugar do `FileCode` genérico, em Explorer, EditorTabs e ProjectCard; craft de árvore no Explorer — **guias de indentação** (hairline por nível) e pasta `projetos/` refletindo o colapso (Folder/FolderOpen). *Adendo pós-validação:* a primeira versão (badge de letras TS/PY/JA) foi trocada por **formas SVG** a pedido do Francisco — Lucide stroked (Atom→React, Worm→Python, Coffee→Java, Braces→JS), uma voz com o cromo; logos de marca preenchidos descartados | `FileGlyph.tsx`, `Explorer`, `EditorTabs`, `ProjectCard` |
 | M2 | **Stagger de 60ms** (doc 08 §3, permitido e inédito): `Reveal` ganha `delay`; cascata nas linhas da FeaturedWork (4), no índice `/projetos` (5) e na timeline — máx. 240ms de defasagem | `Reveal.tsx`, `FeaturedWork`, `Projects`, `Timeline` |
 | M3 | **Vida no cromo**: ThemeToggle com pop do ícone na troca (keyframe `icon-pop`, opacity+rotate+scale 150ms), tabs novas entram com fade, press `scale(0.98/0.90)` (doc 08 §2, antes só no rail) em fechar-tab, abas/fechar do painel inferior, gatilho Comandos e o toggle | `index.css`, `ThemeToggle`, `EditorTabs`, `BottomPanel`, `NavBar` |
 
@@ -37,8 +37,8 @@ e nunca tinham sido usados (stagger, press).
 ## Pendências geradas
 
 - **Validação visual fina**: o alinhamento das guias de indentação com
-  chevrons/glifos e o tamanho do badge (8px) foram calibrados às cegas —
-  conferir em navegador; são dials de um commit.
+  chevrons/glifos foi calibrado às cegas — conferir em navegador. (O dial do
+  badge de letras foi exercido: virou forma SVG por decisão do Francisco.)
 - O `SearchPanel` ainda usa `FileCode` genérico nos resultados — adotar
   `FileGlyph` ali é candidato natural se a validação aprovar os glifos.
 

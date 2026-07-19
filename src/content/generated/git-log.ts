@@ -12,6 +12,18 @@ export const branch = "main";
 
 export const commits: Commit[] = [
   {
+    "hash": "fe7b345",
+    "subject": "@ docs: encerramento da Release 0.9.2 — craft do workbench",
+    "author": "FranciscoPedro06",
+    "date": "2026-07-19"
+  },
+  {
+    "hash": "e7c5512",
+    "subject": "@ feat: vida no cromo — icon-pop do tema, fade de tab nova, press feedback",
+    "author": "FranciscoPedro06",
+    "date": "2026-07-19"
+  },
+  {
     "hash": "44053ef",
     "subject": "@ feat: stagger de 60ms nas listas curtas — a cascata que o doc 08 ja permitia",
     "author": "FranciscoPedro06",
@@ -116,18 +128,6 @@ export const commits: Commit[] = [
   {
     "hash": "2af68be",
     "subject": "feat: linguagem visual da 0.8 — tokens (Release 0.8 · M1)",
-    "author": "FranciscoPedro06",
-    "date": "2026-07-14"
-  },
-  {
-    "hash": "9efb4eb",
-    "subject": "docs: abre Release 0.8 (redesign) — Design Review, ADR-0014/0015, roadmap",
-    "author": "FranciscoPedro06",
-    "date": "2026-07-14"
-  },
-  {
-    "hash": "dd75637",
-    "subject": "feat: microinteracoes, mobile e orcamento; fecha Release 0.7 (M6)",
     "author": "FranciscoPedro06",
     "date": "2026-07-14"
   }
