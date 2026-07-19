@@ -49,4 +49,23 @@ describe("BottomPanel", () => {
       screen.queryByRole("region", { name: "Painel inferior" })
     ).not.toBeInTheDocument();
   });
+
+  it("o chip de build da status bar deriva do registro de rotas e abre o Output", async () => {
+    const user = userEvent.setup();
+    renderApp();
+
+    // 8 = rotas indexáveis + 404 (ADR-0010) — derivado, nunca texto fixo.
+    const chip = screen.getByRole("button", {
+      name: "Build: 8 páginas pré-renderizadas. Abrir painel Output",
+    });
+    await user.click(chip);
+
+    expect(
+      await screen.findByRole("region", { name: "Painel inferior" })
+    ).toBeInTheDocument();
+    expect(screen.getByRole("tab", { name: "Output" })).toHaveAttribute(
+      "aria-selected",
+      "true"
+    );
+  });
 });

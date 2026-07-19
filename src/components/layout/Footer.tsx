@@ -1,6 +1,7 @@
 import { Check, GitBranch, TriangleAlert } from "lucide-react";
 import { ThemeToggle } from "@/components/workbench/ThemeToggle";
 import { branch, commits } from "@/content/generated/git-log";
+import { routes } from "@/content/routes";
 import { footerCopy, site } from "@/content/site";
 import { brandIcon } from "@/lib/brand";
 import { setWorkbench, useHydrated } from "@/lib/workbench";
@@ -70,10 +71,23 @@ export function Footer() {
           <TriangleAlert size={11} strokeWidth={1.5} />0
         </span>
       </button>
-      <span className={`hidden items-center gap-1.5 text-success lg:flex ${chip}`}>
-        <Check size={12} strokeWidth={2} aria-hidden="true" />
-        <span className="text-text-3">Build · Tests ✓</span>
-      </span>
+      {/* Sinal real, não fabricado (débito da 0.9): a contagem vem do registro
+          único de rotas (ADR-0010 — rotas indexáveis + 404 = páginas do build);
+          o artefato servido É o build. Clicar abre o Output com o pipeline. */}
+      <button
+        type="button"
+        onClick={() => setWorkbench({ panelOpen: true, panelTab: "output" })}
+        aria-label={`Build: ${routes.length + 1} páginas pré-renderizadas. Abrir painel Output`}
+        className={`hidden items-center gap-1.5 rounded-sm px-1 transition-colors duration-150 hover:text-text lg:flex ${chip}`}
+      >
+        <Check
+          size={12}
+          strokeWidth={2}
+          aria-hidden="true"
+          className="text-success"
+        />
+        build · {routes.length + 1} páginas
+      </button>
 
       {/* Direita: contatos + colofão + copyright + tema */}
       <div className="ml-auto flex items-center gap-3">
