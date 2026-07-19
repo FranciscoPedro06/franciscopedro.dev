@@ -516,15 +516,16 @@ Lucide, 16 px (inline com texto), 20 px (botões), 22 px (ActivityBar) ou
 do texto. `aria-hidden` por padrão — o texto adjacente (ou o `aria-label` do
 interativo) carrega o significado.
 
-**Glifos de tipo de arquivo (Release 0.9.2):** `FileGlyph` — ícone SVG por
-extensão, na **mesma voz stroked do cromo** (Lucide 13 px, stroke 1.5):
-`Atom`→tsx/ts (React), `Worm`→py (Python), `Coffee`→java, `Braces`→js,
-`CodeXml`→html, `FileCode` como fallback. Reconhecimento pela **forma**,
-cor pelo contexto (`currentColor`). A primeira versão usava badge de letras
-(TS/PY/JA); o Francisco pediu formas SVG na validação — logos de marca
-preenchidos foram descartados por destoar do sistema stroked a 13 px. Cor
-por tipo (à la VS Code) segue **recusada**: seria cor decorativa (contra
-§1.2); mudar isso exige revisar o ADR-0016.
+**Glifos de tipo de arquivo (Release 0.9.2, forma final — ADR-0017):**
+`FileGlyph` — os **logos oficiais das linguagens nas cores reais de marca**
+(paths devicon inline, 13 px, mesmo padrão do `BrandIcon`): React ciano →
+tsx/ts, Python azul/amarelo → py, Java azul/vermelho → java, JS amarelo →
+js, HTML5 laranja → html; `FileCode` mono como fallback. A cor aqui é
+**informação de identificação de tipo** (como em toda IDE real), não
+decoração — exceção escopada registrada no ADR-0017. Iterações anteriores
+(badge de letras mono → Lucide stroked mono) foram superadas por decisão do
+Francisco na validação. Os ícones de marca de **contato** (abaixo) seguem
+monocromáticos — o escopo da exceção é só o tipo de arquivo.
 
 **Ícones de marca (Release 0.9, ADR-0016):** GitHub e LinkedIn têm SVG de marca
 inline (`BrandIcon.tsx`, paths oficiais), **monocromáticos via `currentColor`** —

@@ -43,8 +43,10 @@ screenshots).
   segue integral para prosa/títulos. Sujeita a veto na validação.
 - **Beleza = aprofundar a ficção da IDE** (0.9.2), não decorar: glifos
   tipográficos, guias de árvore, stagger/press que o doc 08 já permitia.
-- **Cor por tipo de arquivo foi recusada** (seria decorativa, contra
-  ADR-0016 §1.2) — fork documentado no doc 04 §7; mudar exige revisar o ADR.
+- **Cor por tipo de arquivo: fork exercido pelo Francisco** (ADR-0017) — o
+  `FileGlyph` usa os logos oficiais das linguagens nas cores reais (devicon
+  inline). Exceção **escopada**: cor de tipo é identificação, não decoração;
+  contato (GitHub/LinkedIn) segue mono, conteúdo segue sob acento-sem-hue.
 
 ## Observações
 

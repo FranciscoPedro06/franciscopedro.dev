@@ -12,6 +12,12 @@ export const branch = "main";
 
 export const commits: Commit[] = [
   {
+    "hash": "956f3ed",
+    "subject": "@ feat: FileGlyph vira forma SVG — decisao do Francisco na validacao",
+    "author": "FranciscoPedro06",
+    "date": "2026-07-19"
+  },
+  {
     "hash": "fe7b345",
     "subject": "@ docs: encerramento da Release 0.9.2 — craft do workbench",
     "author": "FranciscoPedro06",
@@ -122,12 +128,6 @@ export const commits: Commit[] = [
   {
     "hash": "a7f377e",
     "subject": "feat: modelo conteudo-como-documento (Release 0.8 · M2)",
-    "author": "FranciscoPedro06",
-    "date": "2026-07-14"
-  },
-  {
-    "hash": "2af68be",
-    "subject": "feat: linguagem visual da 0.8 — tokens (Release 0.8 · M1)",
     "author": "FranciscoPedro06",
     "date": "2026-07-14"
   }
