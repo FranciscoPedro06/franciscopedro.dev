@@ -1,5 +1,11 @@
 import "@testing-library/jest-dom/vitest";
+import { configure } from "@testing-library/react";
 import { vi } from "vitest";
+
+// `findBy*` espera 1s por default — pouco para chunk lazy (Command Palette,
+// painéis) resolver com a suíte inteira em paralelo. Mesma razão do
+// `testTimeout` no vite.config.ts; rodada verde não fica mais lenta.
+configure({ asyncUtilTimeout: 5_000 });
 
 // jsdom não implementa IntersectionObserver (usado por whileInView e
 // useScrollSpy) nem scrollTo/scrollIntoView (ScrollManager).

@@ -14,5 +14,10 @@ export default defineConfig({
     setupFiles: "./src/test/setup.ts",
     globals: true,
     css: false,
+    // O default (5s) flakeia sob carga: axe na home leva ~5s e as suítes que
+    // abrem chunks lazy estouram em paralelo (falso-negativo conhecido desde a
+    // 0.7 — o conjunto que falha varia por rodada e tudo passa isolado). Teto
+    // maior não atrasa rodada verde; só dá folga ao pior caso desta máquina.
+    testTimeout: 20_000,
   },
 });
