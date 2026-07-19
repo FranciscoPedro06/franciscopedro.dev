@@ -4,7 +4,7 @@
 > Meta-documento (ver [00-context.md](00-context.md)); a fonte normativa do
 > plano é o [07-roadmap.md](07-roadmap.md).
 
-**Última atualização:** 2026-07-18 · Release 0.9
+**Última atualização:** 2026-07-19 · Release 0.9.1
 
 ---
 
@@ -25,6 +25,7 @@
 | Release 0.7 | "É uma IDE no navegador" (6 marcos): theming light+dark real (ADR-0013) + estado do shell client-persistido (ADR-0012); title/activity/status bars de software; explorer recursivo com colapso/resize persistidos, Search e Source Control (commits reais) como painéis lazy; editor multi-tab + breadcrumb + minimap; Command Palette e painel inferior (Terminal transcript) lazy; adaptação mobile (drawer); framer-motion removido da entrada (JS 110→73,5 KB) — SEO, SSR, rotas, conteúdo e os 44 testes originais intactos | [reviews/release-0.7-review.md](reviews/release-0.7-review.md) |
 | Release 0.8 | "Redesign / Maturidade de produto" (5 marcos): fecha a dissonância moldura×conteúdo a partir de uma auditoria de design. **Conteúdo como documento** (ADR-0014): `DocHeader` no lugar do `SectionHeading`, `overview` como cabeçalho de arquivo (sem hero centralizado), ações como links de workspace. **Sem cenografia** (ADR-0015): canvas e minimap decorativos removidos. Linguagem visual contida (teto 40 px, corpo 15 px, `surface-3`, elevação só flutuante); de-carding de Engenharia/Dados; status bar com branch+commit reais e gatilho command-first — SSR/SEO/rotas e os 56 testes intactos | [reviews/release-0.8-review.md](reviews/release-0.8-review.md) |
 | Release 0.9 | "Identidade visual editorial-técnica" (ADR-0016): mantém a estrutura de IDE e troca a textura, que havia pousado no centroide "premium/dark de IA". Três vozes tipográficas (Newsreader serifa nos títulos, IBM Plex Sans no corpo/cromo ex-Inter, JetBrains Mono no código); **acento sem hue** (ênfase por tinta; cromático só em success/danger); canvas grafite-quente → cinza-ardósia frio; cromo fabricado removido (controles de janela + faixa de "fatos"); **LinkedIn** integrado + ícones de marca SVG monocromáticos (GitHub/LinkedIn). Gate verde, 56 testes intactos — **validado pelo Francisco em navegador** | [reviews/release-0.9-review.md](reviews/release-0.9-review.md) |
+| Release 0.9.1 | "Micro-interações funcionais" (4 marcos + fix): interatividade como **feedback de ferramenta**, não decoração — match highlight na Command Palette (tinta + peso, por tecla), chip de build **derivado** do registro de rotas na status bar (fim do `Build · Tests ✓` fixo), setas deslizando em todos os links-seta + paridade de teclado no fechar-tab, Terminal digitando comandos tecla a tecla (exceção registrada no doc 08 §3). Suíte estabilizada (timeouts folgados; o flake era mais amplo que o SearchPanel). Gate verde 58/58 | [reviews/release-0.9.1-review.md](reviews/release-0.9.1-review.md) |
 
 ## Onde o produto está
 
@@ -70,7 +71,13 @@
   fabricado removido (controles de janela + faixa de "fatos"). **LinkedIn**
   integrado e **ícones de marca SVG** monocromáticos (GitHub/LinkedIn). Foi a
   primeira release **validada pelo Francisco em navegador** antes do commit.
-- Gate permanente verde: testes **56/56**; **JS inicial 75,1 KB / 110 KB**;
+- **Micro-interações funcionais (Release 0.9.1)**: a interatividade subiu sem
+  decoração — highlight de match na paleta, chip de build derivado e clicável
+  na status bar, setas que deslizam em todos os links-seta, terminal que digita
+  os comandos. Nenhum timing novo (vocabulário do doc 08), nenhuma cor nova.
+- Gate permanente verde: testes **58/58** (estabilizados — timeouts folgados
+  para axe + chunks lazy; o "flake do SearchPanel" era mais amplo e variável);
+  **JS inicial 75,6 KB / 110 KB**;
   maior chunk lazy 3,0 KB / 35 KB; **CSS 21,3 KB / 25 KB**; Lighthouse CI no workflow (a11y/BP/SEO ≥ 0,95;
   performance ≥ 0,90 como tripwire — critério ≥ 95 do M7 se mede no preview da
   Vercel).
@@ -86,11 +93,11 @@ dos repos FastPass, READMEs profissionais.
 
 ## Próxima release (proposta)
 
-A 0.9 (identidade visual) foi validada em navegador pelo Francisco. Segue
-pendente a **validação em navegador das 0.6–0.8** (desktop/tablet/mobile, tema
-light/dark, checklist de a11y) — mudaram a experiência inteira e só passaram
-pelo gate automatizado; a 0.9 tocou a pele por cima delas, mas a mecânica
-(workbench, painéis, mobile) ainda não teve conferência manual completa.
+Segue pendente a **validação em navegador das 0.6–0.8 e agora da 0.9.1**
+(desktop/tablet/mobile, tema light/dark, checklist de a11y) — mudaram a
+experiência e só passaram pelo gate automatizado (a 0.9 foi a única com
+conferência visual direta). Da 0.9.1, os dials de sensação (ritmo do terminal,
+peso do highlight) são decisão do Francisco.
 
 Depois, **Pré-lançamento / v1.0** (doc 07 §3, deslocada — a numeração 0.9 foi
 usada pela identidade): roadmap GitHub (rotação da chave Supabase, forks

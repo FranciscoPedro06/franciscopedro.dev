@@ -342,8 +342,12 @@ A última faixa (28 px, mono, `surface`, borda superior), densa como a de uma
 IDE. Esquerda: branch (real, do `git-log`), **último commit** (hash em `accent`
 — tinta, 0.9 — + data relativa viva — "hoje", "há 3d"; a relativa só após
 hidratar, o SSR emite a data absoluta, sem mismatch — Release 0.8; clicar abre o
-Source Control), contador de problemas (`✓ 0  △ 0`, verdadeiro), `Build ·
-Tests ✓`. Direita: os contatos (com ícone de marca, §7), o link do repositório e
+Source Control), contador de problemas (`✓ 0  △ 0`, verdadeiro), e o **chip de
+build** (0.9.1): `build · N páginas`, com N **derivado** do registro único de
+rotas (rotas indexáveis + 404, ADR-0010) — nunca texto fixo; clicar abre a aba
+Output. Substituiu o `Build · Tests ✓` fabricado (débito da 0.9): o artefato
+servido É o build, então o sinal é verdadeiro por construção.
+Direita: os contatos (com ícone de marca, §7), o link do repositório e
 o copyright (conteúdo editorial preservado), e o `ThemeToggle`. A **faixa de
 "fatos técnicos"** (UTF-8 · TypeScript · React · Vite · …) foi **removida na 0.9
 (ADR-0016)** — voz de *read-out* técnico, um delator do centroide "dev-brutalist".
@@ -487,16 +491,20 @@ listener; a paleta é `lazy`). Padrão combobox/listbox — input com
 backdrop fecha. **Todo comando é ação real ou rota existente**: Go/Open
 (navegação), View/Focus Search/Toggle Sidebar/Toggle Panel (store), Change
 Theme, Open GitHub/LinkedIn/Repository (externos, derivados de `site.social`).
-Nada decorativo.
+Nada decorativo. **Match highlight** (0.9.1): os trechos do label que casaram
+com a busca acendem por tecla (`<mark>` sem fundo — tinta `accent` + peso,
+ADR-0016); os mesmos tokens alimentam filtro e highlight.
 
 ### 6.24 `BottomPanel` (Release 0.7, lazy)
 
 Painel inferior estilo VS Code (`Ctrl/⌘+J` ou clique no indicador de
 problemas da status bar; `lazy`). Abas: **Problems** (reflete o gate — 0/0,
 ESLint/tsc/Vitest/build), **Output** (pipeline real), **Terminal**
-(transcript roteirizado dos comandos reais do projeto, com playback e cursor;
-respeita `prefers-reduced-motion`), **Debug Console**, **Ports** (portas de
-dev reais). Conteúdo honesto, derivado do projeto. `role="tablist"`.
+(transcript roteirizado dos comandos reais do projeto; playback em **duas
+velocidades** desde a 0.9.1 — comandos `$` digitados tecla a tecla, output em
+fluxo de linhas; exceção registrada no doc 08 §3; one-shot, respeita
+`prefers-reduced-motion`), **Debug Console**, **Ports** (portas de dev reais).
+Conteúdo honesto, derivado do projeto. `role="tablist"`.
 
 ## 7. Ícones
 

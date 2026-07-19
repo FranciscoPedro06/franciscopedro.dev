@@ -12,6 +12,36 @@ export const branch = "main";
 
 export const commits: Commit[] = [
   {
+    "hash": "ecec3c1",
+    "subject": "@ fix: estabiliza a suite — timeouts folgados para axe e chunks lazy",
+    "author": "FranciscoPedro06",
+    "date": "2026-07-19"
+  },
+  {
+    "hash": "87a9aca",
+    "subject": "@ feat: consistencia de micro-feedback — setas deslizam, fechar-tab no teclado",
+    "author": "FranciscoPedro06",
+    "date": "2026-07-19"
+  },
+  {
+    "hash": "5e032e2",
+    "subject": "@ feat: status bar sem fabricacao — chip de build derivado e clicavel",
+    "author": "FranciscoPedro06",
+    "date": "2026-07-19"
+  },
+  {
+    "hash": "be7ca20",
+    "subject": "@ feat: match highlight na Command Palette — feedback vivo por tecla",
+    "author": "FranciscoPedro06",
+    "date": "2026-07-19"
+  },
+  {
+    "hash": "a189de5",
+    "subject": "@ docs: encerramento da Release 0.9 — identidade visual editorial-técnica",
+    "author": "FranciscoPedro06",
+    "date": "2026-07-19"
+  },
+  {
     "hash": "0e69445",
     "subject": "feat: LinkedIn nos contatos + ícones de marca SVG (GitHub/LinkedIn)",
     "author": "FranciscoPedro06",
@@ -100,35 +130,5 @@ export const commits: Commit[] = [
     "subject": "feat: title bar, activity bar e status bar de IDE + painel comutavel (Release 0.7 · M2)",
     "author": "FranciscoPedro06",
     "date": "2026-07-14"
-  },
-  {
-    "hash": "fc3b16d",
-    "subject": "feat: theming light+dark e shell state do workbench (Release 0.7 · M1)",
-    "author": "FranciscoPedro06",
-    "date": "2026-07-14"
-  },
-  {
-    "hash": "d8fe714",
-    "subject": "feat: rebuild the presentation layer as a full-viewport workbench (Release 0.6.1)",
-    "author": "FranciscoPedro06",
-    "date": "2026-07-13"
-  },
-  {
-    "hash": "a79989b",
-    "subject": "feat: redesign the site as a branded IDE experience (Release 0.6)",
-    "author": "FranciscoPedro06",
-    "date": "2026-07-13"
-  },
-  {
-    "hash": "3376457",
-    "subject": "fix: keep the Hero contact button in the same tab",
-    "author": "FranciscoPedro06",
-    "date": "2026-07-12"
-  },
-  {
-    "hash": "4cd8433",
-    "subject": "fix: correct the text-3 token to meet the WCAG AA contrast floor",
-    "author": "FranciscoPedro06",
-    "date": "2026-07-12"
   }
 ];

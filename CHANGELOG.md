@@ -8,6 +8,28 @@ corresponde a um marco do [roadmap](docs/07-roadmap.md).
 
 ### Added
 
+- Release 0.9.1: "Micro-interações funcionais" — a interatividade sobe sem
+  reintroduzir decoração: numa IDE, feedback é **função**. **Match highlight**
+  na Command Palette (trechos que casaram acendem por tecla — `<mark>` sem
+  fundo, tinta + peso, ADR-0016; tokens compartilhados entre filtro e
+  highlight). **Chip de build derivado** na status bar: `build · 8 páginas`
+  vem do registro único de rotas (ADR-0010) e abre a aba Output — substitui o
+  `Build · Tests ✓` fixo (débito anti-fabricação da 0.9). **Setas deslizam**
+  no hover em todos os links-seta (padrão do ProjectCard estendido a Hero,
+  CTA e CaseNav) e fechar-tab com paridade de teclado
+  (`focus-visible:opacity-100`). **Terminal digita**: comandos `$` tecla a
+  tecla, output em fluxo (18/240/90ms; exceção registrada no doc 08 §3 — no
+  terminal a digitação é o comportamento nativo do objeto, não efeito sobre
+  texto). Gate: 58/58 (2 testes novos), JS 75,6/110 KB, CSS 21,3/25 KB.
+
+### Fixed
+
+- Suíte estabilizada: o flake "SearchPanel sob carga" (documentado desde a
+  0.7) era na verdade qualquer suíte de chunk lazy + o axe da home estourando
+  os defaults de timeout com a suíte em paralelo — conjunto variável por
+  rodada, tudo verde isolado. `testTimeout: 20s` + `asyncUtilTimeout: 5s`;
+  três rodadas completas consecutivas 58/58.
+
 - Release 0.9: "Identidade visual editorial-técnica" (ADR-0016) — mantém a
   estrutura de IDE e troca a **textura**, que havia pousado no centroide
   "premium/dark de IA" (grafite-quente + acento-ouro + Inter + cromo fabricado).

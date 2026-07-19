@@ -29,7 +29,7 @@
 | Entrada de bloco no scroll do painel | fade + translateY 8px, 220ms, uma vez | Orienta a chegada do conteúdo sem retê-lo |
 | Hover em interativos | transição de **cor/borda**, 150ms | Confirma que o elemento responde |
 | Press de botão/card | `scale(0.98)`, 150ms | Feedback tátil do clique |
-| Seta de card em hover | translateX 4px, 150ms | Reforça a direção da ação |
+| Seta de card **e de link-seta** em hover (0.9.1: Hero, CTA, CaseNav — anterior desliza p/ esquerda) | translateX 4px, 150ms | Reforça a direção da ação |
 | Tooltip do rail (ActivityBar) | fade de opacidade 150ms | Nomeia o ícone sem saltar |
 | Abertura do menu mobile | fade 200ms | Suaviza a troca de contexto |
 | Transição de rota | fade 200ms | Continuidade entre páginas |
@@ -38,7 +38,12 @@
 ## 3. Quando evitar (proibições)
 
 - **Parallax, partículas, gradientes animados, cursores customizados.**
-- **Texto letra a letra ou "digitando".**
+- **Texto letra a letra ou "digitando"** — em prosa, títulos ou qualquer
+  conteúdo editorial. **Exceção única (0.9.1):** o Terminal do painel
+  inferior digita os comandos `$` do transcript — ali a digitação é o
+  comportamento nativo do objeto representado (princípio 1: é informação —
+  representa a execução real dos comandos), não efeito sobre texto. One-shot,
+  som nenhum, `prefers-reduced-motion` mostra o transcript inteiro.
 - **Loops infinitos** (exceto um único indicador de status pontual, ex.: dot
   "em produção" com pulso sutil — e mesmo esse é opcional).
 - **Animação em prosa:** parágrafos de estudo de caso nunca animam
