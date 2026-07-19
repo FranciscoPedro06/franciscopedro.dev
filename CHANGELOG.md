@@ -8,6 +8,17 @@ corresponde a um marco do [roadmap](docs/07-roadmap.md).
 
 ### Added
 
+- Release 0.9: "Identidade visual editorial-técnica" (ADR-0016) — mantém a
+  estrutura de IDE e troca a **textura**, que havia pousado no centroide
+  "premium/dark de IA" (grafite-quente + acento-ouro + Inter + cromo fabricado).
+  **Três vozes tipográficas**: Newsreader (serifa) nos títulos de documento — voz
+  humana à esquerda, densa, dentro do editor; IBM Plex Sans no corpo/cromo, no
+  lugar da Inter; JetBrains Mono só onde é código. **LinkedIn** integrado aos
+  contatos (fim do `[PENDENTE]` do doc 05 §7) e **ícones de marca SVG**
+  (GitHub/LinkedIn) inline, monocromáticos via `currentColor` — reconhecimento
+  pela forma, cor pelo contexto (o LinkedIn não entra azul); resolvedor em
+  `src/lib/brand.ts`, comando "Open LinkedIn" na paleta. Gate verde: ESLint,
+  `tsc`, Vitest 56/56, build; JS 75,1/110 KB, CSS 21,3/25 KB.
 - Release 0.8: "Redesign / Maturidade de produto" — fecha a dissonância entre a
   moldura de IDE e um conteúdo que ainda tinha linguagem de landing page (5
   marcos), a partir de uma auditoria de design da 0.7. **Conteúdo como
@@ -71,6 +82,15 @@ corresponde a um marco do [roadmap](docs/07-roadmap.md).
 
 ### Changed
 
+- Release 0.9 (ADR-0016) — **acento sem hue**: a ênfase deixou de ser cor e
+  virou **tinta** (brilho, não hue — clara no escuro, escura no claro); cor
+  cromática só em `success`/`danger`. **Canvas** grafite-quente `#121110` →
+  **cinza-ardósia frio** `#1A1C20` (família de editor, temperatura própria; tema
+  claro segue papel-quente — assimetria assumida). **Removidos** (mesmo princípio
+  do ADR-0015, aplicado à pele): os controles de janela decorativos da title bar
+  e a faixa de "fatos técnicos" da status bar — cromo fabricado / voz de
+  *read-out*. Assets de marca regenerados no novo tom. Escala tipográfica com
+  peso do `display` a 500 e tracking relaxado para a serifa.
 - Release 0.8 — **removidos** (ADR-0015, "sem cenografia"): o canvas decorativo
   de fundo (grid + ruído, `body::before`) e o `Minimap` decorativo — textura e
   widget sem função, "tells" de screenshot/IA; a estrutura passa a vir das

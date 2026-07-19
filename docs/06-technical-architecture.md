@@ -144,7 +144,7 @@ Sprint 1.5 a partir da linha de base real de 92,9 KB de JS):
 | JavaScript inicial (home) | < 110 KB |
 | JavaScript por chunk lazy (case, resume) | < 35 KB adicionais |
 | CSS | < 25 KB |
-| Fontes no caminho crítico | ≤ 100 KB (Inter latin preload; mono sem preload) |
+| Fontes no caminho crítico | ≤ 100 KB (IBM Plex Sans + Newsreader + JetBrains Mono, subset latin variable; sem preload dedicado — Release 0.9) |
 | Imagem LCP (foto hero / hero de case) | < 90 KB |
 | Demais imagens (cada) | < 80 KB |
 | Transferência total — home | < 400 KB |
@@ -165,8 +165,9 @@ verificados na CI por `scripts/check-budgets.mjs` após cada build — o
 pipeline falha se qualquer limite for ultrapassado. Métricas de campo
 (LCP/CLS/INP/Lighthouse) entram no Lighthouse CI junto com o pre-render.
 
-Estratégias: pre-render (§6); fontes self-hosted `woff2` subset com preload
-só da Inter; **animação em CSS** (framer-motion fora da entrada desde a 0.7);
+Estratégias: pre-render (§6); fontes self-hosted `woff2` variable subset latin
+(`@fontsource`, sem preload dedicado — Release 0.9); **animação em CSS**
+(framer-motion fora da entrada desde a 0.7);
 superfícies pesadas do workbench (Search, Source Control, Command Palette,
 painel inferior) em chunks **lazy** — fora da entrada e do HTML de SSR; zero
 bibliotecas de UI/charts/carousel; imagens conforme §8.

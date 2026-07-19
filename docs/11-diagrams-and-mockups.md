@@ -24,7 +24,7 @@
 |---|---|
 | Fundo do diagrama | `surface` (#121316), moldura `ArchitectureDiagram` |
 | Nó (caixa) | fundo `surface-2`, borda 1px `border`, raio 8px |
-| Título do nó | Inter 14px/600 `text` |
+| Título do nó | IBM Plex Sans 14px/600 `text` |
 | Subtítulo do nó (stack/detalhe) | JetBrains Mono 11px `text-3`, caixa alta |
 | Conector padrão | linha 1.5px `border-strong`, seta fechada pequena |
 | Conector do fluxo protagonista | linha 1.5px `accent` — **no máximo um caminho por diagrama** |

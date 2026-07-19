@@ -174,8 +174,8 @@ Label: `CONTATO` · Título: `Vamos conversar`
 > O caminho mais rápido é o e-mail. Respondo mesmo.
 
 - E-mail em destaque: `[PENDENTE — e-mail público]` (com ação de copiar)
-- `GitHub ↗` → github.com/FranciscoPedro06
-- `LinkedIn ↗` → `[PENDENTE — URL]`
+- `GitHub` (ícone de marca) → github.com/FranciscoPedro06
+- `LinkedIn` (ícone de marca) → linkedin.com/in/francisco-pedro-5150492ba/ (Release 0.9)
 - `Currículo (PDF)` → `[PENDENTE — arquivo]`
 
 ---
@@ -502,7 +502,7 @@ para existir ou não.
 | CTA de card | `Ver estudo de caso →` |
 | Voltar (case) | `← Projetos` |
 | Navegação entre cases | `← {Projeto anterior}` / `{Próximo projeto} →` |
-| Link externo | sufixo `↗` (GitHub, LinkedIn) |
+| Link externo | ícone de marca monocromático (GitHub, LinkedIn); `↗` nos demais |
 | Copiar e-mail | `Copiar` → confirmação `Copiado` |
 | Botão do menu mobile | `Menu` / `Fechar` (com `aria-expanded`) |
 | Colofão (footer) | `React · Vite · TypeScript — o código deste site também é público.` |
@@ -544,7 +544,7 @@ Regra geral de CTA: verbo + objeto, sem exclamação, sem "clique aqui".
 |---|---|
 | Foto profissional | Hero |
 | E-mail público | Hero, contato, footer |
-| URL do LinkedIn | Hero, contato, footer, JSON-LD |
+| ~~URL do LinkedIn~~ | ✓ Integrado na Release 0.9 (`linkedin.com/in/francisco-pedro-5150492ba/`) |
 | Currículo PDF | `/cv.pdf` |
 | 1 frase de contexto + 2–3 resultados reais do MIS | Sobre, seção Dados, timeline |
 | Screenshots dos 5 projetos | Cards e cases |

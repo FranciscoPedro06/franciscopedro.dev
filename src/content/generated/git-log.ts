@@ -12,6 +12,12 @@ export const branch = "main";
 
 export const commits: Commit[] = [
   {
+    "hash": "0e69445",
+    "subject": "feat: LinkedIn nos contatos + ícones de marca SVG (GitHub/LinkedIn)",
+    "author": "FranciscoPedro06",
+    "date": "2026-07-18"
+  },
+  {
     "hash": "5277d11",
     "subject": "feat: identidade visual editorial-técnica — serifa, tinta monocromática, canvas ardósia",
     "author": "FranciscoPedro06",
@@ -122,12 +128,6 @@ export const commits: Commit[] = [
   {
     "hash": "4cd8433",
     "subject": "fix: correct the text-3 token to meet the WCAG AA contrast floor",
-    "author": "FranciscoPedro06",
-    "date": "2026-07-12"
-  },
-  {
-    "hash": "95e4963",
-    "subject": "fix: pin the Vercel build to the prerender pipeline",
     "author": "FranciscoPedro06",
     "date": "2026-07-12"
   }

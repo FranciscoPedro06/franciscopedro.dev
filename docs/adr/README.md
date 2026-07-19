@@ -24,3 +24,4 @@ Registro imutável das decisões arquiteturais do projeto (charter §16).
 | [0013](0013-theming-light-dark.md) | Theming light + dark | Aceito |
 | [0014](0014-content-as-document.md) | Conteúdo como documento (o editor renderiza o arquivo, não uma landing) | Aceito |
 | [0015](0015-no-scenography-real-function.md) | Sem cenografia: toda superfície tem função real | Aceito |
+| [0016](0016-visual-identity-editorial-technical.md) | Identidade visual editorial-técnica: serifa, tinta sem hue, canvas de editor frio | Aceito |

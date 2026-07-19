@@ -19,14 +19,15 @@ franciscopedro.dev
 - Uso no header: 14px (`text-small`); nunca maior que os links de navegação
   em mais de um passo da escala.
 - Em fundo claro (não existe na v1): inverter para os neutros equivalentes.
-- Nunca: colorir o domínio inteiro, aplicar o acento em `.dev`, usar Inter.
+- Nunca: colorir o domínio inteiro, aplicar a tinta de ênfase em `.dev`, render
+  a wordmark na sans de corpo (IBM Plex Sans) — ela é sempre mono.
 
 ## 2. Monograma (superfícies quadradas)
 
-`fp.` em JetBrains Mono 600 — `fp` na cor de texto, ponto no acento — sobre
-tile `#191816` (surface) com borda 1px `#2D2B27` e raio proporcional (25% do
-lado); valores da paleta grafite-quente da Release 0.6.1 (doc 04 §1). Uso
-exclusivo: favicon, app icons, avatares. O monograma nunca aparece dentro
+`fp.` em JetBrains Mono 600 — `fp` na cor de texto, ponto na tinta de ênfase —
+sobre tile `#212429` (surface) com borda 1px `#2E323A` e raio proporcional (25%
+do lado); valores da paleta ardósia-fria da Release 0.9 (doc 04 §1, ADR-0016).
+Uso exclusivo: favicon, app icons, avatares. O monograma nunca aparece dentro
 das páginas — lá, a marca é a wordmark.
 
 ## 3. Matriz de ícones
@@ -42,11 +43,11 @@ das páginas — lá, a marca é a wordmark.
 
 **`og/site-og-default.png`** — 1200×630, PNG:
 
-- Fundo `#121110` com borda interna 2px `#2D2B27` (evita "sangrar" no card
+- Fundo `#1A1C20` com borda interna 2px `#2E323A` (evita "sangrar" no card
   claro de quem incorpora).
 - Nome `Francisco Pedro` — mono 600, grande, cor de texto.
 - Papel `Desenvolvedor de Sistemas & Analista de Dados` — mono 400, `text-2`.
-- Rodapé: wordmark `franciscopedro.dev` pequena, com ponto de acento.
+- Rodapé: wordmark `franciscopedro.dev` pequena, com ponto na tinta de ênfase.
 - Sem foto, sem screenshot: a default precisa funcionar para qualquer página.
 
 Derivações (mesma composição, título variável):

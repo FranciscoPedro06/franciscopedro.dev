@@ -44,7 +44,7 @@ componente.
 |---|---|---|
 | V1-1 | 4 cases restantes (API Facial, Carrinho, EduPass, Reviva) — só dados | Must |
 | V1-2 | Diagramas de arquitetura (FastPass, API Facial, Carrinho) em SVG | Must |
-| V1-3 | Conteúdo pendente integrado: foto, CV, LinkedIn, e-mail, resultados MIS | Must |
+| V1-3 | Conteúdo pendente integrado: foto, CV, ~~LinkedIn~~ (✓ 0.9), e-mail, resultados MIS | Must |
 | V1-4 | Screenshots reais tratados (AVIF/WebP, variantes) nos 5 cases | Must |
 | V1-5 | Navegação anterior/próximo entre cases + scroll-spy do índice lateral | Should |
 | V1-6 | OG images por case | Should |

@@ -14,57 +14,69 @@
 > é o tema escuro; a §1.5 é o claro. Toda cor nova precisa de valor nos dois
 > temas — sempre medida (o Lighthouse é o juiz; `axe` não pinta pixels).
 
-### 1.1 Neutros (grafite quente — Release 0.6.1)
+### 1.1 Neutros (grafite frio / ardósia — Release 0.9, ADR-0016)
 
 | Token | Hex | Uso |
 |---|---|---|
-| `bg` | `#121110` | Fundo global e do editor (canvas plano) |
-| `surface` | `#191816` | Barras do workbench, painéis, blocos de código |
-| `surface-2` | `#22201D` | Elevação secundária (hover, tags, tooltips) |
-| `surface-3` | `#2A2723` | Estado ativo/selecionado, superfície elevada (Release 0.8) |
-| `border` | `#2D2B27` | Bordas padrão (1 px) |
-| `border-strong` | `#3C3934` | Bordas de elementos interativos em hover/foco |
-| `text` | `#F2F0ED` | Texto primário, títulos |
-| `text-2` | `#A7A29A` | Texto secundário, parágrafos longos |
-| `text-3` | `#8E8981` | Metadados, captions, placeholders |
+| `bg` | `#1A1C20` | Fundo global e do editor (canvas plano) |
+| `surface` | `#212429` | Barras do workbench, painéis, blocos de código |
+| `surface-2` | `#2A2E34` | Elevação secundária (hover, tags, tooltips) |
+| `surface-3` | `#33373E` | Estado ativo/selecionado, superfície elevada |
+| `border` | `#2E323A` | Bordas padrão (1 px) |
+| `border-strong` | `#3F444D` | Bordas de elementos interativos em hover/foco |
+| `text` | `#ECEDF0` | Texto primário, títulos |
+| `text-2` | `#A4A8B0` | Texto secundário, parágrafos longos |
+| `text-3` | `#8F949C` | Metadados, captions, placeholders |
 
-Justificativa: grafite **quente**, sem azul perceptível — a linguagem dos
-editores profissionais (revisão 0.6.1: os neutros frios anteriores + teal
-liam como "estética de IA"). A rampa é de **quatro superfícies** — `bg`
-(canvas) < `surface` (cromo) < `surface-2` (hover) < `surface-3` (ativo) —, o
-que dá profundidade por plano **sem sombra** (Release 0.8). Três níveis de
-texto bastam; mais níveis diluem a hierarquia.
+Justificativa (revisão 0.9): **cinza-ardósia neutro-frio**, na família de um
+editor de código, mas com **temperatura própria**. O grafite *quente* anterior
+(`#121110`, preto-amarronzado) lia como o centroide "premium/luxo" de interface
+gerada por IA — a peça que, junto com o acento-ouro, dava ar de "tema pago". A
+0.9 troca a temperatura: no bairro do VS Code (calmo, de ferramenta), porém
+**frio** — nem o neutro-morno do VS Code nem o marrom anterior. A rampa segue de
+**quatro superfícies** — `bg` (canvas) < `surface` (cromo) < `surface-2` (hover)
+< `surface-3` (ativo) —, profundidade por plano **sem sombra**. Três níveis de
+texto bastam.
 
-Contrast check (calculado na revisão 0.6.1): `text` 16,6:1 sobre `bg` ·
-`text-2` 7,4:1 · `text-3` 5,4:1 — e `text-3` ≥ 4,68:1 até sobre
-`surface-2`, o fundo mais claro. Todos os pares ≥ AA (4,5:1) em qualquer
-tamanho de texto. **Restrição da `surface-3`:** pareia com `text`/`text-2`
-(≥ 5,9:1); `text-3` sobre `surface-3` cai a ~4,3:1 — por isso `surface-3` só
-recebe texto primário/secundário (o padrão em linha ativa/selecionada). (Lição
-da 0.5 mantida: contraste se mede, não se declara — o Lighthouse é o juiz.)
+Contrast check (medido; validação real é o Lighthouse — `axe` não pinta pixels,
+lição da 0.5): `text` ≈ 15:1 sobre `bg` · `text-2` ≈ 7,3:1 · `text-3` ≈ 5,1:1;
+todos os pares ≥ AA (4,5:1) em qualquer tamanho. **Restrição da `surface-3`:**
+pareia com `text`/`text-2`; o padrão de linha ativa/selecionada usa `text`
+(nunca `text-3` sobre `surface-3`).
 
-### 1.2 Acento
+### 1.2 Acento — "tinta sem hue" (Release 0.9, ADR-0016)
+
+O acento **deixou de ser uma cor**. A jogada menos-IA é recusar a cor de marca
+tasteful sobre neutro (o âmbar-ouro anterior era, ele próprio, um delator do
+centroide). A ênfase agora é **tinta**: brilho, não hue. No escuro, a tinta é
+mais clara que o texto; no claro, mais escura (§1.5). Cor *cromática* só onde é
+semântica real e verdadeira — `success`/`danger` (§1.3), nunca decoração.
 
 | Token | Hex | Uso |
 |---|---|---|
-| `accent` | `#D9A866` | Foco, estados ativos, marcadores, ponto do logo |
-| `accent-bright` | `#ECC78F` | Hover de link, foco |
-| `accent-dim` | `rgba(217, 168, 102, 0.12)` | Fundos sutis (item ativo do explorer, seleção) |
+| `accent` | `#F4F6F9` | Ênfase máxima: foco, estado ativo, não-salvo, link primário |
+| `accent-bright` | `#FFFFFF` | Hover de link/ênfase |
+| `accent-dim` | `rgba(244, 246, 249, 0.1)` | Fundos sutis (item ativo do explorer, seleção) |
 
-Contraste de `accent` sobre `bg`: 8,8:1 — serve para texto de qualquer
-tamanho. O acento **indica** (foco, estado); nunca pinta superfícies.
+O `accent` (tinta clara) é mais brilhante que `text` — a hierarquia de ênfase é
+`text-3` < `text-2` < `text` < `accent`. Links de conteúdo ganham afordância
+própria (sublinhado ou seta/ícone), já que não há mais cor para distingui-los.
+Foco visível usa `accent` (anel de tinta clara, contraste alto no escuro).
 
-**Regras de contenção** (invioláveis): o acento nunca preenche botões grandes,
-nunca coloriza títulos inteiros, nunca aparece em mais de ~5% da área visível.
+**Regras de contenção** (invioláveis): a tinta de ênfase nunca preenche
+superfícies grandes; nenhuma cor cromática entra por decoração — só por
+significado (`success`/`danger`).
 
 ### 1.3 Estados semânticos
 
 | Token | Hex | Uso |
 |---|---|---|
-| `success` | `#4ADE80` | Raro — indicadores "online/em produção" |
+| `success` | `#4ADE80` | Raro — indicadores "online/em produção", build/git |
 | `danger` | `#F87171` | Raro — erros de navegação (404) |
 
-Sem `warning` na v1: não há caso de uso. Não criar token sem uso.
+Desde a 0.9 (ADR-0016), `success`/`danger` são a **única cor cromática** do
+sistema — a tinta de ênfase (§1.2) não tem hue. Quando cor aparece, ela
+*significa* algo; nunca decora. Sem `warning` na v1: não há caso de uso.
 
 ### 1.4 Canvas da IDE — retirado na Release 0.8 (ADR-0015)
 
@@ -73,11 +85,17 @@ existir**: era textura sem função — um "tell" de screenshot e de estética d
 IA. A estrutura passa a vir das réguas reais do cromo (bordas de painel); o
 fundo é `bg` chapado, plano de software (Zed/Linear). Nenhum token de grid.
 
-### 1.5 Tema claro (papel-quente — Release 0.7, ADR-0013)
+### 1.5 Tema claro (papel-quente — Release 0.7, ADR-0013; acento revisto na 0.9)
 
-Paleta clara, quente e monocromática (não "site de IA"): papel off-white e
-acento **bronze** (o âmbar do escuro reprova o contraste no claro). Override
-dos mesmos tokens sob `:root[data-theme="light"]`.
+Neutros **papel-quente** mantidos (não "site de IA"). Na 0.9 (ADR-0016) o acento
+segue a mesma decisão "tinta sem hue" do escuro — só que o dual claro é a tinta
+mais **escura** (ênfase por profundidade, não por cor). O bronze anterior saiu.
+Override dos mesmos tokens sob `:root[data-theme="light"]`.
+
+> **Assimetria de temperatura (estado conhecido, 0.9):** o escuro foi para
+> ardósia fria (§1.1); o claro permanece papel-quente. É intencional por ora
+> (temas-irmãos podem divergir de temperatura); harmonizar o claro para frio é
+> um dial de release futura, se o Francisco pedir.
 
 | Token | Hex / valor | Uso |
 |---|---|---|
@@ -90,29 +108,36 @@ dos mesmos tokens sob `:root[data-theme="light"]`.
 | `text` | `#1C1B19` | Texto primário, títulos |
 | `text-2` | `#55514B` | Texto secundário |
 | `text-3` | `#5F5A52` | Metadados, captions, placeholders |
-| `accent` | `#9A6B16` | Foco, estados ativos, marcadores |
-| `accent-bright` | `#7A5410` | Hover de link, texto sobre `accent-dim` |
-| `accent-dim` | `rgba(154, 107, 22, 0.14)` | Fundos sutis (item ativo, seleção) |
-| `success` | `#15803D` | Indicadores "em produção" |
+| `accent` | `#14120F` | Ênfase máxima (tinta escura): foco, estado ativo, link primário |
+| `accent-bright` | `#000000` | Hover de link/ênfase |
+| `accent-dim` | `rgba(20, 18, 15, 0.07)` | Fundos sutis (item ativo, seleção) |
+| `success` | `#15803D` | Indicadores "em produção", build/git |
 | `danger` | `#DC2626` | Erros de navegação (404) |
 
-Contrast check (medido por script, mesma regra da §1.1): `text` 16,4:1 ·
-`text-2` 7,5:1 · `text-3` 6,5:1 sobre `bg`; todos os três ≥ 5,3:1 até sobre
-`surface-2`; sobre `surface-3`, `text-3` ≈ 4,8:1 (o piso da rampa, ainda ≥ AA).
-`accent` sobre `bg` 4,45:1 (≥ 3:1 para foco/UI); `accent-bright`
-6,4:1 (serve como texto). Todos os pares de texto ≥ AA (4,5:1).
+Contrast check (medido por script): `text` 16,4:1 · `text-2` 7,5:1 · `text-3`
+6,5:1 sobre `bg`; `accent` (tinta escura) é a máxima ênfase, contraste ≥ o do
+`text`. Todos os pares de texto ≥ AA (4,5:1).
 
 ## 2. Tipografia
 
-### 2.1 Famílias
+### 2.1 Famílias (Release 0.9, ADR-0016)
+
+Sistema autoral de **três vozes** — voz editorial-técnica, "um engenheiro que
+escreve bem". A Inter (a sans-default da IA) saiu; a serifa entra nos títulos
+para criar tensão humana **dentro** do editor.
 
 | Papel | Família | Fallback |
 |---|---|---|
-| Display / títulos / corpo | **Inter** (variable, `wght` 400–700) | `system-ui, sans-serif` |
-| Técnica (labels, datas, tags, números) | **JetBrains Mono** (400/600) | `ui-monospace, monospace` |
+| Display / títulos de documento | **Newsreader** (serif, variable) | `Georgia, "Times New Roman", serif` |
+| Corpo / UI / cromo | **IBM Plex Sans** (variable) | `system-ui, sans-serif` |
+| Técnica: labels, datas, tags, números, **código** | **JetBrains Mono** (400/600) | `ui-monospace, monospace` |
 
-Carregamento: self-hosted, `woff2`, subset latin, `font-display: swap`,
-preload apenas da Inter (a mono não bloqueia o primeiro render).
+Divisão de trabalho legível: a **serifa** (Newsreader) é a voz humana dos
+títulos; a **IBM Plex Sans** lê e conduz o cromo; a **mono** (JetBrains) fica
+onde é literalmente código/metadado. Carregamento: self-hosted (`@fontsource`),
+`woff2` variable, subset latin. Sem preload dedicado (o CSS carrega as três
+faces; nenhuma é bloqueante crítica). Orçamento de fontes do doc 06 §7 mantido —
+o CSS ficou em 21,3/25 KB.
 
 ### 2.2 Escala tipográfica
 
@@ -122,9 +147,9 @@ Escala **contida, de infraestrutura** (Release 0.8): uma única voz, teto de
 
 | Token | Tamanho / linha | Peso | Tracking | Uso |
 |---|---|---|---|---|
-| `display` | 40 / 44 (mobile: 32 / 36) | 600 | −0.03em | Identidade (cabeçalho do doc `overview`), 1× por página |
-| `h1` | 28 / 34 (mobile: 24 / 30) | 600 | −0.02em | Título de case |
-| `h2` | 21 / 28 | 600 | −0.02em | Título de documento/seção |
+| `display` | 40 / 44 (mobile: 32 / 36) | 500 · **serif** | −0.015em | Identidade (cabeçalho do doc `overview`), 1× por página |
+| `h1` | 28 / 34 (mobile: 24 / 30) | 600 · **serif** | −0.02em | Título de case |
+| `h2` | 21 / 28 | 600 · **serif** | −0.02em | Título de documento/seção |
 | `h3` | 17 / 24 | 600 | −0.01em | Subtítulo, título de linha |
 | `body-lg` | 17 / 28 | 400 | 0 | Parágrafo de abertura (lead do documento) |
 | `body` | 15 / 24 | 400 | 0 | Texto padrão |
@@ -132,9 +157,12 @@ Escala **contida, de infraestrutura** (Release 0.8): uma única voz, teto de
 | `label` | 12 / 16 · mono | 600 | +0.08em, caps | Rótulos, datas, tags, chrome |
 
 Regras: medida de leitura 65–75ch (`max-w-prose`); títulos nunca em caixa alta
-(caixa alta é exclusividade do `label` mono); um único `display` por página. A
-mono (JetBrains) é a voz dos metadados (caminho, datas, git); a Inter é a voz
-do documento — sem uma terceira "voz de marketing".
+(caixa alta é exclusividade do `label` mono); um único `display` por página.
+Vozes (0.9): os títulos de documento (`display`/`h1`/`h2`) são **serifa**
+(Newsreader) — a voz humana; `h3` para baixo e o corpo são **IBM Plex Sans**; a
+**mono** (JetBrains) é a voz dos metadados e do código (caminho, datas, git). A
+serifa vive à esquerda, densa, dentro do editor — não é hero centrado de landing
+(seria o *outro* centroide editorial); a tensão serifa×editor é o ponto.
 
 ## 3. Espaçamento, grid e raios
 
@@ -297,28 +325,29 @@ não botões de campanha. `SectionHeading` sai à medida que as views migram (M3
 ### 6.6 `NavBar` (title bar — Release 0.7)
 
 A primeira faixa da aplicação (48 px, `surface`, borda inferior) com
-aparência de software desktop. Esquerda: glyph âmbar + wordmark (nome do
+aparência de software desktop. Esquerda: glyph de **tinta** + wordmark (nome do
 workspace) · divisória · as views como **barra de menu** (item ativo
 `surface-2` + `text`). Direita: **gatilho da paleta de comandos** (Release 0.8
 — "Comandos ⇧⌘P", a entrada *command-first* visível que faltava para a
 descoberta; dispara o mesmo evento do rail), indicador de **branch** (real, do
-`git-log`), **controles de janela** decorativos (min/max/close, `aria-hidden`)
-e, abaixo de md, o botão de menu que abre o overlay tela cheia (foco preso, Esc
-fecha). Contrato: os 6 links de `site.nav` e o botão "Menu" seguem sempre
+`git-log`) e, abaixo de md, o botão de menu que abre o overlay tela cheia (foco
+preso, Esc fecha). Os **controles de janela** decorativos (min/max/close) foram
+**removidos na 0.9 (ADR-0016)** — cromo fabricado sem função, o oposto do
+ADR-0015. Contrato: os 6 links de `site.nav` e o botão "Menu" seguem sempre
 presentes (o `NavBar.test` os exige).
 
 ### 6.7 `Footer` (status bar — Release 0.7)
 
 A última faixa (28 px, mono, `surface`, borda superior), densa como a de uma
 IDE. Esquerda: branch (real, do `git-log`), **último commit** (hash em `accent`
-+ data relativa viva — "hoje", "há 3d"; a relativa só após hidratar, o SSR
-emite a data absoluta, sem mismatch — Release 0.8; clicar abre o Source
-Control), contador de problemas (`✓ 0  △ 0`, verdadeiro), `Build · Tests ✓`.
-Direita: fatos técnicos estáveis (UTF-8, TypeScript,
-React, Vite, Pre-render, SSR, SEO, Vercel — que codificam o colofão + o
-pipeline), os contatos de sempre, o link do repositório e o copyright
-(conteúdo editorial preservado), e o `ThemeToggle`. Itens menos críticos
-cedem espaço por breakpoint (somem por CSS, seguem no DOM).
+— tinta, 0.9 — + data relativa viva — "hoje", "há 3d"; a relativa só após
+hidratar, o SSR emite a data absoluta, sem mismatch — Release 0.8; clicar abre o
+Source Control), contador de problemas (`✓ 0  △ 0`, verdadeiro), `Build ·
+Tests ✓`. Direita: os contatos (com ícone de marca, §7), o link do repositório e
+o copyright (conteúdo editorial preservado), e o `ThemeToggle`. A **faixa de
+"fatos técnicos"** (UTF-8 · TypeScript · React · Vite · …) foi **removida na 0.9
+(ADR-0016)** — voz de *read-out* técnico, um delator do centroide "dev-brutalist".
+Itens menos críticos cedem espaço por breakpoint (somem por CSS, seguem no DOM).
 
 ### 6.8 `TimelineItem`
 
@@ -359,7 +388,9 @@ larguras** (adapta o mobile em vez de esconder), com dois tipos de item de
 20 px (Lucide, monocromático): **comutadores de painel** (Explorer, Search,
 Source Control, Settings — governam `activeView` no store, ADR-0012) e
 **atalhos de conteúdo** (Projects, Skills, Experience, Contact — navegam),
-separados por divisória; na base, gatilho da **Command Palette** e GitHub.
+separados por divisória; na base, gatilho da **Command Palette** e os contatos
+(GitHub, LinkedIn) com **ícone de marca** monocromático (§7, `brandIcon`;
+fallback `ExternalLink`).
 Estado ativo: ícone `accent` + marcador lateral de 2 px que anima (`mark-in`,
 120 ms); press com `scale` sutil. Reclicar o painel ativo **recolhe** a
 sidebar (lg+) ou fecha o **drawer** (mobile). Tooltip decorativo em mono;
@@ -455,7 +486,8 @@ listener; a paleta é `lazy`). Padrão combobox/listbox — input com
 `aria-activedescendant`, setas navegam, Enter executa, Esc fecha, clique no
 backdrop fecha. **Todo comando é ação real ou rota existente**: Go/Open
 (navegação), View/Focus Search/Toggle Sidebar/Toggle Panel (store), Change
-Theme, Open GitHub/Repository (externos). Nada decorativo.
+Theme, Open GitHub/LinkedIn/Repository (externos, derivados de `site.social`).
+Nada decorativo.
 
 ### 6.24 `BottomPanel` (Release 0.7, lazy)
 
@@ -470,9 +502,16 @@ dev reais). Conteúdo honesto, derivado do projeto. `role="tablist"`.
 
 Lucide, 16 px (inline com texto), 20 px (botões), 22 px (ActivityBar) ou
 12–14 px (chrome da IDE: tabs, breadcrumb, árvore), stroke 1.5, cor herdada
-do texto. Ícones externos (`↗`) marcam links que saem do site. `aria-hidden`
-por padrão — o texto adjacente (ou o `aria-label` do interativo) carrega o
-significado.
+do texto. `aria-hidden` por padrão — o texto adjacente (ou o `aria-label` do
+interativo) carrega o significado.
+
+**Ícones de marca (Release 0.9, ADR-0016):** GitHub e LinkedIn têm SVG de marca
+inline (`BrandIcon.tsx`, paths oficiais), **monocromáticos via `currentColor`** —
+o reconhecimento vem da forma, a cor vem do contexto (o LinkedIn **não** entra
+azul: honra a "tinta sem hue" da §1.2). Aplicados no `overview`, no contato, na
+status bar e no rail; substituem o antigo sufixo `↗` nos links de contato. O
+resolvedor por label vive em `src/lib/brand.ts` (mantém `BrandIcon.tsx` só de
+componentes — fast-refresh).
 
 ## 8. Acessibilidade (regras transversais)
 

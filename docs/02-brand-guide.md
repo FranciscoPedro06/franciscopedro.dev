@@ -92,29 +92,36 @@ pessoa, ela não entra.
 
 ### Paleta
 
-Base escura em **grafite quente** (cinzas com leve calor, sem azul
-perceptível), e **um único acento: âmbar discreto** (`#D9A866` como valor de
-referência; escala completa no doc 04). Revisão da Release 0.6.1, decisão do
-Francisco: a paleta anterior (neutros frios + teal) lia como "estética de
-IA/ciano"; a marca é uma ferramenta de trabalho, não uma landing page.
+Base escura em **cinza-ardósia frio** (família de editor, temperatura própria),
+**sem acento cromático** (Release 0.9, ADR-0016; escala completa no doc 04 §1).
+Histórico: a 0.6.1 tinha adotado grafite-quente + âmbar para fugir do centroide
+"teal/ciano de IA" — e funcionou contra *aquele* centroide. Mas o centroide se
+move: grafite-quente + um acento-ouro tasteful virou, ele próprio, o centroide
+"premium/dark de ferramenta de IA". A 0.9 sai dele.
 
-Justificativa do acento: (a) diferencia-se do azul-cobalto que é a identidade
-do FastPass — o portfólio apresenta o produto, não se veste dele — e do
-teal/ciano saturado dos sites de IA; (b) âmbar sobre grafite quente é a
-linguagem dos editores profissionais (foco e estado, nunca decoração);
-(c) mantém contraste AA sobre o fundo escuro mesmo em texto pequeno.
+Decisão do Francisco (0.9): a jogada menos-IA é **recusar a cor de marca**. A
+ênfase passa a ser **tinta** (brilho, não hue); cor cromática só onde é
+semântica real (`success`/`danger`). O reflexo da IA é *adicionar* um "pop of
+color" — não adicionar é o desvio. O calor não some: mora no tipo (serifa) e na
+temperatura do neutro, não numa bala colorida.
 
-Regra de contenção: o acento aparece em foco, estados ativos, marcadores e
-detalhes — nunca em grandes superfícies ou títulos inteiros. Ele indica; não
-pinta.
+Regra de contenção: a tinta de ênfase aparece em foco, estados ativos e o link
+primário — nunca em grandes superfícies ou títulos inteiros. Ela indica; não
+pinta. Nenhuma cor entra por decoração.
 
 ### Tipografia
 
-- **Inter** (variable) para tudo: display, títulos e corpo. Uma família única
-  garante coesão; a variação vem de peso, tamanho e cor.
-- **JetBrains Mono** como voz secundária: labels técnicos, datas, tags de
-  stack e números. O mono em caixa alta com tracking largo é a "assinatura de
-  engenheiro" da marca — usado com parcimônia.
+Três vozes (Release 0.9, ADR-0016) — a identidade "editorial-técnica", *um
+engenheiro que escreve bem*. A Inter (a sans-default da IA) saiu:
+
+- **Newsreader** (serif, variable) nos **títulos de documento** (display/h1/h2):
+  a voz humana. Vive à esquerda, densa, **dentro** do editor — a tensão
+  serifa×código é o ponto, não um hero centrado de landing.
+- **IBM Plex Sans** (variable) para **corpo e cromo**: sans de engenharia com
+  caráter, no lugar da Inter.
+- **JetBrains Mono** onde é **código/metadado**: labels, datas, tags, números,
+  caminhos, git. Caixa alta com tracking largo é a "assinatura de engenheiro" —
+  com parcimônia.
 
 ### Espaçamento
 

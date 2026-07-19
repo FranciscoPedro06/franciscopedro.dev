@@ -4,7 +4,7 @@
 > Meta-documento (ver [00-context.md](00-context.md)); a fonte normativa do
 > plano é o [07-roadmap.md](07-roadmap.md).
 
-**Última atualização:** 2026-07-14 · Release 0.8
+**Última atualização:** 2026-07-18 · Release 0.9
 
 ---
 
@@ -24,6 +24,7 @@
 | Release 0.6.1 | Workbench: fim da página longa — a aplicação ocupa a viewport, as 7 seções viram views comutadas por hash (ADR-0011), EditorTabs derivadas da URL com fechar funcional, explorer real (`src/` + `projetos/` com extensões por stack), cards → linhas de arquivo, paleta grafite-quente + acento âmbar (assets regenerados), espaçamento denso — SEO, SSR, rotas, conteúdo e os 44 testes intactos | [reviews/release-0.6.1-review.md](reviews/release-0.6.1-review.md) |
 | Release 0.7 | "É uma IDE no navegador" (6 marcos): theming light+dark real (ADR-0013) + estado do shell client-persistido (ADR-0012); title/activity/status bars de software; explorer recursivo com colapso/resize persistidos, Search e Source Control (commits reais) como painéis lazy; editor multi-tab + breadcrumb + minimap; Command Palette e painel inferior (Terminal transcript) lazy; adaptação mobile (drawer); framer-motion removido da entrada (JS 110→73,5 KB) — SEO, SSR, rotas, conteúdo e os 44 testes originais intactos | [reviews/release-0.7-review.md](reviews/release-0.7-review.md) |
 | Release 0.8 | "Redesign / Maturidade de produto" (5 marcos): fecha a dissonância moldura×conteúdo a partir de uma auditoria de design. **Conteúdo como documento** (ADR-0014): `DocHeader` no lugar do `SectionHeading`, `overview` como cabeçalho de arquivo (sem hero centralizado), ações como links de workspace. **Sem cenografia** (ADR-0015): canvas e minimap decorativos removidos. Linguagem visual contida (teto 40 px, corpo 15 px, `surface-3`, elevação só flutuante); de-carding de Engenharia/Dados; status bar com branch+commit reais e gatilho command-first — SSR/SEO/rotas e os 56 testes intactos | [reviews/release-0.8-review.md](reviews/release-0.8-review.md) |
+| Release 0.9 | "Identidade visual editorial-técnica" (ADR-0016): mantém a estrutura de IDE e troca a textura, que havia pousado no centroide "premium/dark de IA". Três vozes tipográficas (Newsreader serifa nos títulos, IBM Plex Sans no corpo/cromo ex-Inter, JetBrains Mono no código); **acento sem hue** (ênfase por tinta; cromático só em success/danger); canvas grafite-quente → cinza-ardósia frio; cromo fabricado removido (controles de janela + faixa de "fatos"); **LinkedIn** integrado + ícones de marca SVG monocromáticos (GitHub/LinkedIn). Gate verde, 56 testes intactos — **validado pelo Francisco em navegador** | [reviews/release-0.9-review.md](reviews/release-0.9-review.md) |
 
 ## Onde o produto está
 
@@ -61,29 +62,38 @@
   40 px, corpo 15 px, `surface-3`, elevação só flutuante), de-carding de
   Engenharia/Dados e sinais reais de workspace (status bar com branch + último
   commit do git-log; gatilho command-first). Aguarda validação em navegador.
-- Gate permanente verde: testes **56/56** (os 44 originais intactos + 12
-  novos de tema/shell/rail/explorer/search/tabs/palette/painel); **JS
-  inicial 74,4 KB / 110 KB**; maior chunk lazy 3,0 KB / 35 KB; **CSS
-  21,1 KB / 25 KB**; Lighthouse CI no workflow (a11y/BP/SEO ≥ 0,95;
+- **Identidade visual própria (Release 0.9, ADR-0016)**: sobre a estrutura de
+  IDE (autoral), a **textura** saiu do centroide "premium/dark de IA". Três vozes
+  — Newsreader (serifa) nos títulos, IBM Plex Sans no corpo/cromo (ex-Inter),
+  JetBrains Mono no código; **acento sem hue** (ênfase por tinta, cor só em
+  success/danger); canvas grafite-quente → **cinza-ardósia frio**; cromo
+  fabricado removido (controles de janela + faixa de "fatos"). **LinkedIn**
+  integrado e **ícones de marca SVG** monocromáticos (GitHub/LinkedIn). Foi a
+  primeira release **validada pelo Francisco em navegador** antes do commit.
+- Gate permanente verde: testes **56/56**; **JS inicial 75,1 KB / 110 KB**;
+  maior chunk lazy 3,0 KB / 35 KB; **CSS 21,3 KB / 25 KB**; Lighthouse CI no workflow (a11y/BP/SEO ≥ 0,95;
   performance ≥ 0,90 como tripwire — critério ≥ 95 do M7 se mede no preview da
   Vercel).
 
 ## Pendências que bloqueiam a publicação (não o desenvolvimento)
 
-Material do Francisco (doc 05 §7): foto profissional, e-mail público, URL do
-LinkedIn, currículo PT/EN (PDF), 2–3 resultados reais do MIS, screenshots dos
-5 projetos, confirmações factuais (FastPass é TCC? datas EduPass/MIS).
+Material do Francisco (doc 05 §7): foto profissional, e-mail público,
+currículo PT/EN (PDF), 2–3 resultados reais do MIS, screenshots dos
+5 projetos, confirmações factuais (FastPass é TCC? datas EduPass/MIS). — a
+**URL do LinkedIn foi integrada na 0.9**.
 Pré-lançamento no GitHub (doc 07 §3): rotacionar chave Supabase, fork oficial
 dos repos FastPass, READMEs profissionais.
 
 ## Próxima release (proposta)
 
-**Antes de novo código: validação em navegador real** do redesign 0.8 pelo
-Francisco (desktop/tablet/mobile, tema light/dark, checklist de a11y) — a 0.6–0.8
-mudaram a experiência inteira e só passaram pelo gate automatizado.
+A 0.9 (identidade visual) foi validada em navegador pelo Francisco. Segue
+pendente a **validação em navegador das 0.6–0.8** (desktop/tablet/mobile, tema
+light/dark, checklist de a11y) — mudaram a experiência inteira e só passaram
+pelo gate automatizado; a 0.9 tocou a pele por cima delas, mas a mecânica
+(workbench, painéis, mobile) ainda não teve conferência manual completa.
 
-Depois, **Release 0.9 — Pré-lançamento / v1.0** (doc 07 §3, deslocada da antiga
-proposta 0.8): roadmap GitHub (rotação da chave Supabase, forks oficiais,
-READMEs), medição do critério ≥ 95 do M7 no deploy da Vercel e integração do
-material do Francisco (foto, e-mail, LinkedIn, CV PT/EN, resultados do MIS,
-screenshots) conforme chegar. Escopo exato se valida no planejamento.
+Depois, **Pré-lançamento / v1.0** (doc 07 §3, deslocada — a numeração 0.9 foi
+usada pela identidade): roadmap GitHub (rotação da chave Supabase, forks
+oficiais, READMEs), medição do critério ≥ 95 do M7 no deploy da Vercel e
+integração do material restante do Francisco (foto, e-mail, CV PT/EN, resultados
+do MIS, screenshots) conforme chegar. Escopo exato se valida no planejamento.
