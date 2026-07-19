@@ -273,6 +273,14 @@
   }
 }
 
+/* Troca de ícone de estado (ThemeToggle) — opacity+transform, 150ms. */
+@keyframes icon-pop {
+  from {
+    opacity: 0;
+    transform: rotate(-45deg) scale(0.6);
+  }
+}
+
 /* Fade de entrada (menu mobile, drawers). */
 @keyframes fade-in {
   from {

@@ -15,9 +15,15 @@ export function ThemeToggle() {
       type="button"
       onClick={toggleTheme}
       aria-label={`Alternar tema (atual: ${isDark ? "escuro" : "claro"})`}
-      className="flex items-center gap-1.5 rounded-sm px-1.5 py-0.5 text-text-3 transition-colors duration-150 hover:bg-surface-2 hover:text-text"
+      className="flex items-center gap-1.5 rounded-sm px-1.5 py-0.5 text-text-3 transition duration-150 hover:bg-surface-2 hover:text-text motion-safe:active:scale-[0.98]"
     >
-      <Icon size={13} strokeWidth={1.5} aria-hidden="true" />
+      {/* `key` remonta o ícone na troca — o pop marca o estado novo (doc 08 §2). */}
+      <span
+        key={theme}
+        className="motion-safe:animate-[icon-pop_150ms_ease-out]"
+      >
+        <Icon size={13} strokeWidth={1.5} aria-hidden="true" />
+      </span>
       <span aria-hidden="true">{isDark ? "Dark" : "Light"}</span>
     </button>
   );

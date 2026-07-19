@@ -52,7 +52,7 @@ function describe(key: string): FileMeta {
 }
 
 const tabBase =
-  "group relative flex shrink-0 items-center gap-2 border-r border-border border-t-2 pl-3 pr-1.5 py-1.5 font-mono text-label font-normal normal-case tracking-normal transition-colors duration-150";
+  "group relative flex shrink-0 items-center gap-2 border-r border-border border-t-2 pl-3 pr-1.5 py-1.5 font-mono text-label font-normal normal-case tracking-normal transition-colors duration-150 motion-safe:animate-[fade-in_150ms_ease-out]";
 
 export function EditorTabs() {
   const { pathname } = useLocation();
@@ -123,7 +123,7 @@ export function EditorTabs() {
                   type="button"
                   onClick={() => closeTab(key)}
                   aria-label={`Fechar ${name}`}
-                  className="flex size-5 items-center justify-center rounded-sm text-text-3 opacity-60 transition-colors duration-150 hover:bg-surface-2 hover:text-text hover:opacity-100 focus-visible:opacity-100 group-hover:opacity-100"
+                  className="flex size-5 items-center justify-center rounded-sm text-text-3 opacity-60 transition duration-150 hover:bg-surface-2 hover:text-text hover:opacity-100 focus-visible:opacity-100 group-hover:opacity-100 motion-safe:active:scale-90"
                 >
                   <X size={12} strokeWidth={1.5} aria-hidden="true" />
                 </button>

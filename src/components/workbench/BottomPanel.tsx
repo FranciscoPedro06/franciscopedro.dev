@@ -195,7 +195,7 @@ export function BottomPanel() {
                 role="tab"
                 aria-selected={on}
                 onClick={() => setWorkbench({ panelTab: tab.id })}
-                className={`border-b-2 px-3 py-1.5 font-mono text-label font-normal normal-case tracking-normal transition-colors duration-150 ${
+                className={`border-b-2 px-3 py-1.5 font-mono text-label font-normal normal-case tracking-normal transition duration-150 motion-safe:active:scale-[0.98] ${
                   on
                     ? "border-accent text-text"
                     : "border-transparent text-text-3 hover:text-text-2"
@@ -210,7 +210,7 @@ export function BottomPanel() {
           type="button"
           onClick={() => setWorkbench({ panelOpen: false })}
           aria-label="Fechar painel inferior"
-          className="ml-auto flex size-6 items-center justify-center rounded-sm text-text-3 transition-colors duration-150 hover:bg-surface-2 hover:text-text"
+          className="ml-auto flex size-6 items-center justify-center rounded-sm text-text-3 transition duration-150 hover:bg-surface-2 hover:text-text motion-safe:active:scale-90"
         >
           <X size={13} strokeWidth={1.5} aria-hidden="true" />
         </button>

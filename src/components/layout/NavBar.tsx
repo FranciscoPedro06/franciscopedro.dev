@@ -68,7 +68,7 @@ export function NavBar() {
           type="button"
           onClick={() => window.dispatchEvent(new Event("wb:command-palette"))}
           aria-label="Abrir paleta de comandos"
-          className="hidden items-center gap-2 rounded-sm border border-border bg-bg px-2 py-1 font-mono text-label font-normal normal-case tracking-normal text-text-3 transition-colors duration-150 hover:border-border-strong hover:text-text-2 md:flex"
+          className="hidden items-center gap-2 rounded-sm border border-border bg-bg px-2 py-1 font-mono text-label font-normal normal-case tracking-normal text-text-3 transition duration-150 hover:border-border-strong hover:text-text-2 motion-safe:active:scale-[0.98] md:flex"
         >
           <Command size={12} strokeWidth={1.5} aria-hidden="true" />
           <span>Comandos</span>
