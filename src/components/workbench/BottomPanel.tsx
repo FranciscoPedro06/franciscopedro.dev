@@ -61,19 +61,41 @@ const PORTS: { port: string; label: string }[] = [
 
 function Terminal() {
   const reduced = prefersReducedMotion();
-  const [shown, setShown] = useState(reduced ? TERMINAL.length : 0);
+  // Playback em duas velocidades: comandos `$` são DIGITADOS caractere a
+  // caractere (é alguém teclando); saídas caem em ritmo de output. One-shot
+  // por montagem; com motion reduzido o transcript aparece inteiro.
+  const [progress, setProgress] = useState(() => ({
+    line: reduced ? TERMINAL.length : 0,
+    char: 0,
+  }));
 
   useEffect(() => {
-    if (reduced || shown >= TERMINAL.length) return;
-    const id = setTimeout(() => setShown((n) => n + 1), 120);
+    if (reduced || progress.line >= TERMINAL.length) return;
+    const current = TERMINAL[progress.line];
+    const typing = current.startsWith("$") && progress.char < current.length;
+    const id = setTimeout(
+      () =>
+        setProgress((p) =>
+          typing
+            ? { line: p.line, char: p.char + 1 }
+            : { line: p.line + 1, char: 0 }
+        ),
+      // 18ms/tecla; Enter "executa" após 240ms; output flui a 90ms/linha.
+      typing ? 18 : current.startsWith("$") ? 240 : 90
+    );
     return () => clearTimeout(id);
-  }, [shown, reduced]);
+  }, [progress, reduced]);
 
-  const done = shown >= TERMINAL.length;
+  const done = progress.line >= TERMINAL.length;
+  const current = done ? undefined : TERMINAL[progress.line];
+  const typingLine =
+    current?.startsWith("$") && progress.char <= current.length
+      ? current.slice(0, progress.char)
+      : undefined;
 
   return (
     <pre className="whitespace-pre-wrap px-4 py-2 text-small leading-relaxed">
-      {TERMINAL.slice(0, shown).map((line, i) => (
+      {TERMINAL.slice(0, progress.line).map((line, i) => (
         <span
           key={i}
           className={line.startsWith("$") ? "block text-text" : "block text-text-3"}
@@ -81,6 +103,12 @@ function Terminal() {
           {line}
         </span>
       ))}
+      {typingLine !== undefined && (
+        <span className="block text-text">
+          {typingLine}
+          <span aria-hidden="true">▋</span>
+        </span>
+      )}
       {done && (
         <span className="text-text">
           $ <span className="motion-safe:animate-[blink_1s_step-end_infinite]">▋</span>
