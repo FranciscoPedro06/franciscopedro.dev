@@ -1,6 +1,7 @@
-import { ChevronRight, FileCode, X } from "lucide-react";
+import { ChevronRight, X } from "lucide-react";
 import { Fragment, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { FileGlyph } from "@/components/ui/FileGlyph";
 import { findProject } from "@/content/projects";
 import { projectFile, useHomeView } from "@/lib/views";
 import { setWorkbench, useWorkbench } from "@/lib/workbench";
@@ -113,7 +114,7 @@ export function EditorTabs() {
                     className="size-1.5 rounded-full bg-accent"
                   />
                 ) : (
-                  <FileCode size={13} strokeWidth={1.5} aria-hidden="true" />
+                  <FileGlyph file={name} />
                 )}
                 {name}
               </Link>

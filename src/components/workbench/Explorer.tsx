@@ -1,5 +1,6 @@
-import { ChevronRight, FileCode, FolderOpen } from "lucide-react";
+import { ChevronRight, Folder, FolderOpen } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
+import { FileGlyph } from "@/components/ui/FileGlyph";
 import { byOrder } from "@/content/projects";
 import { HOME_VIEWS, projectFile, useHomeView } from "@/lib/views";
 import { toggleExplorerNode, useWorkbench } from "@/lib/workbench";
@@ -53,7 +54,9 @@ export function Explorer() {
           </button>
 
           {srcOpen && (
-            <ul>
+            // Guia de indentação (0.9.2): hairline vertical por nível, como
+            // toda árvore de IDE — estrutura real, não textura (ADR-0015).
+            <ul className="ml-[13px] border-l border-border">
               {fileViews.map((item) => {
                 const active = pathname === "/" && view === item.id;
                 return (
@@ -61,14 +64,9 @@ export function Explorer() {
                     <Link
                       to={item.id === "overview" ? "/" : `/#${item.id}`}
                       aria-current={active ? "true" : undefined}
-                      className={`${row} pl-7 ${leaf(active)}`}
+                      className={`${row} pl-3 ${leaf(active)}`}
                     >
-                      <FileCode
-                        size={13}
-                        strokeWidth={1.5}
-                        aria-hidden="true"
-                        className="shrink-0"
-                      />
+                      <FileGlyph file={item.file} />
                       {item.file}
                     </Link>
                   </li>
@@ -77,7 +75,7 @@ export function Explorer() {
 
               <li>
                 <div
-                  className={`${row} pl-4 ${projActive ? "bg-accent-dim text-text" : "text-text-2"}`}
+                  className={`${row} pl-1 ${projActive ? "bg-accent-dim text-text" : "text-text-2"}`}
                 >
                   <button
                     type="button"
@@ -93,18 +91,28 @@ export function Explorer() {
                     aria-current={projActive ? "page" : undefined}
                     className="flex flex-1 items-center gap-1.5 rounded-sm hover:text-text"
                   >
-                    <FolderOpen
-                      size={13}
-                      strokeWidth={1.5}
-                      aria-hidden="true"
-                      className="shrink-0"
-                    />
+                    {/* Pasta reflete o estado real de colapso (0.9.2). */}
+                    {projOpen ? (
+                      <FolderOpen
+                        size={13}
+                        strokeWidth={1.5}
+                        aria-hidden="true"
+                        className="shrink-0"
+                      />
+                    ) : (
+                      <Folder
+                        size={13}
+                        strokeWidth={1.5}
+                        aria-hidden="true"
+                        className="shrink-0"
+                      />
+                    )}
                     projetos
                   </Link>
                 </div>
 
                 {projOpen && (
-                  <ul>
+                  <ul className="ml-[13px] border-l border-border">
                     {byOrder.map((project) => {
                       const to = `/projetos/${project.slug}`;
                       const active = pathname === to;
@@ -113,14 +121,9 @@ export function Explorer() {
                           <Link
                             to={to}
                             aria-current={active ? "true" : undefined}
-                            className={`${row} pl-11 ${leaf(active)}`}
+                            className={`${row} pl-3 ${leaf(active)}`}
                           >
-                            <FileCode
-                              size={13}
-                              strokeWidth={1.5}
-                              aria-hidden="true"
-                              className="shrink-0"
-                            />
+                            <FileGlyph file={projectFile(project)} />
                             {projectFile(project)}
                           </Link>
                         </li>

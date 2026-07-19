@@ -1,8 +1,8 @@
-import { FileCode } from "lucide-react";
 import { Link } from "react-router-dom";
 import type { Project } from "@/content/types";
 import { projectFile } from "@/lib/views";
 import { Badge } from "./Badge";
+import { FileGlyph } from "./FileGlyph";
 import { Tag } from "./Tag";
 
 /**
@@ -34,7 +34,7 @@ export function ProjectCard({
           aria-hidden="true"
           className="flex items-center gap-1.5 font-mono text-label font-normal normal-case tracking-normal text-text-3 transition-colors duration-150 group-hover:text-text-2"
         >
-          <FileCode size={14} strokeWidth={1.5} />
+          <FileGlyph file={projectFile(project)} />
           {projectFile(project)}
         </span>
         <Badge>{project.badge}</Badge>
