@@ -10,9 +10,12 @@ import type { ReactNode } from "react";
 export function Reveal({
   children,
   className,
+  delay,
 }: {
   children: ReactNode;
   className?: string;
+  /** Stagger opcional em ms (doc 08 §3: máx. 1 nível, 60ms, listas curtas). */
+  delay?: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [shown, setShown] = useState(false);
@@ -40,7 +43,13 @@ export function Reveal({
   }, []);
 
   return (
-    <div ref={ref} className={`reveal ${shown ? "reveal-in" : ""} ${className ?? ""}`}>
+    <div
+      ref={ref}
+      // O delay só governa a transição de entrada (one-shot); com motion
+      // reduzido o CSS zera a transição inteira, delay incluído.
+      style={delay ? { transitionDelay: `${delay}ms` } : undefined}
+      className={`reveal ${shown ? "reveal-in" : ""} ${className ?? ""}`}
+    >
       {children}
     </div>
   );

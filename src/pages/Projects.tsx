@@ -1,5 +1,6 @@
 import { DocHeader } from "@/components/ui/DocHeader";
 import { ProjectCard } from "@/components/ui/ProjectCard";
+import { Reveal } from "@/components/ui/Reveal";
 import { projectsPage } from "@/content/home";
 import { byOrder } from "@/content/projects";
 import { usePageTitle } from "@/lib/seo";
@@ -18,9 +19,12 @@ export function Projects() {
         title={projectsPage.title}
         lead={projectsPage.description}
       />
+      {/* Stagger de 60ms nas linhas (doc 08 §3 — lista curta, 5 itens). */}
       <div className="mt-6 border-t border-border">
-        {byOrder.map((project) => (
-          <ProjectCard key={project.slug} project={project} headingAs="h2" />
+        {byOrder.map((project, index) => (
+          <Reveal key={project.slug} delay={index * 60}>
+            <ProjectCard project={project} headingAs="h2" />
+          </Reveal>
         ))}
       </div>
     </div>

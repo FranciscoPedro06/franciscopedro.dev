@@ -10,18 +10,25 @@ export function FeaturedWork() {
   const [main, ...rest] = highlighted;
 
   return (
-    <Reveal>
-      <DocHeader
-        headingId="projetos-titulo"
-        comment={featuredWork.comment}
-        title={featuredWork.title}
-        lead={featuredWork.description}
-      />
+    <>
+      <Reveal>
+        <DocHeader
+          headingId="projetos-titulo"
+          comment={featuredWork.comment}
+          title={featuredWork.title}
+          lead={featuredWork.description}
+        />
+      </Reveal>
 
+      {/* Stagger de 60ms nas linhas (doc 08 §3 — permitido em listas curtas). */}
       <div className="mt-6 border-t border-border">
-        <ProjectCard project={main} variant="featured" />
-        {rest.map((project) => (
-          <ProjectCard key={project.slug} project={project} />
+        {[main, ...rest].map((project, index) => (
+          <Reveal key={project.slug} delay={index * 60}>
+            <ProjectCard
+              project={project}
+              variant={index === 0 ? "featured" : "default"}
+            />
+          </Reveal>
         ))}
       </div>
 
@@ -40,6 +47,6 @@ export function FeaturedWork() {
           </span>
         </Link>
       </div>
-    </Reveal>
+    </>
   );
 }

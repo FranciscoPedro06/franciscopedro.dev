@@ -16,7 +16,7 @@ export function Timeline() {
       </Reveal>
 
       <ol className="mt-6 max-w-[64ch] border-l border-border">
-        {timeline.map((entry) => (
+        {timeline.map((entry, index) => (
           <li key={entry.date} className="relative pb-6 pl-6 last:pb-0">
             {/* Nó de commit */}
             <span
@@ -25,7 +25,8 @@ export function Timeline() {
                 entry.current ? "border-accent" : "border-border-strong"
               }`}
             />
-            <Reveal>
+            {/* Stagger de 60ms (doc 08 §3 — itens da timeline). */}
+            <Reveal delay={index * 60}>
               <p className="font-mono text-label text-text-3">{entry.date}</p>
               <h3 className="mt-1 text-h3 text-text">{entry.title}</h3>
               <p className="mt-1 max-w-[58ch] text-body text-text-2">{entry.description}</p>
