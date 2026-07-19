@@ -22,6 +22,51 @@ interface Command {
   run: () => void;
 }
 
+/** Faixas [início, fim) onde os tokens casam no texto (case-insensitive), fundidas. */
+function matchRanges(text: string, tokens: string[]): [number, number][] {
+  const lower = text.toLowerCase();
+  const raw: [number, number][] = [];
+  for (const token of tokens) {
+    let from = 0;
+    for (;;) {
+      const at = lower.indexOf(token, from);
+      if (at === -1) break;
+      raw.push([at, at + token.length]);
+      from = at + 1;
+    }
+  }
+  raw.sort((a, b) => a[0] - b[0]);
+  const merged: [number, number][] = [];
+  for (const range of raw) {
+    const last = merged[merged.length - 1];
+    if (last && range[0] <= last[1]) last[1] = Math.max(last[1], range[1]);
+    else merged.push([range[0], range[1]]);
+  }
+  return merged;
+}
+
+/**
+ * Label com os trechos que casaram acesos (doc 04 §6.23): feedback vivo por
+ * tecla, ênfase por TINTA (accent + peso — ADR-0016), nunca cor decorativa.
+ */
+function Highlighted({ text, tokens }: { text: string; tokens: string[] }) {
+  const ranges = tokens.length > 0 ? matchRanges(text, tokens) : [];
+  if (ranges.length === 0) return <>{text}</>;
+  const parts: React.ReactNode[] = [];
+  let cursor = 0;
+  for (const [start, end] of ranges) {
+    if (start > cursor) parts.push(text.slice(cursor, start));
+    parts.push(
+      <mark key={start} className="bg-transparent font-semibold text-accent">
+        {text.slice(start, end)}
+      </mark>
+    );
+    cursor = end;
+  }
+  if (cursor < text.length) parts.push(text.slice(cursor));
+  return <>{parts}</>;
+}
+
 export function CommandPalette({ onClose }: { onClose: () => void }) {
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
@@ -58,14 +103,18 @@ export function CommandPalette({ onClose }: { onClose: () => void }) {
     return list;
   }, [navigate]);
 
+  const tokens = useMemo(
+    () => query.toLowerCase().split(/\s+/).filter(Boolean),
+    [query]
+  );
+
   const results = useMemo(() => {
-    const tokens = query.toLowerCase().split(/\s+/).filter(Boolean);
     if (tokens.length === 0) return commands;
     return commands.filter((command) => {
       const haystack = `${command.label} ${command.hint} ${command.keywords ?? ""}`.toLowerCase();
       return tokens.every((token) => haystack.includes(token));
     });
-  }, [query, commands]);
+  }, [tokens, commands]);
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -158,7 +207,9 @@ export function CommandPalette({ onClose }: { onClose: () => void }) {
                   on ? "bg-accent-dim text-text" : "text-text-2"
                 }`}
               >
-                <span className="truncate">{command.label}</span>
+                <span className="truncate">
+                  <Highlighted text={command.label} tokens={tokens} />
+                </span>
                 <span className="shrink-0 text-label text-text-3">{command.hint}</span>
               </li>
             );

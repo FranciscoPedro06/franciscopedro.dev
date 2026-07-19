@@ -42,4 +42,21 @@ describe("CommandPalette", () => {
     ).not.toBeInTheDocument();
     expect(readWorkbench().activeView).toBe("settings");
   });
+
+  it("acende os trechos do label que casaram com a busca", async () => {
+    const user = userEvent.setup();
+    renderApp();
+
+    await user.keyboard("{Control>}{Shift>}P{/Shift}{/Control}");
+
+    const dialog = await screen.findByRole("dialog", { name: "Paleta de comandos" });
+    const input = within(dialog).getByRole("combobox");
+
+    await user.type(input, "contact");
+
+    const option = within(dialog).getByRole("option", { name: /Go: Contact/ });
+    const marks = option.querySelectorAll("mark");
+    expect(marks.length).toBeGreaterThan(0);
+    expect(marks[0].textContent?.toLowerCase()).toBe("contact");
+  });
 });
