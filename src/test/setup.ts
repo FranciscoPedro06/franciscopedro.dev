@@ -7,8 +7,7 @@ import { vi } from "vitest";
 // `testTimeout` no vite.config.ts; rodada verde não fica mais lenta.
 configure({ asyncUtilTimeout: 5_000 });
 
-// jsdom não implementa IntersectionObserver (usado por whileInView e
-// useScrollSpy) nem scrollTo/scrollIntoView (ScrollManager).
+// jsdom não implementa IntersectionObserver (usado pelo Reveal) nem scrollTo/scrollIntoView (ScrollManager).
 // O smoke test do pre-render roda em ambiente node (sem window) — os stubs
 // de DOM só se aplicam onde há DOM.
 class IntersectionObserverMock {

@@ -2,62 +2,95 @@ import { Link } from "react-router-dom";
 import type { Project } from "@/content/types";
 import { projectFile } from "@/lib/views";
 import { Badge } from "./Badge";
+import { CodeBlock } from "./CodeBlock";
 import { FileGlyph } from "./FileGlyph";
+import { LanguageBar } from "./LanguageBar";
 import { Tag } from "./Tag";
 
 /**
- * Porta de entrada dos estudos de caso (doc 04 §6.4) — na Release 0.6.1,
- * uma linha de arquivo do workbench, não um card: nome do arquivo + status,
- * título, resumo, tags e a ação. A linha inteira é um link; hover eleva o
- * fundo e desloca a seta 4px (doc 08 §2).
- * O nível do heading segue o contexto — h3 sob seção da home (h2), h2 sob o
- * h1 de /projetos: hierarquia sem saltos (doc 04 §8.1).
+ * Porta de entrada dos estudos de caso (doc 04 §6.4). Release 0.10: no
+ * desenho do explorador de projetos — a capa é um trecho **real** do
+ * repositório (CodeBlock compacto, com a linha de verdade) e ao lado ficam
+ * nome, status, resumo, linguagens e stack com logos. `row` é a linha da
+ * lista; `tile` é o cartão da grade. A linha inteira é um link.
+ * O nível do heading segue o contexto (doc 04 §8.1).
  */
 export function ProjectCard({
   project,
-  variant = "default",
+  layout = "row",
   headingAs: Heading = "h3",
 }: {
   project: Project;
-  variant?: "default" | "featured";
+  layout?: "row" | "tile";
   headingAs?: "h2" | "h3";
 }) {
-  const featured = variant === "featured";
+  const file = projectFile(project);
+  const code = project.code;
+  const preview = (
+    <CodeBlock
+      compact
+      code={code.code}
+      lang={code.lang}
+      file={code.path.split("/").pop() ?? code.path}
+      path={`${code.repo} › ${code.path}`}
+      startLine={code.startLine}
+    />
+  );
+  const title = (
+    <div className="flex flex-wrap items-center gap-2">
+      <FileGlyph file={file} size={16} />
+      <Heading className="text-h3 text-text-hi">{project.name}</Heading>
+      {project.isNew ? <Badge variant="new">Novo</Badge> : <Badge>{project.badge}</Badge>}
+    </div>
+  );
+
+  if (layout === "tile") {
+    return (
+      <Link
+        to={`/projetos/${project.slug}`}
+        aria-label={`Ver estudo de caso: ${project.name}`}
+        className="group flex h-full flex-col overflow-hidden rounded-md border border-border-strong bg-surface transition-colors duration-150 hover:border-accent"
+      >
+        <div className="[&>div]:rounded-none [&>div]:border-0 [&>div]:border-b">{preview}</div>
+        <div className="flex flex-1 flex-col gap-2.5 p-3.5">
+          {title}
+          <LanguageBar languages={project.languages} bar={false} />
+          <p className="text-small text-text-2">{project.summary}</p>
+          <div className="mt-auto flex flex-wrap gap-1.5 pt-1">
+            {project.tags.map((tag) => (
+              <Tag key={tag}>{tag}</Tag>
+            ))}
+          </div>
+        </div>
+      </Link>
+    );
+  }
 
   return (
     <Link
       to={`/projetos/${project.slug}`}
-      className="group flex flex-col gap-2 border-b border-border px-2 py-4 transition-colors duration-150 hover:bg-surface-2/50 md:px-3 md:py-5"
+      className="group grid gap-4 border-b border-border px-2 py-4 transition-colors duration-100 hover:bg-surface-2 sm:grid-cols-[220px_minmax(0,1fr)] md:px-3"
     >
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-        <span
-          aria-hidden="true"
-          className="flex items-center gap-1.5 font-mono text-label font-normal normal-case tracking-normal text-text-3 transition-colors duration-150 group-hover:text-text-2"
-        >
-          <FileGlyph file={projectFile(project)} />
-          {projectFile(project)}
+      <div className="hidden sm:block">{preview}</div>
+      <div className="flex min-w-0 flex-col gap-2">
+        {title}
+        <p className="max-w-[72ch] text-small text-text-2">{project.summary}</p>
+        <LanguageBar languages={project.languages} bar={false} />
+        <div className="flex flex-wrap gap-1.5">
+          {project.tags.map((tag) => (
+            <Tag key={tag}>{tag}</Tag>
+          ))}
+        </div>
+        <span className="mt-0.5 inline-flex items-center gap-1 text-small text-link">
+          Ver estudo de caso
+          <span
+            aria-hidden="true"
+            className="transition-transform duration-150 group-hover:translate-x-1"
+          >
+            →
+          </span>
         </span>
-        <Badge>{project.badge}</Badge>
       </div>
-
-      <Heading className="text-h3 text-text">{project.name}</Heading>
-      <p className={`max-w-prose text-text-2 ${featured ? "text-body-lg" : "text-body"}`}>
-        {project.summary}
-      </p>
-      <div className="flex flex-wrap gap-2">
-        {project.tags.map((tag) => (
-          <Tag key={tag}>{tag}</Tag>
-        ))}
-      </div>
-      <span className="mt-1 flex items-center gap-1 text-small font-medium text-text">
-        Ver estudo de caso
-        <span
-          aria-hidden="true"
-          className="transition-transform duration-150 group-hover:translate-x-1"
-        >
-          →
-        </span>
-      </span>
     </Link>
   );
 }

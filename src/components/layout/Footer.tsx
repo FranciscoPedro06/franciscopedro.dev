@@ -1,21 +1,19 @@
-import { Check, GitBranch, TriangleAlert } from "lucide-react";
+import { CircleX, GitBranch, Terminal, TriangleAlert } from "lucide-react";
 import { ThemeToggle } from "@/components/workbench/ThemeToggle";
 import { branch, commits } from "@/content/generated/git-log";
 import { routes } from "@/content/routes";
-import { footerCopy, site } from "@/content/site";
-import { brandIcon } from "@/lib/brand";
-import { setWorkbench, useHydrated } from "@/lib/workbench";
+import { readWorkbench, setWorkbench, useHydrated } from "@/lib/workbench";
 
 /**
- * Status bar do workbench (doc 04 §6.7): a faixa inferior — densa em mono, com
- * indicadores técnicos **verdadeiros** à esquerda (branch e último commit reais
- * do git-log; problemas e build refletindo o gate) e contatos/colofão à
- * direita. Itens menos críticos cedem espaço por breakpoint (somem via CSS).
+ * Status bar do workbench (doc 04 §6.7; Release 0.10 no desenho do VS Code):
+ * 22px, texto 12px, itens clicáveis com hover de fundo. À esquerda o item de
+ * ação em azul (abre o terminal), branch e último commit reais do git-log,
+ * problemas e build refletindo o gate; à direita o tema atual. Itens menos
+ * críticos cedem espaço por breakpoint (somem via CSS).
  */
 
-const chip =
-  "font-mono text-label font-normal normal-case tracking-normal text-text-3";
-const link = `${chip} transition-colors duration-150 hover:text-text`;
+const item =
+  "flex h-full items-center gap-1 px-1.5 transition-colors duration-100 hover:bg-surface-2 hover:text-text";
 
 /** Data relativa curta e honesta (pt-BR). Só roda no cliente (ver `useHydrated`). */
 function relativeDate(iso: string): string {
@@ -35,10 +33,21 @@ export function Footer() {
   const last = commits[0];
 
   return (
-    <footer className="flex h-7 shrink-0 items-center gap-3 border-t border-border bg-surface px-3 text-text-3">
-      {/* Esquerda: branch + último commit (reais) + problemas + build */}
-      <span className={`flex items-center gap-1.5 ${chip}`}>
-        <GitBranch size={12} strokeWidth={1.5} aria-hidden="true" />
+    <footer className="flex h-[22px] shrink-0 items-stretch border-t border-border bg-surface text-[12px] text-text-2">
+      <button
+        type="button"
+        onClick={() =>
+          setWorkbench({ panelOpen: !readWorkbench().panelOpen, panelTab: "terminal" })
+        }
+        aria-label="Alternar terminal"
+        title="Terminal"
+        className="flex items-center bg-accent px-2.5 text-on-accent transition-colors duration-100 hover:bg-accent-bright"
+      >
+        <Terminal size={14} strokeWidth={1.75} aria-hidden="true" />
+      </button>
+
+      <span className="flex items-center gap-1 px-2">
+        <GitBranch size={13} strokeWidth={1.5} aria-hidden="true" />
         {branch}
       </span>
 
@@ -49,9 +58,9 @@ export function Footer() {
             setWorkbench({ activeView: "scm", sidebarCollapsed: false, mobilePanelOpen: true })
           }
           aria-label={`Último commit ${last.hash}, ${last.date}. Abrir Source Control`}
-          className={`hidden items-center gap-1.5 rounded-sm px-1 transition-colors duration-150 hover:text-text md:flex ${chip}`}
+          className={`hidden md:flex ${item}`}
         >
-          <span className="text-accent">{last.hash}</span>
+          <span className="font-mono">{last.hash}</span>
           <span aria-hidden="true">·</span>
           {/* Data relativa só após hidratar — o SSR emite a data absoluta, sem mismatch. */}
           <span>{hydrated ? relativeDate(last.date) : last.date}</span>
@@ -62,74 +71,29 @@ export function Footer() {
         type="button"
         onClick={() => setWorkbench({ panelOpen: true, panelTab: "problems" })}
         aria-label="Abrir painel Problems: 0 erros, 0 avisos"
-        className={`hidden items-center gap-2 rounded-sm px-1 transition-colors duration-150 hover:text-text sm:flex ${chip}`}
+        className={`hidden sm:flex ${item}`}
       >
         <span aria-hidden="true" className="flex items-center gap-1">
-          <Check size={12} strokeWidth={2} />0
+          <CircleX size={13} strokeWidth={1.5} />0
         </span>
         <span aria-hidden="true" className="flex items-center gap-1">
-          <TriangleAlert size={11} strokeWidth={1.5} />0
+          <TriangleAlert size={13} strokeWidth={1.5} />0
         </span>
       </button>
-      {/* Sinal real, não fabricado (débito da 0.9): a contagem vem do registro
-          único de rotas (ADR-0010 — rotas indexáveis + 404 = páginas do build);
-          o artefato servido É o build. Clicar abre o Output com o pipeline. */}
+      {/* Sinal real: a contagem vem do registro único de rotas (ADR-0010 —
+          rotas indexáveis + 404 = páginas do build). Abre o Output. */}
       <button
         type="button"
         onClick={() => setWorkbench({ panelOpen: true, panelTab: "output" })}
         aria-label={`Build: ${routes.length + 1} páginas pré-renderizadas. Abrir painel Output`}
-        className={`hidden items-center gap-1.5 rounded-sm px-1 transition-colors duration-150 hover:text-text lg:flex ${chip}`}
+        className={`hidden lg:flex ${item}`}
       >
-        <Check
-          size={12}
-          strokeWidth={2}
-          aria-hidden="true"
-          className="text-success"
-        />
         build · {routes.length + 1} páginas
       </button>
 
-      {/* Direita: contatos + colofão + copyright + tema */}
-      <div className="ml-auto flex items-center gap-3">
-        <nav
-          aria-label="Contatos"
-          className="flex items-center gap-3 border-l border-border pl-3"
-        >
-          {site.social.map((item) => {
-            const Icon = brandIcon(item.label);
-            return (
-              <a
-                key={item.label}
-                href={item.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`inline-flex items-center gap-1.5 ${link}`}
-              >
-                {Icon && <Icon className="size-3.5" />}
-                {item.label}
-              </a>
-            );
-          })}
-          {site.email && (
-            <a href={`mailto:${site.email}`} className={`hidden sm:inline ${link}`}>
-              {site.email}
-            </a>
-          )}
-          <a
-            href={site.repositoryUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`hidden md:inline ${link}`}
-          >
-            {footerCopy.colophon.split(" — ")[0]}
-          </a>
-        </nav>
-
-        <span className={`hidden xl:inline ${chip}`}>{footerCopy.copyright}</span>
-
-        <span className="border-l border-border pl-3">
-          <ThemeToggle />
-        </span>
+      <div className="ml-auto flex items-stretch">
+        <span className="hidden items-center px-1.5 md:flex">UTF-8</span>
+        <ThemeToggle />
       </div>
     </footer>
   );

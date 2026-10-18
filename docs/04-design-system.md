@@ -9,6 +9,18 @@
 
 ## 1. Tokens de cor
 
+> **Release 0.10 (ADR-0018) — vale sobre as tabelas abaixo.** As cores agora
+> são as dos temas reais de editor: **Dark Modern** (default) e **Light
+> Modern** do VS Code, mais **GitHub Dark**, **Dracula** e **Monokai**. A
+> fonte da verdade dos valores é o bloco `@theme` + overrides
+> `:root[data-theme=…]` de `src/index.css`. Tokens novos: `text-hi`
+> (títulos), `input`, `on-accent`, `link` (texto de link — o `accent` é o azul
+> de ação, para fundo/borda), `button-2(-hover)`, `warning`, sintaxe `sx-*`,
+> terminal `term-*` e a escala `heat-0…4` da grade de contribuições. Raios do
+> VS Code (2/4/6 px). Duas vozes tipográficas: IBM Plex Sans e JetBrains Mono
+> (a serifa saiu). As tabelas §1.1–1.5 abaixo registram a 0.9 e ficam como
+> histórico.
+
 > **Dois temas (Release 0.7, ADR-0013).** O escuro é o default (`:root`); o
 > claro é override por atributo (`:root[data-theme="light"]`). A tabela §1.1–1.3
 > é o tema escuro; a §1.5 é o claro. Toda cor nova precisa de valor nos dois

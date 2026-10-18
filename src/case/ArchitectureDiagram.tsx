@@ -11,8 +11,13 @@ export function ArchitectureDiagram({ diagram }: { diagram: DiagramRef }) {
   if (!Diagram) return null;
 
   return (
-    <figure className="mt-8 rounded-lg border border-border bg-surface p-4 sm:p-8">
-      <Diagram ariaLabel={diagram.ariaLabel} />
+    <figure className="mt-6 rounded-md border border-border bg-surface p-4 sm:p-6">
+      {/* Largura mínima para o texto do SVG seguir legível; rola no estreito. */}
+      <div className="scrollbar-ide overflow-x-auto">
+        <div className="min-w-[760px]">
+          <Diagram ariaLabel={diagram.ariaLabel} />
+        </div>
+      </div>
       {diagram.caption && (
         <figcaption className="mt-4 text-small text-text-3">
           {diagram.caption}

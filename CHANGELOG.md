@@ -8,6 +8,29 @@ corresponde a um marco do [roadmap](docs/07-roadmap.md).
 
 ### Added
 
+- Release 0.10: "Workbench VS Code + Linux Lab" (ADR-0018, substitui o
+  ADR-0016) — aprovada sobre mockup navegável. **Linux Lab** como 6º estudo
+  de caso (diagrama, limites do contêiner, decisões, desafios, aprendizados,
+  roadmap por incrementos), fixado na home no lugar do Carrinho e na
+  trajetória. **Cores dos temas reais de editor**: Dark Modern (default) e
+  Light Modern do VS Code, GitHub Dark, Dracula e Monokai, com painel Color
+  Theme. **Logos oficiais** (devicon) em arquivos, abas, chips e tags.
+  **Shell no desenho do VS Code** (command center, explorer de 22px, abas,
+  status bar, paleta no topo) e **painel de detalhes** à direita. **Home** com
+  perfil em código, projetos fixados com barra de linguagens, grade de pixels
+  escrevendo a stack e commits reais. **Projetos** com busca, filtro por
+  linguagem, lista/grade e capa feita de **trecho real** de cada repositório.
+  **Case** no formato de página de extensão, com abas pelo hash e aba Código —
+  no Linux Lab, uma mini-missão jogável. **Terminal interativo** (`help`,
+  `ls`, `cat`, `open`, `theme`, `lab`, `git log`…). Gate: Vitest 66/66, 9
+  páginas pré-renderizadas, JS 85,7/110 KB, CSS 23,7/25 KB.
+
+### Removed
+
+- Serifa Newsreader (`@fontsource-variable/newsreader`), o transcript
+  roteirizado do Terminal, o índice lateral de seções do case (`CaseIndex`,
+  `useScrollSpy`) e os atalhos de conteúdo do rail de atividades.
+
 - Release 0.9.2: "Craft do workbench" — a beleza aprofunda a **ficção da
   IDE**, não decora a superfície. **FileGlyph**: badge tipográfico mono por
   tipo de arquivo (TS/PY/JA/JS, derivado da extensão, `currentColor`) no

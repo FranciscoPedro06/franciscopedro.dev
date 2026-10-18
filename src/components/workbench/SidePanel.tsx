@@ -16,7 +16,7 @@ const SourceControlPanel = lazy(() =>
 
 const TITLES: Record<string, string> = {
   explorer: "Explorer",
-  settings: "Settings",
+  settings: "Color Theme",
   search: "Search",
   scm: "Source Control",
 };
@@ -76,12 +76,14 @@ export function SidePanel() {
       <aside
         aria-label={TITLES[activeView]}
         style={{ width }}
-        className={`fixed inset-y-0 left-12 z-40 flex max-w-[80vw] flex-col border-r border-border bg-surface shadow-lg transition-transform duration-150 lg:static lg:z-auto lg:max-w-none lg:translate-x-0 lg:bg-surface/60 lg:shadow-none lg:transition-none ${
+        className={`fixed inset-y-0 left-12 z-40 flex max-w-[80vw] flex-col border-r border-border bg-surface shadow-lg transition-transform duration-150 lg:static lg:z-auto lg:max-w-none lg:translate-x-0 lg:shadow-none lg:transition-none ${
           mobilePanelOpen ? "visible translate-x-0" : "invisible -translate-x-full"
         } lg:visible ${sidebarCollapsed ? "lg:hidden" : "lg:flex"}`}
       >
-        <div className="flex h-8 shrink-0 items-center px-4">
-          <span className="type-label text-text-3">{TITLES[activeView]}</span>
+        <div className="flex h-[35px] shrink-0 items-center pl-5 pr-2">
+          <span className="text-label uppercase tracking-[0.04em] text-text-2">
+            {TITLES[activeView]}
+          </span>
           <button
             type="button"
             onClick={() => setWorkbench({ mobilePanelOpen: false })}

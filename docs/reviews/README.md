@@ -24,3 +24,4 @@ achados e correções, pendências geradas, veredito.
 | Release 0.9 — Identidade visual editorial-técnica | [release-0.9-review.md](release-0.9-review.md) | Aprovado pelo Francisco (validação em navegador) |
 | Release 0.9.1 — Micro-interações funcionais | [release-0.9.1-review.md](release-0.9.1-review.md) | Gate verde; aguarda validação em navegador |
 | Release 0.9.2 — Craft do workbench | [release-0.9.2-review.md](release-0.9.2-review.md) | Gate verde; aguarda validação em navegador |
+| Release 0.10 — Workbench VS Code + Linux Lab | [release-0.10-review.md](release-0.10-review.md) | Mockup aprovado pelo Francisco; gate verde; aguarda validação no preview |

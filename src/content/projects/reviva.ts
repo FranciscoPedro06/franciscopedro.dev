@@ -71,5 +71,17 @@ export const reviva: Project = {
       ],
     },
   ],
-  order: 5,
+  languages: [
+    { name: "Java", percent: 100 },
+  ],
+  code: {
+    repo: "reviva-app",
+    path: "app/src/main/java/com/reviva/app/activities/MyMemoriesActivity.java",
+    url: "https://github.com/FranciscoPedro06/reviva-app/blob/main/app/src/main/java/com/reviva/app/activities/MyMemoriesActivity.java#L205-L208",
+    startLine: 205,
+    lang: "java",
+    code: "    private boolean podeAbrirMemoria(Memory memoria) {\n        long agora = System.currentTimeMillis();  // Timestamp atual\n        return memoria.getUnlockAt() <= agora;    // Pode abrir se unlockAt já passou\n    }",
+    note: "A regra central do app: uma memória só abre depois da data que o usuário escolheu.",
+  },
+  order: 6,
 };

@@ -5,59 +5,45 @@
 > Release — contém apenas o necessário para iniciar a próxima sessão, nunca
 > histórico.
 
-**Data:** 2026-07-19 · **Release encerrada:** 0.9.2 — "Craft do workbench"
-(mesma sessão fechou a 0.9.1 — "Micro-interações funcionais")
+**Data:** 2026-10-18 · **Release encerrada:** 0.10 — "Workbench VS Code +
+Linux Lab" (em branch de preview, ainda fora da `main`)
 
 ## Próximo objetivo
 
-As 0.9.1 e 0.9.2 estão commitadas e publicadas com gate verde, **sem
-validação em navegador ainda** — mesma fila das 0.6–0.8. A validação manual
-(desktop/tablet/mobile, tema light/dark, NVDA/Tab/zoom 200 %) é o próximo
-passo natural; interessam em particular os dials de sensação: **ritmo do
-terminal** (18/240/90ms), **peso do highlight** da paleta, **tamanho do
-FileGlyph** (8 px) e o **alinhamento das guias de indentação** do Explorer
-(calibrados às cegas, sem conferência visual). Depois, **Pré-lançamento /
-v1.0** (doc 07 §3): roadmap GitHub (rotação da chave Supabase, forks
-oficiais, READMEs), medição do M7 (≥ 95) no deploy e integração do material
-restante do Francisco (foto, e-mail, CV PT/EN, resultados do MIS,
-screenshots).
+**Validação do Francisco no preview da Vercel** desta branch e, aprovada, o
+merge na `main`. Pontos a conferir: legibilidade das palavras na grade de
+pixels, texto dos diagramas na aba Arquitetura (o SVG agora tem largura
+mínima e rola no estreito), os temas Dracula/Monokai e o terminal no celular.
+Depois segue a fila de antes: **Pré-lançamento / v1.0** (doc 07 §3).
 
 ## Arquivos provavelmente envolvidos
 
-- `src/components/ui/FileGlyph.tsx` — badge por extensão (usado em
-  `Explorer`, `EditorTabs`, `ProjectCard`; `SearchPanel` ainda não — candidato).
-- `src/components/workbench/Explorer.tsx` — guias de indentação + pasta
-  com estado (dials de alinhamento aqui).
-- `src/components/ui/Reveal.tsx` — prop `delay` (stagger 60ms).
-- `src/components/workbench/CommandPalette.tsx` — match highlight.
-- `src/components/layout/Footer.tsx` — chip de build derivado de
-  `src/content/routes.ts`; `BottomPanel.tsx` — Terminal em duas velocidades.
-- `vite.config.ts` + `src/test/setup.ts` — timeouts da suíte (20s/5s).
+- `src/index.css` — tokens dos 5 temas (ADR-0018). **CSS a 1,3 KB do teto**
+  (23,7/25 KB): qualquer acréscimo precisa compensar.
+- `src/lib/workbench.ts` — `THEMES` (ids, nomes, cores da prévia); o script
+  anti-flash do `index.html` repete o mapa de cores.
+- `src/content/projects/*.ts` — `languages` (medidas aproximadas), `code`
+  (trecho real + link), `facts`, `steps`, `milestones`, `isNew`.
+- `src/case/CasePage.tsx` + `caseTabs.ts` — abas pelo hash.
+- `src/components/workbench/Terminal.tsx` + `src/lib/terminal-bus.ts` +
+  `src/lib/mission.ts` — terminal e mini-missão.
+- `src/components/sections/ContributionArt.tsx` + `src/lib/pixel-font.ts` —
+  grade de pixels (palavras em `content/home.ts`).
 
 ## Decisões desta release
 
-- **Sem ADR novo** nas duas releases — aplicam princípios vigentes:
-  anti-fabricação (ADR-0015/0016) e "motion é informação" (doc 08 §1).
-- **Exceção registrada no doc 08 §3**: o Terminal digita os comandos `$` —
-  digitação é o comportamento nativo do objeto representado; a proibição
-  segue integral para prosa/títulos. Sujeita a veto na validação.
-- **Beleza = aprofundar a ficção da IDE** (0.9.2), não decorar: glifos
-  tipográficos, guias de árvore, stagger/press que o doc 08 já permitia.
-- **Cor por tipo de arquivo: fork exercido pelo Francisco** (ADR-0017) — o
-  `FileGlyph` usa os logos oficiais das linguagens nas cores reais (devicon
-  inline). Exceção **escopada**: cor de tipo é identificação, não decoração;
-  contato (GitHub/LinkedIn) segue mono, conteúdo segue sob acento-sem-hue.
+- **ADR-0018** substitui o ADR-0016: cor tem papel (sintaxe, logo, estado,
+  azul de ação, verde do GitHub); degradê, brilho e pulsação são proibidos.
+- O primeiro mockup (degradês ciano, "fp" com brilho, selo pulsando, capas
+  borradas) foi **recusado** pelo Francisco — não voltar a essa estética.
+- Capa de projeto = **código real** do repositório até existirem screenshots.
+- Grade de contribuições escreve palavras, **não** finge histórico; o link
+  aponta para o histórico real.
 
 ## Observações
 
-- **O flake de testes foi resolvido de verdade**: não era só o
-  `SearchPanel` — qualquer suíte com chunk lazy + o axe da home (~5s)
-  estourava os defaults sob carga; conjunto variável por rodada, tudo verde
-  isolado. `testTimeout: 20s` + `asyncUtilTimeout: 5s`; três rodadas
-  completas consecutivas 58/58. Não tratar mais como pendência.
-- **Folga de orçamento** segue confortável (JS 75,6/110 — +0,5 KB do import
-  de rotas no Footer; CSS 21,3/25).
-- `aria-live`/`role="log"` no Terminal ficou de fora por decisão (transcript
-  é visual; avaliar na validação de a11y).
-- **Não reintroduzir cor decorativa** (ADR-0016) e **assimetria de
-  temperatura** entre temas seguem como estado conhecido.
+- `vite preview` serve a home para `/projetos` (sem barra) e isso parece erro
+  de hidratação — é só local; a Vercel serve certo (`trailingSlash: false`).
+- O build regenera `src/content/generated/git-log.ts`; num clone raso ele
+  sai com 1 commit — não commitar essa versão.
+- Números do Linux Lab datados de 2026-10-18; selo "Novo" é conteúdo.

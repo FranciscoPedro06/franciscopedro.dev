@@ -37,6 +37,12 @@ export const timeline: TimelineEntry[] = [
       "A síntese: React, Laravel, microserviço facial, Pix. Principal autor do front e do back.",
   },
   {
+    date: "SET 2026",
+    title: "Linux Lab",
+    description:
+      "Um terminal real num contêiner isolado por aluno, com validação pelo estado do sistema. FastAPI, PostgreSQL, Docker com gVisor e React.",
+  },
+  {
     date: "HOJE",
     title: "Os dois lados do ciclo",
     description:

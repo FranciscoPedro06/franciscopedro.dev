@@ -4,6 +4,7 @@ import { beforeEach, describe, expect, it } from "vitest";
 import { ThemeToggle } from "@/components/workbench/ThemeToggle";
 import {
   DEFAULTS,
+  isTheme,
   readWorkbench,
   setWorkbench,
   toggleTheme,
@@ -32,6 +33,16 @@ describe("workbench shell state", () => {
     expect(document.documentElement.dataset.theme).toBe("light");
     const stored = JSON.parse(localStorage.getItem("fp.workbench.v1") ?? "{}");
     expect(stored.theme).toBe("light");
+  });
+
+  it("aceita os temas de editor e ignora valores desconhecidos", () => {
+    setWorkbench({ theme: "dracula" });
+    expect(document.documentElement.dataset.theme).toBe("dracula");
+    expect(isTheme("monokai")).toBe(true);
+    expect(isTheme("tema-inventado")).toBe(false);
+    // Fora do par claro/escuro, o alternador vai para o claro.
+    toggleTheme();
+    expect(readWorkbench().theme).toBe("light");
   });
 
   it("toggleTheme alterna entre escuro e claro", () => {

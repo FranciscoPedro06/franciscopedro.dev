@@ -5,7 +5,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { featuredWork } from "@/content/home";
 import { highlighted } from "@/content/projects";
 
-/** Os 3 principais estudos de caso; o índice completo vive em /projetos. */
+/** Os 3 estudos de caso fixados; o índice completo vive em /projetos. */
 export function FeaturedWork() {
   const [main, ...rest] = highlighted;
 
@@ -24,10 +24,7 @@ export function FeaturedWork() {
       <div className="mt-6 border-t border-border">
         {[main, ...rest].map((project, index) => (
           <Reveal key={project.slug} delay={index * 60}>
-            <ProjectCard
-              project={project}
-              variant={index === 0 ? "featured" : "default"}
-            />
+            <ProjectCard project={project} />
           </Reveal>
         ))}
       </div>
@@ -35,7 +32,7 @@ export function FeaturedWork() {
       <div className="mt-5">
         <Link
           to="/projetos"
-          className="group inline-flex items-center gap-1 font-mono text-small text-accent transition-colors duration-150 hover:text-accent-bright"
+          className="group inline-flex items-center gap-1 text-small text-link hover:underline"
         >
           {featuredWork.allProjectsCta}{" "}
           {/* Seta desliza no hover — padrão do ProjectCard (doc 08 §2). */}

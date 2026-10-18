@@ -87,5 +87,20 @@ export const edupass: Project = {
       ],
     },
   ],
-  order: 4,
+  languages: [
+    { name: "CSS", percent: 36 },
+    { name: "JavaScript", percent: 29 },
+    { name: "HTML", percent: 21 },
+    { name: "TypeScript", percent: 12 },
+  ],
+  code: {
+    repo: "EduPass",
+    path: "assets/js/reconhecimentoFace.js",
+    url: "https://github.com/FranciscoPedro06/EduPass/blob/main/assets/js/reconhecimentoFace.js#L168-L181",
+    startLine: 168,
+    lang: "js",
+    code: "async function verificarRostoAPI(blob) {\n  try {\n    const formData = new FormData();\n    formData.append('file', blob, 'rosto_verificar.jpg');\n    \n    const response = await fetch(`${API_URL}/reconhecer`, { // Endpoint /verificar\n      method: 'POST',\n      body: formData\n    });\n    const data = await response.json();\n\n    if (data.success) {\n      mostrarAlerta(`✅ Verificado: ${data.usuario.nome}`, \"sucesso\");\n    } else {",
+    note: "O front web envia a foto do rosto para a API facial e mostra o resultado da verificação.",
+  },
+  order: 5,
 };

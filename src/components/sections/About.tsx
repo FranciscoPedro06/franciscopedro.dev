@@ -13,7 +13,7 @@ export function About() {
       />
       <div className="mt-5 max-w-[64ch] space-y-4">
         {about.paragraphs.map((paragraph) => (
-          <p key={paragraph.slice(0, 24)} className="text-body text-text-2">
+          <p key={paragraph.slice(0, 24)} className="text-body-lg text-text">
             {paragraph}
           </p>
         ))}

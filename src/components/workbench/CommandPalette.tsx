@@ -1,10 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { byOrder } from "@/content/projects";
 import { site } from "@/content/site";
+import { runInTerminal } from "@/lib/terminal-bus";
 import {
   type ActivityView,
   readWorkbench,
   setWorkbench,
+  THEMES,
   toggleTheme,
 } from "@/lib/workbench";
 
@@ -57,7 +60,7 @@ function Highlighted({ text, tokens }: { text: string; tokens: string[] }) {
   for (const [start, end] of ranges) {
     if (start > cursor) parts.push(text.slice(cursor, start));
     parts.push(
-      <mark key={start} className="bg-transparent font-semibold text-accent">
+      <mark key={start} className="bg-transparent font-semibold text-link">
         {text.slice(start, end)}
       </mark>
     );
@@ -86,7 +89,6 @@ export function CommandPalette({ onClose }: { onClose: () => void }) {
       { id: "go-experience", label: "Go: Experience", hint: "/#trajetoria", keywords: "trajetoria timeline", run: () => navigate("/#trajetoria") },
       { id: "go-about", label: "Go: About", hint: "/#sobre", keywords: "sobre", run: () => navigate("/#sobre") },
       { id: "go-contact", label: "Go: Contact", hint: "/#contato", keywords: "contato contact", run: () => navigate("/#contato") },
-      { id: "open-fastpass", label: "Open Case: FastPass", hint: "/projetos/fastpass", run: () => navigate("/projetos/fastpass") },
       { id: "view-explorer", label: "View: Explorer", hint: "painel", run: () => openView("explorer") },
       { id: "view-search", label: "Focus Search", hint: "painel", keywords: "buscar search", run: () => { openView("search"); requestAnimationFrame(() => document.getElementById("wb-search-input")?.focus()); } },
       { id: "view-scm", label: "View: Source Control", hint: "painel", keywords: "git commits", run: () => openView("scm") },
@@ -95,7 +97,14 @@ export function CommandPalette({ onClose }: { onClose: () => void }) {
       { id: "toggle-panel", label: "Toggle Panel", hint: "layout", keywords: "terminal problems", run: () => setWorkbench({ panelOpen: !readWorkbench().panelOpen }) },
       { id: "open-terminal", label: "Terminal: Focus", hint: "painel inferior", run: () => setWorkbench({ panelOpen: true, panelTab: "terminal" }) },
       { id: "change-theme", label: "Preferences: Change Theme", hint: "aparência", keywords: "dark light tema", run: toggleTheme },
+      { id: "linux-lab-mission", label: "Linux Lab: Play a Mission", hint: "terminal", keywords: "lab missao chmod", run: () => runInTerminal("lab") },
     ];
+    for (const project of byOrder) {
+      list.push({ id: `open-${project.slug}`, label: `Open Case: ${project.name}`, hint: `/projetos/${project.slug}`, run: () => navigate(`/projetos/${project.slug}`) });
+    }
+    for (const theme of THEMES) {
+      list.push({ id: `theme-${theme.id}`, label: `Color Theme: ${theme.label}`, hint: "aparência", keywords: "tema theme", run: () => setWorkbench({ theme: theme.id }) });
+    }
     for (const s of site.social) {
       list.push({ id: `open-${s.label.toLowerCase()}`, label: `Open ${s.label}`, hint: "externo ↗", run: () => window.open(s.url, "_blank", "noopener") });
     }
@@ -149,7 +158,7 @@ export function CommandPalette({ onClose }: { onClose: () => void }) {
   };
 
   return (
-    <div className="fixed inset-0 z-[60] flex justify-center bg-black/40 px-4 pt-[12vh]">
+    <div className="fixed inset-0 z-[60] flex justify-center px-2 pt-1.5">
       <button
         type="button"
         aria-label="Fechar paleta de comandos"
@@ -160,7 +169,7 @@ export function CommandPalette({ onClose }: { onClose: () => void }) {
         role="dialog"
         aria-modal="true"
         aria-label="Paleta de comandos"
-        className="elevated relative flex h-fit w-full max-w-xl flex-col overflow-hidden rounded-md border border-border-strong bg-surface motion-safe:animate-[view-in_120ms_ease-out]"
+        className="elevated relative flex h-fit w-full max-w-[600px] flex-col overflow-hidden rounded-lg border border-border-strong bg-surface p-1.5 motion-safe:animate-[view-in_120ms_ease-out]"
       >
         <input
           ref={inputRef}
@@ -177,7 +186,7 @@ export function CommandPalette({ onClose }: { onClose: () => void }) {
             setSelected(0);
           }}
           onKeyDown={onKeyDown}
-          className="border-b border-border bg-transparent px-4 py-3 font-mono text-small text-text placeholder:text-text-3 focus:outline-none"
+          className="h-7 rounded-sm border border-accent bg-input px-2 text-small text-text placeholder:text-text-3 focus:outline-none"
         />
 
         <ul
@@ -185,10 +194,10 @@ export function CommandPalette({ onClose }: { onClose: () => void }) {
           ref={listRef}
           role="listbox"
           aria-label="Comandos"
-          className="scrollbar-ide max-h-[50vh] overflow-y-auto py-1 font-mono text-small"
+          className="scrollbar-ide mt-1.5 max-h-[50vh] overflow-y-auto text-small"
         >
           {results.length === 0 && (
-            <li className="px-4 py-2 text-text-3">Nenhum comando encontrado.</li>
+            <li className="px-2 py-1.5 text-text-2">Nenhum comando encontrado.</li>
           )}
           {results.map((command, index) => {
             const on = index === selected;
@@ -203,14 +212,14 @@ export function CommandPalette({ onClose }: { onClose: () => void }) {
                 aria-selected={on}
                 onClick={() => run(command)}
                 onMouseMove={() => setSelected(index)}
-                className={`flex cursor-pointer items-center justify-between gap-4 px-4 py-1.5 ${
-                  on ? "bg-accent-dim text-text" : "text-text-2"
+                className={`flex h-6 cursor-pointer items-center justify-between gap-4 rounded-sm px-2 ${
+                  on ? "bg-accent-dim text-text-hi outline outline-1 -outline-offset-1 outline-accent" : "text-text"
                 }`}
               >
                 <span className="truncate">
                   <Highlighted text={command.label} tokens={tokens} />
                 </span>
-                <span className="shrink-0 text-label text-text-3">{command.hint}</span>
+                <span className="shrink-0 text-[12px] text-text-2">{command.hint}</span>
               </li>
             );
           })}

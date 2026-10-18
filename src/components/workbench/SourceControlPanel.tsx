@@ -27,7 +27,7 @@ export function SourceControlPanel() {
               className="group flex flex-col gap-0.5 px-4 py-1.5 transition-colors duration-150 hover:bg-surface-2"
             >
               <span className="flex items-baseline gap-2">
-                <code className="shrink-0 text-accent">{commit.hash}</code>
+                <code className="shrink-0 text-link">{commit.hash}</code>
                 <span className="shrink-0 text-label text-text-3">{commit.date}</span>
               </span>
               <span className="text-text-2">{commit.subject}</span>

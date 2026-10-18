@@ -8,6 +8,7 @@ import { ActivityBar } from "@/components/workbench/ActivityBar";
 import { BottomPanelHost } from "@/components/workbench/BottomPanelHost";
 import { CommandPaletteHost } from "@/components/workbench/CommandPaletteHost";
 import { EditorTabs } from "@/components/workbench/EditorTabs";
+import { Inspector } from "@/components/workbench/Inspector";
 import { SidePanel } from "@/components/workbench/SidePanel";
 import { Home } from "@/pages/Home";
 
@@ -53,9 +54,10 @@ export function App() {
               </Routes>
             </Suspense>
           </div>
+          <BottomPanelHost />
         </main>
+        <Inspector />
       </div>
-      <BottomPanelHost />
       <Footer />
       <CommandPaletteHost />
     </div>

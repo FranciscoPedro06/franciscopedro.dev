@@ -14,6 +14,8 @@ export function ScrollManager() {
 
   useEffect(() => {
     const frame = requestAnimationFrame(() => {
+      // Aba de estudo de caso (Release 0.10): trocar de aba não rola o editor.
+      if (hash && document.querySelector(`[data-case-tab="${hash.slice(1)}"]`)) return;
       if (hash) {
         const target = document.getElementById(hash.slice(1));
         if (target) {

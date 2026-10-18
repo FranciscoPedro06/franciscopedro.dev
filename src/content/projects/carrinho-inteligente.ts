@@ -100,6 +100,20 @@ export const carrinhoInteligente: Project = {
       ],
     },
   ],
-  order: 3,
-  highlight: true,
+  languages: [
+    { name: "C", percent: 43 },
+    { name: "Java", percent: 32 },
+    { name: "HTML", percent: 8 },
+    { name: "JavaScript", percent: 8 },
+  ],
+  code: {
+    repo: "carrinho-inteligente",
+    path: "src/main/java/br/com/carrinhoInteligente/controllers/CarrinhoItemController.java",
+    url: "https://github.com/FranciscoPedro06/carrinho-inteligente/blob/main/src/main/java/br/com/carrinhoInteligente/controllers/CarrinhoItemController.java#L24-L34",
+    startLine: 24,
+    lang: "java",
+    code: "    @PostMapping(\"/adicionar\")\n    public ResponseEntity<?> salvar(@RequestBody CarrinhoItem item) {\n        try {\n            CarrinhoItem salvo = facade.salvar(item);\n            return ResponseEntity.status(HttpStatus.CREATED).body(salvo);\n        } catch (IllegalArgumentException e) {\n            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());\n        } catch (Exception e) {\n            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(\"Erro ao salvar item do carrinho\");\n        }\n    }",
+    note: "O controller só traduz HTTP; a regra de negócio fica na facade, como manda a arquitetura em camadas do projeto.",
+  },
+  order: 4,
 };
