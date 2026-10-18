@@ -27,6 +27,17 @@ export interface SiteConfig {
   nav: NavItem[];
   social: SocialLink[];
   seo: SeoMeta;
+  photo: Photo;
+}
+
+/**
+ * Foto pessoal quadrada (doc 12): `base` + `-{largura}.{avif|webp}` em
+ * `public/`, gerada por `npm run assets:images`.
+ */
+export interface Photo {
+  base: string;
+  widths: number[];
+  alt: string;
 }
 
 export interface SeoMeta {

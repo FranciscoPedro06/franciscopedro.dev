@@ -35,6 +35,11 @@ export const site: SiteConfig = {
     description:
       "Construo produtos digitais completos — web, mobile e APIs — e transformo os dados que eles geram em inteligência para o negócio. Destaque: FastPass.",
   },
+  photo: {
+    base: "/images/site/site-foto",
+    widths: [96, 320],
+    alt: "Francisco Pedro sorrindo, de boné preto e óculos",
+  },
 };
 
 export const footerCopy = {

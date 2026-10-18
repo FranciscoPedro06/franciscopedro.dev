@@ -24,6 +24,7 @@ const homeJsonLd: Record<string, unknown>[] = [
     name: site.name,
     jobTitle: site.role,
     url: SITE_URL,
+    image: `${SITE_URL}${site.photo.base}-${site.photo.widths[site.photo.widths.length - 1]}.webp`,
     sameAs: site.social.map((s) => s.url),
     knowsAbout: [...new Set(byOrder.flatMap((p) => p.tags))],
   },

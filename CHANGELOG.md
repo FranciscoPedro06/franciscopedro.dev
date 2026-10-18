@@ -22,8 +22,10 @@ corresponde a um marco do [roadmap](docs/07-roadmap.md).
   linguagem, lista/grade e capa feita de **trecho real** de cada repositório.
   **Case** no formato de página de extensão, com abas pelo hash e aba Código —
   no Linux Lab, uma mini-missão jogável. **Terminal interativo** (`help`,
-  `ls`, `cat`, `open`, `theme`, `lab`, `git log`…). Gate: Vitest 66/66, 9
-  páginas pré-renderizadas, JS 85,7/110 KB, CSS 23,7/25 KB.
+  `ls`, `cat`, `open`, `theme`, `lab`, `git log`…). **Foto do Francisco**
+  redonda ao lado do nome no hero e no painel Perfil (AVIF/WebP gerados por
+  `npm run assets:images`; `image` no JSON-LD). Gate: Vitest 68/68, 9
+  páginas pré-renderizadas, JS 86,8/110 KB, CSS 23,7/25 KB, foto 6,6 KB.
 
 ### Removed
 
