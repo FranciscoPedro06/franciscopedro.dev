@@ -8,7 +8,22 @@ import { useSyncExternalStore } from "react";
  * persistido só assume após hidratar (gate `useHydrated`) — sem mismatch.
  */
 
-export type Theme = "dark" | "light";
+/**
+ * Temas de cores (ADR-0013 + ADR-0018): Dark Modern e Light Modern do VS Code
+ * (`dark`/`light`, os ids históricos) e três temas populares de editor.
+ */
+export const THEMES = [
+  { id: "dark", label: "Dark Modern", note: "padrão do VS Code", surface: "#181818", bg: "#1f1f1f", swatches: ["#569cd6", "#ce9178", "#dcdcaa"] },
+  { id: "light", label: "Light Modern", note: "claro do VS Code", surface: "#f8f8f8", bg: "#ffffff", swatches: ["#0000ff", "#a31515", "#795e26"] },
+  { id: "github-dark", label: "GitHub Dark", note: "tema oficial do GitHub", surface: "#010409", bg: "#0d1117", swatches: ["#ff7b72", "#a5d6ff", "#d2a8ff"] },
+  { id: "dracula", label: "Dracula", note: "draculatheme.com", surface: "#21222c", bg: "#282a36", swatches: ["#ff79c6", "#f1fa8c", "#50fa7b"] },
+  { id: "monokai", label: "Monokai", note: "incluso no VS Code", surface: "#1e1f1c", bg: "#272822", swatches: ["#f92672", "#e6db74", "#a6e22e"] },
+] as const;
+
+export type Theme = (typeof THEMES)[number]["id"];
+
+export const isTheme = (value: unknown): value is Theme =>
+  THEMES.some((theme) => theme.id === value);
 export type ActivityView = "explorer" | "search" | "scm" | "settings";
 export type PanelTab = "terminal" | "problems" | "output" | "debug" | "ports";
 
@@ -30,6 +45,8 @@ export interface WorkbenchState {
   panelOpen: boolean;
   /** Aba ativa do painel inferior. */
   panelTab: PanelTab;
+  /** Painel de detalhes à direita (Release 0.10), visível em telas largas. */
+  inspectorOpen: boolean;
 }
 
 /** Contrato de SSR: o que o servidor e a primeira renderização enxergam. */
@@ -43,10 +60,11 @@ export const DEFAULTS: WorkbenchState = {
   openTabs: [],
   panelOpen: false,
   panelTab: "terminal",
+  inspectorOpen: true,
 };
 
 const KEY = "fp.workbench.v1";
-const THEME_COLOR: Record<Theme, string> = { dark: "#191816", light: "#F1EEE9" };
+const THEME_COLOR = Object.fromEntries(THEMES.map((t) => [t.id, t.surface])) as Record<Theme, string>;
 
 const listeners = new Set<() => void>();
 
@@ -60,8 +78,12 @@ function readStorage(): WorkbenchState {
   }
   // O tema pintado antes do React (script anti-flash, ADR-0013) é a verdade
   // quando não há valor salvo — mantém o store em sincronia com o DOM.
-  const domTheme = document.documentElement.dataset.theme as Theme | undefined;
-  const theme = stored.theme ?? domTheme ?? DEFAULTS.theme;
+  const domTheme = document.documentElement.dataset.theme;
+  const theme = isTheme(stored.theme)
+    ? stored.theme
+    : isTheme(domTheme)
+      ? domTheme
+      : DEFAULTS.theme;
   return { ...DEFAULTS, ...stored, theme };
 }
 
@@ -106,7 +128,7 @@ export function setWorkbench(patch: Partial<WorkbenchState>): void {
 }
 
 export function toggleTheme(): void {
-  setWorkbench({ theme: state.theme === "dark" ? "light" : "dark" });
+  setWorkbench({ theme: state.theme === "light" ? "dark" : "light" });
 }
 
 export function toggleExplorerNode(id: string): void {

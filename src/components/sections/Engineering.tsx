@@ -16,18 +16,12 @@ export function Engineering() {
         />
       </Reveal>
 
-      {/* Princípios como entradas de documento (NN + título — evidência), não
-          grade de cards com borda — densidade de spec, não de landing. */}
-      <Reveal className="mt-6 border-t border-border">
-        {engineering.principles.map((principle, index) => (
-          <div key={principle.title} className="flex gap-4 border-b border-border py-4">
-            <span aria-hidden="true" className="shrink-0 font-mono text-small text-text-3">
-              {String(index + 1).padStart(2, "0")}
-            </span>
-            <div>
-              <h3 className="text-body font-semibold text-text">{principle.title}</h3>
-              <p className="mt-1 max-w-[62ch] text-body text-text-2">{principle.evidence}</p>
-            </div>
+      {/* Princípios (título + evidência) em painéis do editor (Release 0.10). */}
+      <Reveal className="mt-6 grid gap-3 md:grid-cols-2">
+        {engineering.principles.map((principle) => (
+          <div key={principle.title} className="rounded-md border border-border-strong bg-surface p-4">
+            <h3 className="text-body font-semibold text-text-hi">{principle.title}</h3>
+            <p className="mt-1.5 text-small text-text-2">{principle.evidence}</p>
           </div>
         ))}
       </Reveal>
@@ -35,7 +29,7 @@ export function Engineering() {
       <Reveal className="mt-8 grid gap-x-8 gap-y-5 sm:grid-cols-2">
         {engineering.stack.map((group) => (
           <div key={group.category}>
-            <h3 className="type-label text-text-3">{group.category}</h3>
+            <h3 className="text-small text-text-2">{group.category}</h3>
             <div className="mt-2 flex flex-wrap gap-1.5">
               {group.items.map((item) => (
                 <Tag key={item}>{item}</Tag>

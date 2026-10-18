@@ -19,13 +19,13 @@ export function Contact() {
       {site.email && (
         <a
           href={`mailto:${site.email}`}
-          className="mt-5 inline-block font-mono text-h3 text-accent underline decoration-accent/40 underline-offset-4 transition-colors duration-150 hover:decoration-accent"
+          className="mt-5 inline-block font-mono text-h3 text-link underline decoration-link/40 underline-offset-4 transition-colors duration-150 hover:decoration-link"
         >
           {site.email}
         </a>
       )}
 
-      <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-small">
+      <div className="mt-6 grid max-w-2xl gap-3 sm:grid-cols-2">
         {site.social.map((link) => {
           const Icon = brandIcon(link.label);
           return (
@@ -34,10 +34,15 @@ export function Contact() {
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-text-2 transition-colors duration-150 hover:text-text"
+              className="flex items-center gap-3 rounded-md border border-border-strong bg-surface p-4 transition-colors duration-150 hover:border-accent"
             >
-              {Icon && <Icon className="size-4" />}
-              {link.label}
+              {Icon && <Icon className="size-6 text-text" />}
+              <span>
+                <span className="block text-body font-semibold text-text-hi">{link.label}</span>
+                <span className="block text-[12px] text-text-2">
+                  {link.url.replace("https://", "").replace("www.", "")}
+                </span>
+              </span>
             </a>
           );
         })}

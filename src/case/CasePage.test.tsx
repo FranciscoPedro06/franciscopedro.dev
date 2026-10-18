@@ -1,15 +1,17 @@
 import { render, screen, within } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { describe, expect, it } from "vitest";
 import { fastpass } from "@/content/projects/fastpass";
 import { projects } from "@/content/projects";
 import { CASE_SECTION_KINDS } from "@/content/types";
 import { CasePage } from "./CasePage";
+import { caseTabs } from "./caseTabs";
 import { DIAGRAMS } from "./diagrams";
 
-function renderCase(slug: string) {
+function renderCase(path: string) {
   return render(
-    <MemoryRouter initialEntries={[`/projetos/${slug}`]}>
+    <MemoryRouter initialEntries={[path.startsWith("/") ? path : `/projetos/${path}`]}>
       <Routes>
         <Route path="/projetos/:slug" element={<CasePage />} />
       </Routes>
@@ -17,15 +19,15 @@ function renderCase(slug: string) {
   );
 }
 
+/** Títulos das seções canônicas no HTML, em ordem — inclusive nas abas ocultas. */
+const sectionTitles = () =>
+  [...document.querySelectorAll("section[id] > h2")].map((h) => h.textContent);
+
 describe("CasePage", () => {
   it("renderiza as seções presentes na ordem do conteúdo e omite as ausentes", () => {
     renderCase("fastpass");
 
-    const headings = screen
-      .getAllByRole("heading", { level: 2 })
-      .map((h) => h.textContent);
-    expect(headings).toEqual(fastpass.sections.map((s) => s.title));
-
+    expect(sectionTitles()).toEqual(fastpass.sections.map((s) => s.title));
     // FastPass não tem "Pesquisa" — a seção some, nunca vira placeholder
     expect(screen.queryByText("Pesquisa")).toBeNull();
   });
@@ -39,21 +41,32 @@ describe("CasePage", () => {
     expect(desafios?.querySelector("ul")).not.toBeNull();
   });
 
-  it("exibe o índice lateral com um link por seção", () => {
+  it("exibe as abas do estudo de caso como links de hash", () => {
     renderCase("fastpass");
 
-    const indice = screen.getByRole("navigation", {
+    const abas = screen.getByRole("navigation", {
       name: "Seções deste estudo de caso",
     });
-    const links = within(indice).getAllByRole("link");
+    const links = within(abas).getAllByRole("link");
     expect(links.map((l) => l.getAttribute("href"))).toEqual(
-      fastpass.sections.map((s) => `/projetos/fastpass#${s.kind}`)
+      caseTabs(fastpass).map((tab) => `/projetos/fastpass#${tab.id}`)
     );
+    // Sem hash, a primeira aba (Visão geral) é a visível.
+    expect(screen.getByRole("heading", { level: 2, name: "Problema" })).toBeVisible();
+    expect(
+      screen.queryByRole("heading", { level: 2, name: "Decisões técnicas" })
+    ).toBeNull();
   });
 
-  it("renderiza o diagrama de arquitetura com descrição acessível", () => {
-    renderCase("fastpass");
+  it("abre a aba pelo hash da aba ou da seção (links antigos seguem valendo)", () => {
+    const view = renderCase("/projetos/fastpass#desafios");
+    expect(
+      screen.getByRole("heading", { level: 2, name: "Desafios e soluções" })
+    ).toBeInTheDocument();
+    expect(screen.queryByRole("heading", { level: 2, name: "Problema" })).toBeNull();
+    view.unmount();
 
+    renderCase("/projetos/fastpass#arquitetura");
     expect(
       screen.getByRole("img", { name: /Diagrama de arquitetura do FastPass/ })
     ).toBeInTheDocument();
@@ -74,39 +87,34 @@ describe("CasePage", () => {
     }
   });
 
-  it("renderiza cada um dos 5 cases com título e seções do conteúdo", () => {
+  it("renderiza cada um dos 6 cases com título, seções e trecho real de código", () => {
     for (const project of projects) {
       const view = renderCase(project.slug);
 
       expect(
         screen.getByRole("heading", { level: 1, name: project.name })
       ).toBeInTheDocument();
-      const headings = screen
-        .getAllByRole("heading", { level: 2 })
-        .map((h) => h.textContent);
-      expect(headings, project.slug).toEqual(
+      expect(sectionTitles(), project.slug).toEqual(
         project.sections.map((s) => s.title)
+      );
+      expect(document.body.textContent, project.slug).toContain(
+        project.code.code.split("\n")[0].trim()
       );
 
       view.unmount();
     }
   });
 
-  it("renderiza os diagramas da API Facial e do Carrinho com descrição acessível", () => {
-    const facial = renderCase("reconhecimento-facial");
-    expect(
-      screen.getByRole("img", {
-        name: /Diagrama de arquitetura da API de Reconhecimento Facial/,
-      })
-    ).toBeInTheDocument();
-    facial.unmount();
-
-    renderCase("carrinho-inteligente");
-    expect(
-      screen.getByRole("img", {
-        name: /Diagrama de arquitetura do Carrinho Inteligente/,
-      })
-    ).toBeInTheDocument();
+  it("renderiza os diagramas de arquitetura com descrição acessível", () => {
+    for (const [slug, name] of [
+      ["reconhecimento-facial", /Diagrama de arquitetura da API de Reconhecimento Facial/],
+      ["carrinho-inteligente", /Diagrama de arquitetura do Carrinho Inteligente/],
+      ["linux-lab", /Diagrama de arquitetura do Linux Lab/],
+    ] as const) {
+      const view = renderCase(`/projetos/${slug}#arquitetura`);
+      expect(screen.getByRole("img", { name })).toBeInTheDocument();
+      view.unmount();
+    }
   });
 
   it("todo diagrama referenciado no conteúdo existe no registro", () => {
@@ -119,12 +127,23 @@ describe("CasePage", () => {
     }
   });
 
+  it("a mini-missão do Linux Lab aprova estados iguais e reprova os diferentes", async () => {
+    const user = userEvent.setup();
+    renderCase("/projetos/linux-lab#codigo");
+
+    await user.click(screen.getByRole("button", { name: "chmod u=rwx,go= deploy.sh" }));
+    expect(screen.getByText(/esperado 0700, encontrado 0700/)).toBeInTheDocument();
+
+    await user.click(screen.getByRole("button", { name: "chmod 755 deploy.sh" }));
+    expect(screen.getByText(/esperado 0700, encontrado 0755/)).toBeInTheDocument();
+  });
+
   it("mantém a navegação anterior/próximo", () => {
     renderCase("fastpass");
 
     const nav = screen.getByRole("navigation", { name: "Outros projetos" });
     expect(
-      within(nav).getByRole("link", { name: /API de Reconhecimento Facial/ })
+      within(nav).getByRole("link", { name: /Linux Lab/ })
     ).toBeInTheDocument();
   });
 

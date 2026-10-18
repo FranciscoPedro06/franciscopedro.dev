@@ -31,28 +31,28 @@ function keyFromLocation(pathname: string, view: string): string {
 /** Nome de arquivo e trilha para uma chave de aba. */
 function describe(key: string): FileMeta {
   if (key === OVERVIEW) {
-    return { name: "overview.tsx", crumb: ["portfolio", "src", "overview.tsx"] };
+    return { name: "overview.tsx", crumb: ["franciscopedro.dev", "src", "overview.tsx"] };
   }
   if (key.startsWith("/#")) {
     const file = `${key.slice(2)}.tsx`;
-    return { name: file, crumb: ["portfolio", "src", file] };
+    return { name: file, crumb: ["franciscopedro.dev", "src", file] };
   }
   if (key === "/projetos") {
-    return { name: "projetos", crumb: ["portfolio", "src", "projetos"] };
+    return { name: "projetos", crumb: ["franciscopedro.dev", "src", "projetos"] };
   }
   const match = key.match(/^\/projetos\/(.+)$/);
   if (match) {
     const project = findProject(match[1]);
     if (project) {
       const file = projectFile(project);
-      return { name: file, crumb: ["portfolio", "src", "projetos", file] };
+      return { name: file, crumb: ["franciscopedro.dev", "src", "projetos", file] };
     }
   }
-  return { name: "404.html", crumb: ["portfolio", "404.html"] };
+  return { name: "404.html", crumb: ["franciscopedro.dev", "404.html"] };
 }
 
 const tabBase =
-  "group relative flex shrink-0 items-center gap-2 border-r border-border border-t-2 pl-3 pr-1.5 py-1.5 font-mono text-label font-normal normal-case tracking-normal transition-colors duration-150 motion-safe:animate-[fade-in_150ms_ease-out]";
+  "group relative flex h-[35px] shrink-0 items-center gap-1.5 border-r border-border border-t pl-2.5 pr-1 text-small transition-colors duration-100 motion-safe:animate-[fade-in_150ms_ease-out]";
 
 export function EditorTabs() {
   const { pathname } = useLocation();
@@ -85,10 +85,10 @@ export function EditorTabs() {
   const current = describe(currentKey);
 
   return (
-    <div className="shrink-0 border-b border-border bg-surface">
+    <div className="shrink-0 bg-bg">
       <nav
         aria-label="Arquivos abertos"
-        className="scrollbar-ide flex overflow-x-auto"
+        className="flex overflow-x-auto border-b border-border bg-surface [scrollbar-width:none]"
       >
         {keys.map((key) => {
           const active = key === currentKey;
@@ -99,8 +99,8 @@ export function EditorTabs() {
               key={key}
               className={`${tabBase} ${
                 active
-                  ? "border-t-accent bg-bg text-text"
-                  : "border-t-transparent text-text-3 hover:bg-surface-2/60 hover:text-text-2"
+                  ? "-mb-px border-t-accent bg-bg text-text-hi"
+                  : "border-t-transparent text-text-2 hover:bg-bg"
               }`}
             >
               <Link
@@ -108,14 +108,7 @@ export function EditorTabs() {
                 aria-current={active ? "page" : undefined}
                 className="flex items-center gap-1.5"
               >
-                {active ? (
-                  <span
-                    aria-hidden="true"
-                    className="size-1.5 rounded-full bg-accent"
-                  />
-                ) : (
-                  <FileGlyph file={name} />
-                )}
+                <FileGlyph file={name} />
                 {name}
               </Link>
               {closable ? (
@@ -123,12 +116,12 @@ export function EditorTabs() {
                   type="button"
                   onClick={() => closeTab(key)}
                   aria-label={`Fechar ${name}`}
-                  className="flex size-5 items-center justify-center rounded-sm text-text-3 opacity-60 transition duration-150 hover:bg-surface-2 hover:text-text hover:opacity-100 focus-visible:opacity-100 group-hover:opacity-100 motion-safe:active:scale-90"
+                  className={`flex size-5 items-center justify-center rounded-md text-text-2 transition duration-100 hover:bg-surface-3 hover:text-text focus-visible:opacity-100 group-hover:opacity-100 ${active ? "opacity-100" : "opacity-0"}`}
                 >
-                  <X size={12} strokeWidth={1.5} aria-hidden="true" />
+                  <X size={14} strokeWidth={1.5} aria-hidden="true" />
                 </button>
               ) : (
-                <span aria-hidden="true" className="w-1" />
+                <span aria-hidden="true" className="w-1.5" />
               )}
             </span>
           );
@@ -137,16 +130,20 @@ export function EditorTabs() {
 
       <div
         aria-hidden="true"
-        className="flex flex-wrap items-center gap-1.5 border-t border-border px-4 py-1.5 font-mono text-label font-normal normal-case tracking-normal text-text-3"
+        className="flex h-[22px] items-center gap-1 overflow-hidden whitespace-nowrap px-3 text-small text-text-2"
       >
-        {current.crumb.map((segment, index) => (
-          <Fragment key={`${segment}-${index}`}>
-            {index > 0 && <ChevronRight size={12} strokeWidth={1.5} />}
-            <span className={index === current.crumb.length - 1 ? "text-text-2" : ""}>
-              {segment}
-            </span>
-          </Fragment>
-        ))}
+        {current.crumb.map((segment, index) => {
+          const last = index === current.crumb.length - 1;
+          return (
+            <Fragment key={`${segment}-${index}`}>
+              {index > 0 && <ChevronRight size={14} strokeWidth={1.5} />}
+              <span className={last ? "flex items-center gap-1 text-text" : ""}>
+                {last && <FileGlyph file={segment} size={13} />}
+                {segment}
+              </span>
+            </Fragment>
+          );
+        })}
       </div>
     </div>
   );

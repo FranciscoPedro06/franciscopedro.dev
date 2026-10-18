@@ -24,5 +24,6 @@ Registro imutável das decisões arquiteturais do projeto (charter §16).
 | [0013](0013-theming-light-dark.md) | Theming light + dark | Aceito |
 | [0014](0014-content-as-document.md) | Conteúdo como documento (o editor renderiza o arquivo, não uma landing) | Aceito |
 | [0015](0015-no-scenography-real-function.md) | Sem cenografia: toda superfície tem função real | Aceito |
-| [0016](0016-visual-identity-editorial-technical.md) | Identidade visual editorial-técnica: serifa, tinta sem hue, canvas de editor frio | Aceito |
+| [0016](0016-visual-identity-editorial-technical.md) | Identidade visual editorial-técnica: serifa, tinta sem hue, canvas de editor frio | Substituído pelo ADR-0018 |
 | [0017](0017-file-type-icons-real-brand-colors.md) | Ícones reais de linguagem com cores de marca no FileGlyph (exceção escopada ao ADR-0016) | Aceito |
+| [0018](0018-vscode-editor-themes.md) | Visual de editor real: temas do VS Code, logos oficiais e código real | Aceito |

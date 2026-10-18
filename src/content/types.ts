@@ -89,6 +89,45 @@ export interface RepoLink {
   url: string;
 }
 
+/**
+ * Participação de uma linguagem no código dos repositórios do projeto
+ * (Release 0.10): bytes de código por linguagem, medidos nos repositórios
+ * públicos e arredondados — aproximação declarada na interface.
+ */
+export interface LanguageShare {
+  name: string;
+  percent: number;
+}
+
+/**
+ * Trecho real de um repositório do projeto (Release 0.10, ADR-0018): copiado
+ * do arquivo, com a linha inicial e o link para o trecho no GitHub. Nunca
+ * código escrito para o site.
+ */
+export interface CodeSample {
+  repo: string;
+  path: string;
+  url: string;
+  startLine: number;
+  lang: "py" | "php" | "java" | "js" | "yml";
+  code: string;
+  /** O que o trecho mostra, em uma frase. */
+  note: string;
+}
+
+/** Fato numérico verificável do projeto ("Commits", "127"). */
+export interface ProjectFact {
+  label: string;
+  value: string;
+}
+
+/** Marco de um projeto em andamento (incrementos do roadmap). */
+export interface Milestone {
+  id: string;
+  title: string;
+  status: "done" | "next" | "planned";
+}
+
 export interface Project {
   slug: string;
   name: string;
@@ -99,11 +138,23 @@ export interface Project {
   seo: SeoMeta;
   media: MediaItem[];
   sections: CaseSection[];
+  /** Linguagens dos repositórios, da maior para a menor participação. */
+  languages: LanguageShare[];
+  /** Trecho real do código — capa no índice e aba "Código" do case. */
+  code: CodeSample;
+  /** Números do projeto; sem eles o case deriva repositórios e tecnologias. */
+  facts?: ProjectFact[];
+  /** Passo a passo de uso, quando o produto se explica melhor assim. */
+  steps?: string[];
+  /** Roadmap por incrementos, para projetos em andamento. */
+  milestones?: Milestone[];
+  /** Projeto recém-adicionado ao portfólio (selo "Novo"). */
+  isNew?: boolean;
   /** Posição no índice e na navegação anterior/próximo. */
   order: number;
-  /** Card destaque (largura total) — exatamente 1 (FastPass). */
+  /** Case principal — exatamente 1 (FastPass). */
   featured?: boolean;
-  /** Aparece na Featured Work da home — exatamente 3 (doc 05 §2.3). */
+  /** Aparece fixado na home — exatamente 3 (doc 05 §2.3). */
   highlight?: boolean;
 }
 

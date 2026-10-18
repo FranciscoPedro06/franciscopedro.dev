@@ -105,6 +105,18 @@ export const reconhecimentoFacial: Project = {
       ],
     },
   ],
-  order: 2,
+  languages: [
+    { name: "Python", percent: 100 },
+  ],
+  code: {
+    repo: "face-id",
+    path: "app.py",
+    url: "https://github.com/FranciscoPedro06/face-id/blob/main/app.py#L133-L150",
+    startLine: 133,
+    lang: "py",
+    code: "@app.post(\"/reconhecer\")\nasync def reconhecer(file: UploadFile = File(...)):\n\n    temp_path = await salvar_imagem_temporaria(file)\n\n    try:\n        # Buscar embeddings\n        result = supabase.table(\"usuarios_face\").select(\"id, nome, embedding\").execute()\n        usuarios = result.data\n\n        if not usuarios:\n            return {\"success\": False, \"error\": \"Nenhum usuário cadastrado ainda.\"}\n\n        try:\n            embedding_obj = DeepFace.represent(\n                img_path=temp_path,\n                model_name=\"Facenet512\",\n                detector_backend=\"opencv\",",
+    note: "O endpoint /reconhecer gera o embedding do rosto com o Facenet512 para comparar com os rostos cadastrados no Supabase.",
+  },
+  order: 3,
   highlight: true,
 };

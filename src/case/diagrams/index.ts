@@ -2,6 +2,7 @@ import type { ComponentType } from "react";
 import { CarrinhoArchitecture } from "./CarrinhoArchitecture";
 import { FacialArchitecture } from "./FacialArchitecture";
 import { FastPassArchitecture } from "./FastPassArchitecture";
+import { LinuxLabArchitecture } from "./LinuxLabArchitecture";
 
 /**
  * Resolve `DiagramRef.id` → SVG. O conteúdo (dados puros, doc 06 §3.1)
@@ -12,4 +13,5 @@ export const DIAGRAMS: Record<string, ComponentType<{ ariaLabel: string }>> = {
   "fastpass-arquitetura": FastPassArchitecture,
   "facial-arquitetura": FacialArchitecture,
   "carrinho-arquitetura": CarrinhoArchitecture,
+  "linux-lab-arquitetura": LinuxLabArchitecture,
 };

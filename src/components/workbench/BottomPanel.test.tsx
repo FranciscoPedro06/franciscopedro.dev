@@ -54,9 +54,10 @@ describe("BottomPanel", () => {
     const user = userEvent.setup();
     renderApp();
 
-    // 8 = rotas indexáveis + 404 (ADR-0010) — derivado, nunca texto fixo.
+    // 9 = rotas indexáveis (home, índice e 6 cases) + 404 (ADR-0010) —
+    // derivado do registro de rotas, nunca texto fixo.
     const chip = screen.getByRole("button", {
-      name: "Build: 8 páginas pré-renderizadas. Abrir painel Output",
+      name: "Build: 9 páginas pré-renderizadas. Abrir painel Output",
     });
     await user.click(chip);
 
@@ -67,5 +68,24 @@ describe("BottomPanel", () => {
       "aria-selected",
       "true"
     );
+  });
+
+  it("o terminal aceita comandos e roda a mini-missão do Linux Lab", async () => {
+    const user = userEvent.setup();
+    renderApp();
+
+    await user.click(screen.getByRole("button", { name: "Alternar terminal" }));
+    const input = await screen.findByRole("textbox", { name: "Comando do terminal" });
+
+    await user.type(input, "cat linux-lab{Enter}");
+    const log = screen.getByRole("log", { name: "Saída do terminal" });
+    expect(log).toHaveTextContent("github.com/FranciscoPedro06/linux-lab-api");
+
+    await user.type(input, "lab{Enter}chmod u=rwx,go= deploy.sh{Enter}validar{Enter}");
+    expect(log).toHaveTextContent("esperado 0700, encontrado 0700");
+    expect(log).toHaveTextContent("Missão concluída.");
+
+    await user.type(input, "exit{Enter}nao-existe{Enter}");
+    expect(log).toHaveTextContent("nao-existe: comando não encontrado");
   });
 });

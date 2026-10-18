@@ -4,7 +4,7 @@
 > Meta-documento (ver [00-context.md](00-context.md)); a fonte normativa do
 > plano é o [07-roadmap.md](07-roadmap.md).
 
-**Última atualização:** 2026-07-19 · Release 0.9.2
+**Última atualização:** 2026-10-18 · Release 0.10
 
 ---
 
@@ -27,8 +27,20 @@
 | Release 0.9 | "Identidade visual editorial-técnica" (ADR-0016): mantém a estrutura de IDE e troca a textura, que havia pousado no centroide "premium/dark de IA". Três vozes tipográficas (Newsreader serifa nos títulos, IBM Plex Sans no corpo/cromo ex-Inter, JetBrains Mono no código); **acento sem hue** (ênfase por tinta; cromático só em success/danger); canvas grafite-quente → cinza-ardósia frio; cromo fabricado removido (controles de janela + faixa de "fatos"); **LinkedIn** integrado + ícones de marca SVG monocromáticos (GitHub/LinkedIn). Gate verde, 56 testes intactos — **validado pelo Francisco em navegador** | [reviews/release-0.9-review.md](reviews/release-0.9-review.md) |
 | Release 0.9.1 | "Micro-interações funcionais" (4 marcos + fix): interatividade como **feedback de ferramenta**, não decoração — match highlight na Command Palette (tinta + peso, por tecla), chip de build **derivado** do registro de rotas na status bar (fim do `Build · Tests ✓` fixo), setas deslizando em todos os links-seta + paridade de teclado no fechar-tab, Terminal digitando comandos tecla a tecla (exceção registrada no doc 08 §3). Suíte estabilizada (timeouts folgados; o flake era mais amplo que o SearchPanel). Gate verde 58/58 | [reviews/release-0.9.1-review.md](reviews/release-0.9.1-review.md) |
 | Release 0.9.2 | "Craft do workbench" (3 marcos): a beleza aprofunda a ficção da IDE — **FileGlyph** (badge tipográfico por tipo de arquivo, `currentColor`) no Explorer/tabs/linhas de projeto, guias de indentação + pasta com estado na árvore, **stagger de 60ms** (permitido no doc 08 §3, inédito) nas três listas curtas, pop do ícone de tema, fade de tab nova e press `scale` estendido ao cromo. Cor por tipo recusada (decorativa). Gate verde 58/58 | [reviews/release-0.9.2-review.md](reviews/release-0.9.2-review.md) |
+| Release 0.10 | "Workbench VS Code + Linux Lab" (8 marcos, ADR-0018 substitui o ADR-0016): **Linux Lab** como 6º case (fixado na home no lugar do Carrinho); cores dos **temas reais de editor** (Dark/Light Modern do VS Code, GitHub Dark, Dracula, Monokai); **logos oficiais** (devicon); shell no desenho do VS Code + **painel de detalhes**; home com perfil em código, grade de pixels e commits reais; projetos com filtro e capa de **código real**; case no formato de página de extensão com abas; **terminal interativo** com mini-missão do Linux Lab. Aprovada sobre mockup navegável (o primeiro, "cara de IA", foi recusado). Gate verde 66/66 | [reviews/release-0.10-review.md](reviews/release-0.10-review.md) |
 
 ## Onde o produto está
+
+> **Release 0.10 (vale sobre os itens abaixo, que ficam como histórico).** O
+> site é um VS Code de verdade: cores dos temas reais (Dark Modern default,
+> Light Modern, GitHub Dark, Dracula, Monokai — ADR-0018), logos oficiais das
+> linguagens, sans no lugar da serifa. São **6 estudos de caso** (o Linux Lab
+> entrou em 2º, fixado na home com FastPass e API Facial), cada um com
+> linguagens medidas e um trecho real do repositório. Terminal interativo no
+> painel inferior (com a mini-missão do Linux Lab) e painel de detalhes à
+> direita. Gate: **66/66** testes, **9 páginas** pré-renderizadas, JS 85,7/110
+> KB, **CSS 23,7/25 KB** (perto do teto).
+
 
 - Home navegável nas 7 seções aprovadas; índice `/projetos` com os 5 cases.
 - **Os 5 estudos de caso estão completos** — cada um conta a história de

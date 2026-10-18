@@ -1,7 +1,8 @@
 import type { ReactNode } from "react";
 
 /**
- * Cabeçalho de documento (ADR-0014, Release 0.8) — a abertura de um "arquivo"
+ * Cabeçalho de documento (ADR-0014, Release 0.8; sans e comentário na cor
+ * de comentário do tema na 0.10) — a abertura de um "arquivo"
  * aberto no editor, no lugar do `SectionHeading` de marketing. A voz é de
  * documentação, não de campanha: um comentário mono de topo de arquivo (o
  * propósito real do documento) + o título semântico + um lead opcional. O
@@ -34,18 +35,18 @@ export function DocHeader({
   return (
     <header>
       {comment && (
-        <p className="font-mono text-small text-text-3">
-          <span aria-hidden="true" className="select-none text-text-3/60">
+        <p className="font-mono text-small text-sx-comment">
+          <span aria-hidden="true" className="select-none">
             //{" "}
           </span>
           {comment}
         </p>
       )}
-      <Heading id={headingId} className={`mt-2 font-serif ${sizeClass} text-text`}>
+      <Heading id={headingId} className={`mt-2 text-balance ${sizeClass} text-text-hi`}>
         {title}
       </Heading>
       {lead && (
-        <p className="mt-3 max-w-[62ch] text-body-lg text-text-2">{lead}</p>
+        <p className="mt-3 max-w-[64ch] text-body-lg text-text-2">{lead}</p>
       )}
       {children}
     </header>

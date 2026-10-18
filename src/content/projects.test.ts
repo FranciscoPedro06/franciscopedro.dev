@@ -4,10 +4,24 @@ import { CASE_SECTION_KINDS } from "./types";
 
 /** Contrato dos estudos de caso (ADR-0003; limites de SEO do doc 09 §1). */
 describe("contrato de conteúdo: projects", () => {
-  it("tem 5 projetos com slugs e ordens únicos", () => {
-    expect(projects).toHaveLength(5);
-    expect(new Set(projects.map((p) => p.slug)).size).toBe(5);
-    expect(new Set(projects.map((p) => p.order)).size).toBe(5);
+  it("tem 6 projetos com slugs e ordens únicos", () => {
+    expect(projects).toHaveLength(6);
+    expect(new Set(projects.map((p) => p.slug)).size).toBe(6);
+    expect(new Set(projects.map((p) => p.order)).size).toBe(6);
+  });
+
+  it("linguagens somam até 100% e o trecho de código é real e linkado (Release 0.10)", () => {
+    for (const p of projects) {
+      expect(p.languages.length, p.slug).toBeGreaterThan(0);
+      const total = p.languages.reduce((sum, l) => sum + l.percent, 0);
+      expect(total, p.slug).toBeGreaterThan(80);
+      expect(total, p.slug).toBeLessThanOrEqual(100);
+      expect(p.code.code.trim().length, p.slug).toBeGreaterThan(0);
+      expect(p.code.url, p.slug).toMatch(
+        new RegExp(`^https://github\\.com/[^/]+/${p.code.repo}/blob/.+#L${p.code.startLine}-L\\d+$`)
+      );
+      expect(p.code.note.length, p.slug).toBeGreaterThan(20);
+    }
   });
 
   it("tem exatamente 1 destaque e 3 na Featured Work (doc 05 §2.3)", () => {

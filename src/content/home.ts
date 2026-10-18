@@ -1,14 +1,50 @@
+import { projects } from "./projects";
 import type { Skill } from "./types";
 
 /** Copy da home — fonte editorial: docs/05-content-strategy.md §2. */
 
 export const hero = {
+  greeting: "Olá, eu sou",
   paragraph:
     "Construo produtos digitais de ponta a ponta — web, mobile e APIs — e trabalho com os dados que eles geram. Hoje atuo como Analista de Dados (MIS); meu projeto mais recente é o FastPass, uma plataforma de excursões com embarque por reconhecimento facial e pagamento Pix.",
 };
 
+/**
+ * Perfil em código (Release 0.10): o objeto exibido no editor da home. Só
+ * fatos do próprio conteúdo — cargo, atuação, stack e o projeto atual.
+ */
+export const profileCode = {
+  file: "perfil.ts",
+  path: "src › perfil.ts",
+  code: [
+    "export const francisco = {",
+    '  cargo: "Desenvolvedor de Sistemas",',
+    '  atuacao: "Analista de Dados · MIS",',
+    '  constroi: ["web", "mobile", "APIs", "dados"],',
+    '  stack: ["React", "Laravel", "FastAPI", "Spring Boot"],',
+    '  agora: "Linux Lab", // terminal real, contêiner isolado',
+    `  projetos: ${projects.length},`,
+    "};",
+  ].join("\n"),
+};
+
+/** Grade de contribuições escrevendo a stack em pixels (pedido do Francisco). */
+export const contributionArt = {
+  title: "Stack em pixels",
+  realHistory: "Histórico real no GitHub",
+  words: ["DEVELOPER", "REACT", "JAVA", "SQL", "PYTHON", "LINUX"],
+};
+
+/** Atalhos de terminal sugeridos na home. */
+export const terminalHint = {
+  title: "Terminal",
+  description:
+    "O terminal do painel inferior aceita comandos. Dá para rodar uma missão do Linux Lab sem sair desta página.",
+  commands: ["help", "ls projetos", "cat linux-lab", "lab", "git log"],
+};
+
 export const featuredWork = {
-  comment: "seleção · 3 de 5 estudos de caso",
+  comment: "fixados · 3 de 6 estudos de caso",
   title: "Estudos de caso",
   description:
     "Três projetos em profundidade: problema, arquitetura, decisões e o que eu faria diferente. Código aberto em todos.",
@@ -104,13 +140,13 @@ export const contact = {
 };
 
 export const projectsPage = {
-  comment: "5 sistemas · do firmware ao dashboard",
+  comment: "6 sistemas · do firmware ao terminal no navegador",
   title: "Todos os projetos",
   description:
-    "Cinco sistemas, cinco estudos de caso — do firmware ao dashboard. Cada um registra o problema, as decisões e o que eu levaria para o próximo.",
+    "Seis sistemas, seis estudos de caso, do firmware ao terminal no navegador. Cada um registra o problema, as decisões e o que eu levaria para o próximo.",
   seo: {
     title: "Projetos — Francisco Pedro",
     description:
-      "Cinco sistemas apresentados como estudos de caso: FastPass, reconhecimento facial, IoT, mobile e mais. Problema, arquitetura, decisões e aprendizados.",
+      "Seis sistemas apresentados como estudos de caso: FastPass, Linux Lab, reconhecimento facial, IoT, mobile e mais. Problema, arquitetura e decisões.",
   },
 };

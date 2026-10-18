@@ -31,7 +31,7 @@ function View({
       id={id}
       aria-labelledby={labelledBy}
       className={
-        active === id ? "view-enter px-5 py-5 md:px-8 md:py-7" : "hidden"
+        active === id ? "view-enter px-5 py-6 md:px-10 md:py-8" : "hidden"
       }
     >
       {children}

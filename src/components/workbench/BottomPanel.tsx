@@ -1,20 +1,11 @@
 import { X } from "lucide-react";
-import { useEffect, useState } from "react";
 import { type PanelTab, setWorkbench, useWorkbench } from "@/lib/workbench";
-
-/** Preferência de movimento reduzido sem depender de framer (fora da entrada). */
-function prefersReducedMotion(): boolean {
-  return (
-    typeof window !== "undefined" &&
-    typeof window.matchMedia === "function" &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches
-  );
-}
+import { Terminal } from "./Terminal";
 
 /**
  * Painel inferior (doc 04 §6.24): abas ao estilo VS Code. Conteúdo honesto e
- * baseado no projeto real — o Terminal é um **transcript roteirizado** dos
- * comandos reais (playback), Problems reflete o gate, etc. Chunk `lazy`.
+ * baseado no projeto real — o Terminal é um shell interativo sobre o conteúdo
+ * do site (Release 0.10), Problems reflete o gate, etc. Chunk `lazy`.
  */
 
 const TABS: { id: PanelTab; label: string }[] = [
@@ -23,21 +14,6 @@ const TABS: { id: PanelTab; label: string }[] = [
   { id: "terminal", label: "Terminal" },
   { id: "debug", label: "Debug Console" },
   { id: "ports", label: "Ports" },
-];
-
-/** Transcript real: comandos do projeto e saídas representativas. */
-const TERMINAL: string[] = [
-  "$ npm install",
-  "  added 312 packages in 6s",
-  "$ npm run test",
-  "  ✓ src/ — suíte verde (contratos de SEO, axe, pre-render)",
-  "$ npm run build",
-  "  vite v8.1.4 building for production…",
-  "  ✓ 52 modules transformed",
-  "  gen-git-log: commits reais → src/content/generated/git-log.ts",
-  "  pre-render: 8 páginas + sitemap.xml + robots.txt",
-  "$ git status",
-  "  On branch main — working tree clean",
 ];
 
 const OUTPUT: string[] = [
@@ -58,65 +34,6 @@ const PORTS: { port: string; label: string }[] = [
   { port: "5173", label: "vite (dev server)" },
   { port: "4173", label: "vite preview" },
 ];
-
-function Terminal() {
-  const reduced = prefersReducedMotion();
-  // Playback em duas velocidades: comandos `$` são DIGITADOS caractere a
-  // caractere (é alguém teclando); saídas caem em ritmo de output. One-shot
-  // por montagem; com motion reduzido o transcript aparece inteiro.
-  const [progress, setProgress] = useState(() => ({
-    line: reduced ? TERMINAL.length : 0,
-    char: 0,
-  }));
-
-  useEffect(() => {
-    if (reduced || progress.line >= TERMINAL.length) return;
-    const current = TERMINAL[progress.line];
-    const typing = current.startsWith("$") && progress.char < current.length;
-    const id = setTimeout(
-      () =>
-        setProgress((p) =>
-          typing
-            ? { line: p.line, char: p.char + 1 }
-            : { line: p.line + 1, char: 0 }
-        ),
-      // 18ms/tecla; Enter "executa" após 240ms; output flui a 90ms/linha.
-      typing ? 18 : current.startsWith("$") ? 240 : 90
-    );
-    return () => clearTimeout(id);
-  }, [progress, reduced]);
-
-  const done = progress.line >= TERMINAL.length;
-  const current = done ? undefined : TERMINAL[progress.line];
-  const typingLine =
-    current?.startsWith("$") && progress.char <= current.length
-      ? current.slice(0, progress.char)
-      : undefined;
-
-  return (
-    <pre className="whitespace-pre-wrap px-4 py-2 text-small leading-relaxed">
-      {TERMINAL.slice(0, progress.line).map((line, i) => (
-        <span
-          key={i}
-          className={line.startsWith("$") ? "block text-text" : "block text-text-3"}
-        >
-          {line}
-        </span>
-      ))}
-      {typingLine !== undefined && (
-        <span className="block text-text">
-          {typingLine}
-          <span aria-hidden="true">▋</span>
-        </span>
-      )}
-      {done && (
-        <span className="text-text">
-          $ <span className="motion-safe:animate-[blink_1s_step-end_infinite]">▋</span>
-        </span>
-      )}
-    </pre>
-  );
-}
 
 function Lines({ lines }: { lines: string[] }) {
   return (
@@ -154,7 +71,7 @@ function Ports() {
       <tbody className="text-text-2">
         {PORTS.map((row) => (
           <tr key={row.port}>
-            <td className="px-4 py-0.5 text-accent">{row.port}</td>
+            <td className="px-4 py-0.5 text-link">{row.port}</td>
             <td className="px-4 py-0.5">{row.label}</td>
           </tr>
         ))}
@@ -182,9 +99,9 @@ export function BottomPanel() {
   return (
     <section
       aria-label="Painel inferior"
-      className="flex h-52 shrink-0 flex-col border-t border-border bg-surface md:h-60"
+      className="flex h-56 shrink-0 flex-col border-t border-border bg-surface md:h-64"
     >
-      <div className="flex shrink-0 items-center border-b border-border pr-1">
+      <div className="flex h-[35px] shrink-0 items-center px-2">
         <div role="tablist" aria-label="Painéis" className="flex overflow-x-auto">
           {TABS.map((tab) => {
             const on = tab.id === panelTab;
@@ -195,10 +112,10 @@ export function BottomPanel() {
                 role="tab"
                 aria-selected={on}
                 onClick={() => setWorkbench({ panelTab: tab.id })}
-                className={`border-b-2 px-3 py-1.5 font-mono text-label font-normal normal-case tracking-normal transition duration-150 motion-safe:active:scale-[0.98] ${
+                className={`mx-1.5 flex h-[35px] items-center border-b px-0.5 text-[11px] uppercase tracking-[0.02em] transition-colors duration-100 ${
                   on
-                    ? "border-accent text-text"
-                    : "border-transparent text-text-3 hover:text-text-2"
+                    ? "border-text-hi text-text-hi"
+                    : "border-transparent text-text-2 hover:text-text"
                 }`}
               >
                 {tab.label}
@@ -210,13 +127,17 @@ export function BottomPanel() {
           type="button"
           onClick={() => setWorkbench({ panelOpen: false })}
           aria-label="Fechar painel inferior"
-          className="ml-auto flex size-6 items-center justify-center rounded-sm text-text-3 transition duration-150 hover:bg-surface-2 hover:text-text motion-safe:active:scale-90"
+          className="ml-auto flex size-6 items-center justify-center rounded-md text-text-2 transition-colors duration-100 hover:bg-surface-2 hover:text-text"
         >
-          <X size={13} strokeWidth={1.5} aria-hidden="true" />
+          <X size={16} strokeWidth={1.5} aria-hidden="true" />
         </button>
       </div>
 
-      <div className="scrollbar-ide min-h-0 flex-1 overflow-y-auto font-mono">{body}</div>
+      <div
+        className={`min-h-0 flex-1 font-mono ${panelTab === "terminal" ? "" : "scrollbar-ide overflow-y-auto"}`}
+      >
+        {body}
+      </div>
     </section>
   );
 }
