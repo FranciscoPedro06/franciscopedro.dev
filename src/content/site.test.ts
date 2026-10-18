@@ -1,3 +1,4 @@
+import { existsSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { site } from "./site";
 
@@ -24,5 +25,15 @@ describe("contrato de conteúdo: site", () => {
     expect(site.seo.title).toContain(site.name);
     expect(site.seo.description.length).toBeGreaterThan(50);
     expect(site.seo.description.length).toBeLessThan(170);
+  });
+
+  it("a foto tem alt e todas as variantes AVIF/WebP existem em public/", () => {
+    expect(site.photo.alt.length).toBeGreaterThan(10);
+    for (const width of site.photo.widths) {
+      for (const ext of ["avif", "webp"]) {
+        const file = `public${site.photo.base}-${width}.${ext}`;
+        expect(existsSync(file), file).toBe(true);
+      }
+    }
   });
 });

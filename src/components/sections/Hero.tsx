@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/Button";
 import { CodeBlock } from "@/components/ui/CodeBlock";
 import { FileGlyph } from "@/components/ui/FileGlyph";
 import { LanguageBar } from "@/components/ui/LanguageBar";
+import { ProfilePhoto } from "@/components/ui/ProfilePhoto";
 import { commits } from "@/content/generated/git-log";
 import { hero, profileCode, terminalHint } from "@/content/home";
 import { byOrder, highlighted } from "@/content/projects";
@@ -18,8 +19,9 @@ import { ContributionArt } from "./ContributionArt";
  * Documento `overview` (doc 03 §5.1, ADR-0014) no desenho da Release 0.10:
  * comentário de topo com o papel, o nome grande, o lead e ações no padrão de
  * botão do VS Code; ao lado, o perfil como código. Abaixo, os projetos
- * fixados, a grade de pixels e os commits reais deste repositório. O slot da
- * foto entra quando o asset for fornecido ([PENDENTE], doc 05 §7).
+ * fixados, a grade de pixels e os commits reais deste repositório. A foto
+ * fica ao lado do nome, como o avatar de um perfil do GitHub (no celular,
+ * acima — doc 03 §7).
  */
 export function Hero() {
   const recent = commits.slice(0, 5);
@@ -27,16 +29,21 @@ export function Hero() {
   return (
     <div className="flex flex-col gap-12">
       <header>
-        <p className="font-mono text-small text-sx-comment">
-          <span aria-hidden="true" className="select-none">
-            //{" "}
-          </span>
-          {site.role}
-        </p>
-        <p className="mt-3 text-h2 font-medium text-text-2">{hero.greeting}</p>
-        <h1 id="overview-titulo" className="text-display-sm text-text-hi md:text-display">
-          {site.name}
-        </h1>
+        <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-7">
+          <ProfilePhoto size={128} priority className="shrink-0" />
+          <div>
+            <p className="font-mono text-small text-sx-comment">
+              <span aria-hidden="true" className="select-none">
+                //{" "}
+              </span>
+              {site.role}
+            </p>
+            <p className="mt-3 text-h2 font-medium text-text-2">{hero.greeting}</p>
+            <h1 id="overview-titulo" className="text-display-sm text-text-hi md:text-display">
+              {site.name}
+            </h1>
+          </div>
+        </div>
 
         <div className="mt-6 grid items-start gap-8 xl:grid-cols-[minmax(0,1fr)_minmax(0,420px)]">
           <div>

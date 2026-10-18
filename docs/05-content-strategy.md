@@ -55,7 +55,9 @@ substituídos por evidência com link.
 > com embarque por reconhecimento facial e pagamento Pix.
 
 - **Ações:** `GitHub` · `LinkedIn` · `Currículo` (primário) · `Contato`
-- **Foto:** `[PENDENTE — foto profissional, fundo neutro]`
+- **Foto:** ✓ fornecida pelo Francisco na Release 0.10
+  (`assets-src/site/site-foto.jpg`) — é a foto do site sempre que precisar de
+  uma.
 
 ### 2.2 Sobre (`#sobre`)
 
@@ -542,7 +544,7 @@ Regra geral de CTA: verbo + objeto, sem exclamação, sem "clique aqui".
 
 | Item | Onde entra |
 |---|---|
-| Foto profissional | Hero |
+| ~~Foto profissional~~ | ✓ Integrada na Release 0.10 (hero e painel Perfil) |
 | E-mail público | Hero, contato, footer |
 | ~~URL do LinkedIn~~ | ✓ Integrado na Release 0.9 (`linkedin.com/in/francisco-pedro-5150492ba/`) |
 | Currículo PDF | `/cv.pdf` |

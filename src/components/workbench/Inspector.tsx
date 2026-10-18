@@ -1,6 +1,7 @@
 import { ChevronDown, ExternalLink, X } from "lucide-react";
 import { type ReactNode, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { ProfilePhoto } from "@/components/ui/ProfilePhoto";
 import { TechIcon } from "@/components/ui/TechIcon";
 import { byOrder, findProject } from "@/content/projects";
 import { site } from "@/content/site";
@@ -131,12 +132,7 @@ export function Inspector() {
           <>
             <Section title="Perfil">
               <div className="flex items-center gap-3 px-5 py-1">
-                <span
-                  aria-hidden="true"
-                  className="flex size-11 shrink-0 items-center justify-center rounded-full border border-border-strong bg-surface-3 text-body font-semibold text-text-hi"
-                >
-                  FP
-                </span>
+                <ProfilePhoto size={44} besideName className="shrink-0" />
                 <span>
                   <span className="block text-small font-semibold text-text-hi">
                     {site.name}

@@ -291,7 +291,7 @@ preparando a i18n futura sem comprometê-la agora.
 | Datas da timeline | Histórico real dos repositórios (doc 00) | Disponível |
 | Diagramas de arquitetura | A produzir a partir da auditoria (doc 00 §1.3) | A produzir |
 | Screenshots FastPass/EduPass/Reviva/Carrinho | Usuário | `[PENDENTE]` |
-| Foto pessoal | Usuário | `[PENDENTE]` |
+| Foto pessoal | Usuário | Integrada (Release 0.10) |
 | Currículo PDF | Usuário | `[PENDENTE]` |
 | URL LinkedIn + e-mail público | Usuário | `[PENDENTE]` |
 | Resultados da atuação MIS | Usuário | `[PENDENTE]` |

@@ -34,6 +34,19 @@ describe("Home", () => {
     expect(indices).toEqual([...indices].sort((a, b) => a - b));
   });
 
+  it("mostra a foto no hero, com alt e carregamento prioritário", () => {
+    render(
+      <MemoryRouter>
+        <Home />
+      </MemoryRouter>
+    );
+
+    const photo = screen.getByRole("img", { name: /Francisco Pedro sorrindo/ });
+    expect(photo).toHaveAttribute("fetchpriority", "high");
+    expect(photo.getAttribute("srcset")).toContain("site-foto-320.webp 320w");
+    expect(photo.parentElement?.querySelector('source[type="image/avif"]')).not.toBeNull();
+  });
+
   it("destaca 3 estudos de caso com link para o índice completo", () => {
     render(
       <MemoryRouter>

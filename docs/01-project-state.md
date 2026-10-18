@@ -27,7 +27,7 @@
 | Release 0.9 | "Identidade visual editorial-técnica" (ADR-0016): mantém a estrutura de IDE e troca a textura, que havia pousado no centroide "premium/dark de IA". Três vozes tipográficas (Newsreader serifa nos títulos, IBM Plex Sans no corpo/cromo ex-Inter, JetBrains Mono no código); **acento sem hue** (ênfase por tinta; cromático só em success/danger); canvas grafite-quente → cinza-ardósia frio; cromo fabricado removido (controles de janela + faixa de "fatos"); **LinkedIn** integrado + ícones de marca SVG monocromáticos (GitHub/LinkedIn). Gate verde, 56 testes intactos — **validado pelo Francisco em navegador** | [reviews/release-0.9-review.md](reviews/release-0.9-review.md) |
 | Release 0.9.1 | "Micro-interações funcionais" (4 marcos + fix): interatividade como **feedback de ferramenta**, não decoração — match highlight na Command Palette (tinta + peso, por tecla), chip de build **derivado** do registro de rotas na status bar (fim do `Build · Tests ✓` fixo), setas deslizando em todos os links-seta + paridade de teclado no fechar-tab, Terminal digitando comandos tecla a tecla (exceção registrada no doc 08 §3). Suíte estabilizada (timeouts folgados; o flake era mais amplo que o SearchPanel). Gate verde 58/58 | [reviews/release-0.9.1-review.md](reviews/release-0.9.1-review.md) |
 | Release 0.9.2 | "Craft do workbench" (3 marcos): a beleza aprofunda a ficção da IDE — **FileGlyph** (badge tipográfico por tipo de arquivo, `currentColor`) no Explorer/tabs/linhas de projeto, guias de indentação + pasta com estado na árvore, **stagger de 60ms** (permitido no doc 08 §3, inédito) nas três listas curtas, pop do ícone de tema, fade de tab nova e press `scale` estendido ao cromo. Cor por tipo recusada (decorativa). Gate verde 58/58 | [reviews/release-0.9.2-review.md](reviews/release-0.9.2-review.md) |
-| Release 0.10 | "Workbench VS Code + Linux Lab" (8 marcos, ADR-0018 substitui o ADR-0016): **Linux Lab** como 6º case (fixado na home no lugar do Carrinho); cores dos **temas reais de editor** (Dark/Light Modern do VS Code, GitHub Dark, Dracula, Monokai); **logos oficiais** (devicon); shell no desenho do VS Code + **painel de detalhes**; home com perfil em código, grade de pixels e commits reais; projetos com filtro e capa de **código real**; case no formato de página de extensão com abas; **terminal interativo** com mini-missão do Linux Lab. Aprovada sobre mockup navegável (o primeiro, "cara de IA", foi recusado). Gate verde 66/66 | [reviews/release-0.10-review.md](reviews/release-0.10-review.md) |
+| Release 0.10 | "Workbench VS Code + Linux Lab" (9 marcos, ADR-0018 substitui o ADR-0016): **Linux Lab** como 6º case (fixado na home no lugar do Carrinho); cores dos **temas reais de editor** (Dark/Light Modern do VS Code, GitHub Dark, Dracula, Monokai); **logos oficiais** (devicon); shell no desenho do VS Code + **painel de detalhes**; home com perfil em código, grade de pixels e commits reais; projetos com filtro e capa de **código real**; case no formato de página de extensão com abas; **terminal interativo** com mini-missão do Linux Lab; **foto do Francisco** no hero e no painel Perfil. Aprovada sobre mockup navegável (o primeiro, "cara de IA", foi recusado). Gate verde 68/68 | [reviews/release-0.10-review.md](reviews/release-0.10-review.md) |
 
 ## Onde o produto está
 
@@ -38,7 +38,8 @@
 > entrou em 2º, fixado na home com FastPass e API Facial), cada um com
 > linguagens medidas e um trecho real do repositório. Terminal interativo no
 > painel inferior (com a mini-missão do Linux Lab) e painel de detalhes à
-> direita. Gate: **66/66** testes, **9 páginas** pré-renderizadas, JS 85,7/110
+> direita. A **foto do Francisco** está no hero (ao lado do nome) e no
+> painel Perfil. Gate: **68/68** testes, **9 páginas** pré-renderizadas, JS 86,8/110
 > KB, **CSS 23,7/25 KB** (perto do teto).
 
 
@@ -101,10 +102,10 @@
 
 ## Pendências que bloqueiam a publicação (não o desenvolvimento)
 
-Material do Francisco (doc 05 §7): foto profissional, e-mail público,
+Material do Francisco (doc 05 §7): e-mail público,
 currículo PT/EN (PDF), 2–3 resultados reais do MIS, screenshots dos
 5 projetos, confirmações factuais (FastPass é TCC? datas EduPass/MIS). — a
-**URL do LinkedIn foi integrada na 0.9**.
+**URL do LinkedIn foi integrada na 0.9** e a **foto na 0.10**.
 Pré-lançamento no GitHub (doc 07 §3): rotacionar chave Supabase, fork oficial
 dos repos FastPass, READMEs profissionais.
 
@@ -119,5 +120,5 @@ peso do highlight) são decisão do Francisco.
 Depois, **Pré-lançamento / v1.0** (doc 07 §3, deslocada — a numeração 0.9 foi
 usada pela identidade): roadmap GitHub (rotação da chave Supabase, forks
 oficiais, READMEs), medição do critério ≥ 95 do M7 no deploy da Vercel e
-integração do material restante do Francisco (foto, e-mail, CV PT/EN, resultados
+integração do material restante do Francisco (e-mail, CV PT/EN, resultados
 do MIS, screenshots) conforme chegar. Escopo exato se valida no planejamento.

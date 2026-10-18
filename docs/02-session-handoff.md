@@ -6,14 +6,21 @@
 > histórico.
 
 **Data:** 2026-10-18 · **Release encerrada:** 0.10 — "Workbench VS Code +
-Linux Lab" (em branch de preview, ainda fora da `main`)
+Linux Lab" (na `main`; a foto do Francisco entrou logo depois do merge)
 
 ## Próximo objetivo
 
-**Validação do Francisco no preview da Vercel** desta branch e, aprovada, o
-merge na `main`. Pontos a conferir: legibilidade das palavras na grade de
-pixels, texto dos diagramas na aba Arquitetura (o SVG agora tem largura
-mínima e rola no estreito), os temas Dracula/Monokai e o terminal no celular.
+**Validação do Francisco no site publicado**: legibilidade das palavras na
+grade de pixels, texto dos diagramas na aba Arquitetura (o SVG agora tem
+largura mínima e rola no estreito), os temas Dracula/Monokai, o terminal no
+celular e o recorte da foto.
+
+**Dependências:** o PR do Dependabot (atualizações de segurança agrupadas)
+sobe o React Router 6 → 7 e o Vitest 4 → 5 — duas versões maiores — e quebra
+o build (`react-router-dom/server` não existe na v7) e um teste das abas. Não
+fazer merge dele como está: a migração para o React Router 7 é um marco
+próprio (os alertas do v6 são moderados e não se aplicam a este site: links
+só internos e sem data router no SSR).
 Depois segue a fila de antes: **Pré-lançamento / v1.0** (doc 07 §3).
 
 ## Arquivos provavelmente envolvidos
@@ -27,6 +34,10 @@ Depois segue a fila de antes: **Pré-lançamento / v1.0** (doc 07 §3).
 - `src/case/CasePage.tsx` + `caseTabs.ts` — abas pelo hash.
 - `src/components/workbench/Terminal.tsx` + `src/lib/terminal-bus.ts` +
   `src/lib/mission.ts` — terminal e mini-missão.
+- `src/content/site.ts` (`photo`) + `src/components/ui/ProfilePhoto.tsx` —
+  foto do Francisco; nova foto → trocar `assets-src/site/site-foto.jpg`,
+  ajustar o recorte em `scripts/generate-images.mjs` e rodar
+  `npm run assets:images`.
 - `src/components/sections/ContributionArt.tsx` + `src/lib/pixel-font.ts` —
   grade de pixels (palavras em `content/home.ts`).
 
@@ -37,6 +48,9 @@ Depois segue a fila de antes: **Pré-lançamento / v1.0** (doc 07 §3).
 - O primeiro mockup (degradês ciano, "fp" com brilho, selo pulsando, capas
   borradas) foi **recusado** pelo Francisco — não voltar a essa estética.
 - Capa de projeto = **código real** do repositório até existirem screenshots.
+- **Foto:** o Francisco escolheu a foto que o site usa sempre que precisar de
+  uma foto dele (`assets-src/site/site-foto.jpg`) — não trocar por outra sem
+  ele pedir.
 - Grade de contribuições escreve palavras, **não** finge histórico; o link
   aponta para o histórico real.
 

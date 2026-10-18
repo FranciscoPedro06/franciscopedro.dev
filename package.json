@@ -15,7 +15,8 @@
     "test:watch": "vitest",
     "format": "prettier --write .",
     "assets:brand": "node scripts/generate-brand-assets.mjs",
-    "check:budgets": "node scripts/check-budgets.mjs"
+    "check:budgets": "node scripts/check-budgets.mjs",
+    "assets:images": "node scripts/generate-images.mjs"
   },
   "dependencies": {
     "@fontsource-variable/ibm-plex-sans": "^5.2.8",
@@ -47,6 +48,7 @@
     "jsdom": "^29.1.1",
     "prettier": "^3.9.5",
     "satori": "^0.26.0",
+    "sharp": "^0.34.5",
     "tailwindcss": "^4.3.2",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.63.0",

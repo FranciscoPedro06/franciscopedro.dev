@@ -24,15 +24,18 @@ contribuições escreve palavras da stack em pixels, sem fingir histórico.
 | M6 | **Projetos**: lista ↔ grade, busca e filtro por linguagem; a capa de cada projeto é um **trecho real** do repositório com a linha e o link | `Projects`, `ProjectCard`, `CodeBlock`, `highlight.ts` |
 | M7 | **Case no formato de página de extensão**: ícone, repositórios, linguagens e ações; abas pelo hash (todas no HTML); coluna "Em números / Stack / Recursos"; aba Código com o trecho real — no Linux Lab, a **mini-missão** que aprova `chmod 700` e `chmod u=rwx,go=` e reprova `755` | `CasePage`, `caseTabs`, `CaseSection`, `MissionTry`, `lib/mission.ts` |
 | M8 | **Terminal interativo**: `help`, `ls`, `cd`, `cat`, `open`, `theme`, `lab`, `git log`, `whoami`, `contato`, `history`, `clear`; histórico ↑↓, Tab, Ctrl+L; comandos pedidos pela interface chegam por uma fila | `Terminal`, `terminal-bus.ts` |
+| M9 | **Foto do Francisco** (fornecida na validação da release): recorte quadrado no rosto, redondo como avatar de perfil — ao lado do nome no hero (acima dele no celular) e no painel Perfil; `image` no JSON-LD `Person`. AVIF→WebP em 96/320 px gerados por `npm run assets:images` (sharp) a partir de `assets-src/` | `ProfilePhoto`, `Hero`, `Inspector`, `site.photo`, `scripts/generate-images.mjs` |
 
 ## Verificação (gate)
 
-- ESLint limpo · `tsc --noEmit` limpo · Vitest **66/66** (8 testes novos:
-  mini-missão, terminal, temas, abas do case, linguagens e trecho de código).
+- ESLint limpo · `tsc --noEmit` limpo · Vitest **68/68** (10 testes novos:
+  mini-missão, terminal, temas, abas do case, linguagens, trecho de código e
+  foto — variantes em `public/` e carregamento prioritário no hero).
 - Build ok — **9 HTMLs** pré-renderizados (6 cases) + sitemap + robots.
-- Orçamentos: **JS inicial 85,7/110 KB** (+10,1) · maior lazy 5,9/35 KB ·
+- Orçamentos: **JS inicial 86,8/110 KB** (+11,2) · maior lazy 5,9/35 KB ·
   **CSS 23,7/25 KB** (+2,3; ficou perto do teto — próxima release que somar
-  CSS precisa compensar).
+  CSS precisa compensar) · **foto 6,6 KB** (AVIF 320 px; LCP < 90 KB, demais
+  < 80 KB).
 - Conferência visual em Chromium (desktop 1440/1920, celular 390; Dark
   Modern, Light Modern, Dracula): terminal, mini-missão, filtros, abas, grade
   de pixels e paleta funcionando; sem rolagem horizontal no celular.
@@ -51,6 +54,14 @@ contribuições escreve palavras da stack em pixels, sem fingir histórico.
   (Light Modern); links usam o azul de link do tema, não o de ação.
 - **Linguagens por projeto** são aproximadas (bytes de código por extensão nos
   repositórios públicos, sem testes/dependências) e a interface diz isso.
+
+- **Foto:** é a foto que o Francisco pediu para usar sempre que o site
+  precisar de uma foto dele. Desvios conscientes do doc 12: recorte quadrado
+  redondo de 128 px (não 360 px), no padrão de avatar de perfil do VS
+  Code/GitHub, e larguras 96/320 em vez de 480/720. No painel Perfil o `alt`
+  é vazio porque o nome está escrito ao lado (o leitor de tela anunciaria o
+  nome duas vezes); no hero, a foto tem `alt` descritivo. A saída do sharp
+  não leva metadados.
 
 ## O que foi recusado (e por quê)
 

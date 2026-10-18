@@ -47,7 +47,7 @@ public/images/{projeto}/
 | Card de projeto | 800, 1200 | `(min-width: 1024px) 544px, 100vw` |
 | Hero do case | 1600, 1200, 800 | `(min-width: 1024px) 1056px, 100vw` |
 | Galeria do case | 1200, 800 | idem hero |
-| Foto pessoal (hero) | 480, 720 | `(min-width: 1024px) 360px, 60vw` |
+| Foto pessoal (avatar redondo no hero e no painel Perfil — Release 0.10) | 96, 320 | `128px` (hero) · `44px` (painel) |
 | OG image | 1200×630 fixo | — |
 
 Duas a três larguras por asset bastam: mais variantes = mais build e cache
@@ -80,6 +80,7 @@ fastpass-hero-1600.avif
 fastpass-galeria-02-800.webp
 edupass-card-800.avif
 site-og-default.png          (assets de marca: prefixo "site")
+site-foto-320.avif           (foto pessoal: contexto "foto")
 ```
 
 Minúsculas, sem acentos, hífens; `{contexto}` ∈ `hero | card | galeria | og`;
